@@ -56,5 +56,10 @@ export PATH="$PATH:~/.gem/gems/lefthook-0.7.7/bin"
     - [cd_staging.yaml](.github/workflows/cd_staging.yaml)
     - [cd_production.yaml](.github/workflows/cd_production.yaml)
 
+## Note update base project.
+    - disabled double quote.
+    - add more app base color like Black Red, disabled ....
+    - create tool generate color - style
+
 ## License
 - MIT

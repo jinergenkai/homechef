@@ -21,15 +21,15 @@ class _LoginPageState extends BasePageState<LoginPage, LoginBloc> {
   Widget buildPage(BuildContext context) {
     return CommonScaffold(
       hideKeyboardWhenTouchOutside: true,
-      appBar: CommonAppBar(
-        leadingIcon: navigator.canPopSelfOrChildren ? LeadingIcon.close : LeadingIcon.none,
-        leadingIconColor: AppColors.current.secondaryColor,
-        titleType: AppBarTitle.text,
-        centerTitle: true,
-        text: S.current.login,
-        backgroundColor: AppColors.current.primaryColor,
-        titleTextStyle: AppTextStyles.s14w400Primary(),
-      ),
+      // appBar: CommonAppBar(
+      //   leadingIcon: navigator.canPopSelfOrChildren ? LeadingIcon.close : LeadingIcon.none,
+      //   leadingIconColor: AppColors.current.secondaryColor,
+      //   titleType: AppBarTitle.text,
+      //   centerTitle: true,
+      //   text: S.current.login,
+      //   backgroundColor: AppColors.current.primaryColor,
+      //   titleTextStyle: AppTextStyles.s14w400Primary(),
+      // ),
       body: SafeArea(
         child: SingleChildScrollView(
           padding: EdgeInsets.all(Dimens.d16.responsive()),
@@ -76,6 +76,29 @@ class _LoginPageState extends BasePageState<LoginPage, LoginBloc> {
                 },
               ),
               SizedBox(height: Dimens.d15.responsive()),
+              CommonEllipseButon(
+                onPress: () => bloc.add(const FakeLoginButtonPressed()),
+                text: S.current.fakeLogin,
+              ),
+              CommonEllipseButon(
+                onPress: () => bloc.add(const FakeLoginButtonPressed()),
+                text: S.current.fakeLogin,
+                icon: Icons.facebook,
+              ),
+              CommonEllipseButon(
+                onPress: () => bloc.add(const FakeLoginButtonPressed()),
+                text: S.current.fakeLogin,
+                color: AppColors.current.primaryColor,
+                textColor: AppColors.current.secondaryColor,
+                buttonType: ButtonEllipseType.checkout,
+              ),
+              CommonEllipseButon(
+                onPress: () => bloc.add(const FakeLoginButtonPressed()),
+                text: S.current.fakeLogin,
+                color: AppColors.current.primaryColor,
+                textColor: AppColors.current.secondaryColor,
+                buttonType: ButtonEllipseType.inverse
+              ),
               ElevatedButton(
                 onPressed: () => bloc.add(const FakeLoginButtonPressed()),
                 style: ButtonStyle(
