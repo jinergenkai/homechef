@@ -26,52 +26,63 @@ class AppTextStyles {
         color: AppColors.current.primaryTextColor,
       ));
 
-  static TextStyle s20w600Primary({
+  static TextStyle s15w600Primary({
     double? tablet,
     double? ultraTablet,
   }) =>
       _baseTextStyle.merge(TextStyle(
-        fontSize: Dimens.d20.responsive(tablet: tablet, ultraTablet: ultraTablet),
+        fontSize: Dimens.d15.responsive(tablet: tablet, ultraTablet: ultraTablet),
         fontWeight: FontWeight.w600,
         color: AppColors.current.primaryTextColor,
       ));
-  static TextStyle s20w600White({
+  static TextStyle s15w600White({
     double? tablet,
     double? ultraTablet,
   }) =>
       _baseTextStyle.merge(TextStyle(
-        fontSize: Dimens.d20.responsive(tablet: tablet, ultraTablet: ultraTablet),
+        fontSize: Dimens.d15.responsive(tablet: tablet, ultraTablet: ultraTablet),
         fontWeight: FontWeight.w600,
         color: AppColors.current.whiteColor,
       ));
 
-  static TextStyle s20w600Secondary({
+  static TextStyle s15w600Secondary({
     double? tablet,
     double? ultraTablet,
   }) =>
       _baseTextStyle.merge(TextStyle(
-        fontSize: Dimens.d20.responsive(tablet: tablet, ultraTablet: ultraTablet),
+        fontSize: Dimens.d15.responsive(tablet: tablet, ultraTablet: ultraTablet),
         fontWeight: FontWeight.w600,
         color: AppColors.current.secondaryTextColor,
       ));
 
-  static TextStyle s20w600({
+  static TextStyle s15w600({
     required Color color,
     double? tablet,
     double? ultraTablet,
   }) =>
       _baseTextStyle.merge(TextStyle(
-        fontSize: Dimens.d20.responsive(tablet: tablet, ultraTablet: ultraTablet),
+        fontSize: Dimens.d15.responsive(tablet: tablet, ultraTablet: ultraTablet),
         fontWeight: FontWeight.w600,
         color: color,
       ));
 
-  static TextStyle s20w600Black({
+  static TextStyle s15w400({
+    required Color color,
     double? tablet,
     double? ultraTablet,
   }) =>
       _baseTextStyle.merge(TextStyle(
-        fontSize: Dimens.d20.responsive(tablet: tablet, ultraTablet: ultraTablet),
+        fontSize: Dimens.d15.responsive(tablet: tablet, ultraTablet: ultraTablet),
+        fontWeight: FontWeight.w400,
+        color: color,
+      ));
+
+  static TextStyle s15w600Black({
+    double? tablet,
+    double? ultraTablet,
+  }) =>
+      _baseTextStyle.merge(TextStyle(
+        fontSize: Dimens.d15.responsive(tablet: tablet, ultraTablet: ultraTablet),
         fontWeight: FontWeight.w600,
         color: AppColors.current.blackColor,
       ));

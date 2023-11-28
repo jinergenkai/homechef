@@ -11,6 +11,7 @@ class AppRouteInfoMapper extends BaseRouteInfoMapper {
     return appRouteInfo.when(
       login: () => const LoginRoute(),
       main: () => const MainRoute(),
+      onboarding: () => const OnboardingRoute(),
       itemDetail: (user) => ItemDetailRoute(user: user),
     );
   }

@@ -83,7 +83,7 @@ class _LoginPageState extends BasePageState<LoginPage, LoginBloc> {
               CommonEllipseButon(
                 onPress: () => bloc.add(const FakeLoginButtonPressed()),
                 text: S.current.fakeLogin,
-                icon: Icons.facebook,
+                icon: Icon(Icons.facebook, size: Dimens.d40.responsive()),
               ),
               CommonEllipseButon(
                 onPress: () => bloc.add(const FakeLoginButtonPressed()),

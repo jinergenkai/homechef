@@ -1,6 +1,11 @@
 {
   "login": "Login",
+  "signIn": "Sign In",
   "fakeLogin": "Fake Login",
+  "continueWithGoogle": "Continue With Google",
+  "continueWithFacebook": "Continue With Facebook",
+  "continueWithApple": "Continue With Apple",
+  "doNotHaveAccount": "Do not have account? ",
   "logout": "Logout",
   "email": "Email",
   "password": "Password",

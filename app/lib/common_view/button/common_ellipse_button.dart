@@ -24,7 +24,7 @@ class CommonEllipseButon extends StatefulWidget {
   final String quantity;
   final double price;
   final String action;
-  final IconData? icon;
+  final Widget? icon;
 
   @override
   State<CommonEllipseButon> createState() => _CommonEllipseButonState();
@@ -43,30 +43,38 @@ class _CommonEllipseButonState extends State<CommonEllipseButon> {
           child: ElevatedButton(
             onPressed: widget.onPress as void Function()?,
             style: ElevatedButton.styleFrom(
+              elevation: 0,
               backgroundColor: widget.color ?? AppColors.current.primaryColor,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(45),
               ),
-              padding: EdgeInsets.all(Dimens.d4.responsive()),
+              padding: EdgeInsets.symmetric(horizontal:Dimens.d8.responsive()),
             ),
             child: Container(
               height: Dimens.d45.responsive(),
-              padding: EdgeInsets.symmetric(horizontal: Dimens.d4.responsive()),
+              // padding: EdgeInsets.symmetric(horizontal: Dimens.d10.responsive()),
               alignment: Alignment.center,
               child: (widget.icon != null)
                   ? Row(
+                      // crossAxisAlignment: CrossAxisAlignment.center,
+                      // mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(widget.icon, size: Dimens.d40.responsive()),
+                        // Icon(widget.icon, size: Dimens.d40.responsive()),
+                        widget.icon ?? Container(),
                         SizedBox(width: Dimens.d8.responsive()),
-                        Text(
-                          widget.text ?? "Button",
-                          style: (widget.onPress == null) ? AppTextStyles.s20w600(color: AppColors.current.disabledColor) : AppTextStyles.s20w600(color: AppColors.current.whiteColor),
+                        Expanded(
+                          child: Text(
+                            widget.text ?? "Button",
+                            textAlign: TextAlign.center,
+                            style: (widget.onPress == null) ? AppTextStyles.s15w600(color: AppColors.current.disabledColor) : AppTextStyles.s15w600(color: widget.textColor ?? AppColors.current.whiteColor),
+                          ),
                         ),
+                        SizedBox(width: Dimens.d40.responsive()),
                       ],
                     )
                   : Text(
                       widget.text ?? "Button",
-                      style: (widget.onPress == null) ? AppTextStyles.s20w600(color: AppColors.current.disabledColor) : AppTextStyles.s20w600(color: AppColors.current.whiteColor),
+                      style: (widget.onPress == null) ? AppTextStyles.s15w600(color: AppColors.current.disabledColor) : AppTextStyles.s15w600(color: widget.textColor ?? AppColors.current.whiteColor),
                     ),
             ),
           ),
@@ -84,6 +92,7 @@ class _CommonEllipseButonState extends State<CommonEllipseButon> {
               }
             },
             style: ElevatedButton.styleFrom(
+              elevation: 0,
               backgroundColor: widget.color ?? AppColors.current.primaryColor,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(45),
@@ -108,7 +117,7 @@ class _CommonEllipseButonState extends State<CommonEllipseButon> {
                   ),
                   child: Text(
                     widget.quantity,
-                    style: AppTextStyles.s20w600(color: AppColors.current.primaryTextColor),
+                    style: AppTextStyles.s15w600(color: AppColors.current.primaryTextColor),
                   ),
                 ),
                 Expanded(
@@ -117,13 +126,13 @@ class _CommonEllipseButonState extends State<CommonEllipseButon> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(widget.price.toString(), style: AppTextStyles.s20w600White()),
+                        Text(widget.price.toString(), style: AppTextStyles.s15w600White()),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             Text(
                               widget.action,
-                              style: AppTextStyles.s20w600White(),
+                              style: AppTextStyles.s15w600White(),
                             ),
                             Icon(Icons.keyboard_arrow_right, size: Dimens.d30.responsive()),
                           ],
@@ -163,7 +172,7 @@ class _CommonEllipseButonState extends State<CommonEllipseButon> {
               padding: EdgeInsets.symmetric(vertical: Dimens.d12.responsive()),
               child: Text(
                 widget.text ?? "Button",
-                style: AppTextStyles.s20w600(color: AppColors.current.primaryColor),
+                style: AppTextStyles.s15w600(color: AppColors.current.primaryColor),
               ),
             ),
           ),
