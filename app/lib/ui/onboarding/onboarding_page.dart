@@ -42,41 +42,40 @@ class _OnboardingPageState extends BasePageState<OnboardingPage, OnboardingBloc>
                 onPress: () => {navigator.push(const AppRouteInfo.login())},
                 text: S.current.fakeLogin,
               ),
-              SizedBox(height: Dimens.d25.responsive()),
-              const Divider(
-                indent: 30,
-                endIndent: 30,
+              SizedBox(
+                height: Dimens.d25.responsive(),
               ),
+              const CommonDivider(),
               SizedBox(height: Dimens.d25.responsive()),
               CommonEllipseButon(
                 onPress: () => {},
-                text: S.current.fakeLogin,
+                text: S.current.continueWithGoogle,
                 color: const Color(0xff5384ee),
                 textColor: AppColors.current.whiteColor,
                 icon: Assets.images.googleIcon.svg(color: AppColors.current.whiteColor, height: Dimens.d30.responsive(), width: Dimens.d30.responsive()),
               ),
               CommonEllipseButon(
                 onPress: () => {},
-                text: S.current.fakeLogin,
+                text: S.current.continueWithFacebook,
                 color: const Color(0xff0866ff),
                 textColor: AppColors.current.whiteColor,
                 icon: Icon(Icons.facebook, size: Dimens.d30.responsive()),
               ),
               CommonEllipseButon(
-                onPress   : () => {}                    ,
-                color     : const Color.fromARGB(255    , 0, 0, 0),
-                textColor : AppColors.current.whiteColor,
-                text      : S.current.fakeLogin         ,
-                icon      : Icon(Icons.apple            , size: Dimens.d30.responsive()),
+                onPress: () => {},
+                color: const Color.fromARGB(255, 0, 0, 0),
+                textColor: AppColors.current.whiteColor,
+                text: S.current.continueWithApple,
+                icon: Icon(Icons.apple, size: Dimens.d30.responsive()),
               ),
               SizedBox(height: Dimens.d30.responsive()),
               RichText(
                   text: TextSpan(
-                // text: S.current.
+                text: S.current.doNotHaveAccount,
                 style: AppTextStyles.s15w400(color: AppColors.current.blackColor),
                 children: [
                   TextSpan(
-                    text: "Sign Up",
+                    text: S.current.signUp,
                     style: AppTextStyles.s15w600(color: AppColors.current.primaryColor),
                     recognizer: TapGestureRecognizer()..onTap = () => navigator.push(const AppRouteInfo.main()),
                   )
@@ -87,5 +86,30 @@ class _OnboardingPageState extends BasePageState<OnboardingPage, OnboardingBloc>
         ),
       ),
     );
+  }
+}
+
+class CommonDivider extends StatelessWidget {
+  const CommonDivider({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+      Container(
+        height: Dimens.d1.responsive(),
+        width: Dimens.d125.responsive(),
+        color:const Color.fromARGB(255, 226, 226, 226),
+      ),
+      Text("  ${S.current.or}  ", style: AppTextStyles.s15w400(color: AppColors.current.blackColor)),
+      Container(
+        height: Dimens.d1.responsive(),
+        width: Dimens.d125.responsive(),
+        color:const Color.fromARGB(255, 226, 226, 226),
+      ),
+    ]);
   }
 }

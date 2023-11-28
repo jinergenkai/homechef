@@ -1,6 +1,8 @@
 {
   "login": "Login",
   "signIn": "Sign In",
+  "signUp": "SignUp",
+  "or": "or",
   "fakeLogin": "Fake Login",
   "continueWithGoogle": "Continue With Google",
   "continueWithFacebook": "Continue With Facebook",
