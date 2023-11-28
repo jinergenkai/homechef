@@ -21,6 +21,17 @@ class _LoginPageState extends BasePageState<LoginPage, LoginBloc> {
   Widget buildPage(BuildContext context) {
     return CommonScaffold(
       hideKeyboardWhenTouchOutside: true,
+      appBar: CommonAppBar(
+        leadingIcon: navigator.canPopSelfOrChildren ? LeadingIcon.back : LeadingIcon.none,
+        leadingIconColor: AppColors.current.secondaryColor,
+        titleType: AppBarTitle.text,
+        centerTitle: true,
+        text: S.current.signIn,
+        backgroundColor: AppColors.current.whiteColor,
+        titleTextStyle: AppTextStyles.s20w600(color: AppColors.current.primaryTextColor),
+        height: Dimens.d70.responsive(),
+        elevation: 0.5,
+      ),
       // appBar: CommonAppBar(
       //   leadingIcon: navigator.canPopSelfOrChildren ? LeadingIcon.close : LeadingIcon.none,
       //   leadingIconColor: AppColors.current.secondaryColor,
@@ -36,8 +47,8 @@ class _LoginPageState extends BasePageState<LoginPage, LoginBloc> {
           child: Column(
             children: [
               AppTextField(
-                title: S.current.email,
-                hintText: S.current.email,
+                title: S.current.text,
+                hintText: S.current.text,
                 onChanged: (email) => bloc.add(EmailTextFieldChanged(email: email)),
                 keyboardType: TextInputType.emailAddress,
               ),
@@ -46,6 +57,7 @@ class _LoginPageState extends BasePageState<LoginPage, LoginBloc> {
                 title: S.current.password,
                 hintText: S.current.password,
                 onChanged: (pass) => bloc.add(PasswordTextFieldChanged(password: pass)),
+                obscureText: true,
                 keyboardType: TextInputType.visiblePassword,
               ),
               SizedBox(height: Dimens.d15.responsive()),

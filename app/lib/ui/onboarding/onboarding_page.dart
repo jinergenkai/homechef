@@ -40,7 +40,7 @@ class _OnboardingPageState extends BasePageState<OnboardingPage, OnboardingBloc>
               //login button
               CommonEllipseButon(
                 onPress: () => {navigator.push(const AppRouteInfo.login())},
-                text: S.current.fakeLogin,
+                text: S.current.signIn,
               ),
               SizedBox(
                 height: Dimens.d25.responsive(),

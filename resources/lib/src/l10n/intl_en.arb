@@ -1,7 +1,9 @@
 {
+  "text": "text",
+  "jumpOverTheLazyDog": "Jump over the lazy dog",
   "login": "Login",
   "signIn": "Sign In",
-  "signUp": "SignUp",
+  "signUp": "Sign Up",
   "or": "or",
   "fakeLogin": "Fake Login",
   "continueWithGoogle": "Continue With Google",
