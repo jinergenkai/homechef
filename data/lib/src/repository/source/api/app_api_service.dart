@@ -8,10 +8,12 @@ class AppApiService {
     this._noneAuthAppServerApiClient,
     this._authAppServerApiClient,
     this._randomUserApiClient,
+    this._mockApiIoClient,
   );
   final NoneAuthAppServerApiClient _noneAuthAppServerApiClient;
   final AuthAppServerApiClient _authAppServerApiClient;
   final RandomUserApiClient _randomUserApiClient;
+  final MockApiIoClient _mockApiIoClient;
 
   Future<DataResponse<ApiAuthResponseData>?> login({
     required String email,

@@ -10,6 +10,7 @@ export 'src/repository/source/api/client/base/api_client_default_settings.dart';
 export 'src/repository/source/api/client/base/dio_builder.dart';
 export 'src/repository/source/api/client/base/graphql_api_client.dart';
 export 'src/repository/source/api/client/base/rest_api_client.dart';
+export 'src/repository/source/api/client/mock_api_io_client.dart';
 export 'src/repository/source/api/client/none_auth_app_server_api_client.dart';
 export 'src/repository/source/api/client/random_user_api_client.dart';
 export 'src/repository/source/api/client/raw_api_client.dart';

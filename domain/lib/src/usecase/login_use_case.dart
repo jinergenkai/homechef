@@ -39,7 +39,9 @@ class LoginInput extends BaseInput with _$LoginInput {
 
 @freezed
 class LoginOutput extends BaseOutput with _$LoginOutput {
-  const LoginOutput._();
+  // const LoginOutput._();
 
-  const factory LoginOutput() = _LoginOutput;
+  const factory LoginOutput({
+    @Default(false) bool isLoginSuccess,
+  }) = _LoginOutput;
 }

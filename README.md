@@ -63,6 +63,7 @@ export PATH="$PATH:~/.gem/gems/lefthook-0.7.7/bin"
     - create tool generate color - style
     - lack of command: make build_resources.
     - add default theme (like Montserrat or somthingelse)
+    - add mock api io client for test api
 
 ## License
 - MIT

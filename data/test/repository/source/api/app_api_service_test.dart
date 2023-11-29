@@ -14,12 +14,14 @@ void main() {
   final _noneAuthAppServerApiClient = MockNoneAuthAppServerApiClient();
   final _authAppServerApiClient = MockAuthAppServerApiClient();
   final _randomUserApiClient = MockRandomUserApiClient();
+  final _mockApiIoClient = MockApiIoClient();
 
   setUp(() {
     appApiService = AppApiService(
       _noneAuthAppServerApiClient,
       _authAppServerApiClient,
       _randomUserApiClient,
+      _mockApiIoClient,
     );
   });
 
