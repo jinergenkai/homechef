@@ -43,7 +43,7 @@ class _OnboardingPageState extends BasePageState<OnboardingPage, OnboardingBloc>
                 text: S.current.signIn,
               ),
               SizedBox(
-                height: Dimens.d25.responsive(),
+                height: Dimens.d25.responsive()
               ),
               const CommonDivider(),
               SizedBox(height: Dimens.d25.responsive()),
@@ -86,30 +86,5 @@ class _OnboardingPageState extends BasePageState<OnboardingPage, OnboardingBloc>
         ),
       ),
     );
-  }
-}
-
-class CommonDivider extends StatelessWidget {
-  const CommonDivider({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-      Container(
-        height: Dimens.d1.responsive(),
-        width: Dimens.d125.responsive(),
-        color:const Color.fromARGB(255, 226, 226, 226),
-      ),
-      Text("  ${S.current.or}  ", style: AppTextStyles.s16w500(color: AppColors.current.blackColor)),
-      Container(
-        height: Dimens.d1.responsive(),
-        width: Dimens.d125.responsive(),
-        color:const Color.fromARGB(255, 226, 226, 226),
-      ),
-    ]);
   }
 }

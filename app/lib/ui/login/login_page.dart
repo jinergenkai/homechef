@@ -1,4 +1,6 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:domain/domain.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:resources/resources.dart';
@@ -61,7 +63,6 @@ class _LoginPageState extends BasePageState<LoginPage, LoginBloc> {
                 obscureText: true,
                 keyboardType: TextInputType.visiblePassword,
               ),
-              SizedBox(height: Dimens.d15.responsive()),
               BlocBuilder<LoginBloc, LoginState>(
                 buildWhen: (previous, current) => previous.onPageError != current.onPageError,
                 builder: (_, state) => Text(
@@ -69,6 +70,11 @@ class _LoginPageState extends BasePageState<LoginPage, LoginBloc> {
                   style: AppTextStyles.s14w500Secondary(),
                 ),
               ),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Text("Forgot password?", style: AppTextStyles.s14w500Secondary()),
+              ),
+              SizedBox(height: Dimens.d32.responsive()),
               BlocBuilder<LoginBloc, LoginState>(
                 buildWhen: (previous, current) => previous.isLoginButtonEnabled != current.isLoginButtonEnabled,
                 builder: (context, state) {
@@ -85,39 +91,43 @@ class _LoginPageState extends BasePageState<LoginPage, LoginBloc> {
                   );
                 },
               ),
-              SizedBox(height: Dimens.d15.responsive()),
+              SizedBox(height: Dimens.d24.responsive()),
+                            const CommonDivider(),
+              SizedBox(height: Dimens.d25.responsive()),
               CommonEllipseButon(
-                onPressed: () => bloc.add(const FakeLoginButtonPressed()),
-                text: S.current.fakeLogin,
+                onPressed: () => {},
+                text: S.current.continueWithGoogle,
+                color: const Color(0xff5384ee),
+                textColor: AppColors.current.whiteColor,
+                icon: Assets.images.googleIcon.svg(color: AppColors.current.whiteColor, height: Dimens.d30.responsive(), width: Dimens.d30.responsive()),
               ),
               CommonEllipseButon(
-                onPressed: () => bloc.add(const FakeLoginButtonPressed()),
-                text: S.current.fakeLogin,
-                icon: Icon(Icons.facebook, size: Dimens.d40.responsive()),
+                onPressed: () => {},
+                text: S.current.continueWithFacebook,
+                color: const Color(0xff0866ff),
+                textColor: AppColors.current.whiteColor,
+                icon: Icon(Icons.facebook, size: Dimens.d30.responsive()),
               ),
               CommonEllipseButon(
-                onPressed: () => bloc.add(const FakeLoginButtonPressed()),
-                text: S.current.fakeLogin,
-                color: AppColors.current.primaryColor,
-                textColor: AppColors.current.secondaryColor,
-                buttonType: ButtonEllipseType.checkout,
+                onPressed: () => {},
+                color: const Color.fromARGB(255, 0, 0, 0),
+                textColor: AppColors.current.whiteColor,
+                text: S.current.continueWithApple,
+                icon: Icon(Icons.apple, size: Dimens.d30.responsive()),
               ),
-              CommonEllipseButon(
-                  onPressed: () => bloc.add(const FakeLoginButtonPressed()),
-                  text: S.current.fakeLogin,
-                  color: AppColors.current.primaryColor,
-                  textColor: AppColors.current.secondaryColor,
-                  buttonType: ButtonEllipseType.inverse),
-              ElevatedButton(
-                onPressed: () => bloc.add(const FakeLoginButtonPressed()),
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(AppColors.current.primaryColor),
-                ),
-                child: Text(
-                  S.current.fakeLogin,
-                  style: AppTextStyles.s14w500Primary(),
-                ),
-              ),
+              SizedBox(height: Dimens.d30.responsive()),
+              RichText(
+                  text: TextSpan(
+                text: S.current.doNotHaveAccount,
+                style: AppTextStyles.s16w500(color: AppColors.current.blackColor),
+                children: [
+                  TextSpan(
+                    text: S.current.signUp,
+                    style: AppTextStyles.s16w600(color: AppColors.current.primaryColor),
+                    recognizer: TapGestureRecognizer()..onTap = () => navigator.push(const AppRouteInfo.main()),
+                  )
+                ],
+              )),
             ],
           ),
         ),

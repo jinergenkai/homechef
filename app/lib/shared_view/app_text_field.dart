@@ -66,6 +66,7 @@ class AppTextField extends StatelessWidget {
             hintText: hintText,
             hintStyle: AppTextStyles.s16w500(color: AppColors.current.disabledColor),
           ),
+          style: AppTextStyles.s16w500(color: AppColors.current.primaryTextColor),
           keyboardType: keyboardType,
           obscureText: obscureText,
         ),

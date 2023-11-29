@@ -56,7 +56,8 @@ export PATH="$PATH:~/.gem/gems/lefthook-0.7.7/bin"
     - [cd_staging.yaml](.github/workflows/cd_staging.yaml)
     - [cd_production.yaml](.github/workflows/cd_production.yaml)
 
-## Note update base project.
+## Note for update base project.
+    - fix dependency override from [dart_style](https://github.com/dart-lang/dart_style/issues/1328) - because of dart_style's new version not compatible.
     - disabled double quote.
     - add more app base color like Black Red, disabled ....
     - create tool generate color - style
