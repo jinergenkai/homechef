@@ -65,11 +65,19 @@ class AppTextField extends StatelessWidget {
             
             hintText: hintText,
             hintStyle: AppTextStyles.s16w500(color: AppColors.current.disabledColor),
+            suffixIcon: obscureText
+                ? Padding(
+                    padding: EdgeInsets.only(right: Dimens.d20.responsive()),
+                    child: suffixIcon?.svg(height: Dimens.d20.responsive(), width: Dimens.d20.responsive())
+                  )
+                : null,
           ),
           style: AppTextStyles.s16w500(color: AppColors.current.primaryTextColor),
           keyboardType: keyboardType,
           obscureText: obscureText,
+          obscuringCharacter: '●',
         ),
+
       ],
     );
   }

@@ -61,18 +61,26 @@ class _LoginPageState extends BasePageState<LoginPage, LoginBloc> {
                 hintText: S.current.enterPassword,
                 onChanged: (pass) => bloc.add(PasswordTextFieldChanged(password: pass)),
                 obscureText: true,
+                suffixIcon: Assets.images.hiddenText,
                 keyboardType: TextInputType.visiblePassword,
               ),
               BlocBuilder<LoginBloc, LoginState>(
                 buildWhen: (previous, current) => previous.onPageError != current.onPageError,
-                builder: (_, state) => Text(
-                  state.onPageError,
-                  style: AppTextStyles.s14w500Secondary(),
-                ),
+                builder: (_, state) => 
+                state.onPageError != "" ?
+                Container(
+                  alignment: Alignment.centerLeft,
+                  padding: EdgeInsets.all(Dimens.d8.responsive()),
+                  child: Text(
+                    state.onPageError,
+                    style: AppTextStyles.s16w500(color: AppColors.current.redColor),
+                  ),
+                ) : Container(),
               ),
+              SizedBox(height: Dimens.d10.responsive()),
               Align(
                 alignment: Alignment.centerLeft,
-                child: Text("Forgot password?", style: AppTextStyles.s14w500Secondary()),
+                child: Text("Forgot password?", style: AppTextStyles.s16w600Secondary()),
               ),
               SizedBox(height: Dimens.d32.responsive()),
               BlocBuilder<LoginBloc, LoginState>(
