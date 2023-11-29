@@ -80,7 +80,7 @@ class CommonDialog extends StatelessWidget {
               child: Text(
                 e.text ?? S.current.ok,
                 style:
-                    e.isDefault ? AppTextStyles.s14w400Secondary() : AppTextStyles.s14w400Primary(),
+                    e.isDefault ? AppTextStyles.s14w500Secondary() : AppTextStyles.s14w500Primary(),
               ),
             ),
           )
@@ -88,13 +88,13 @@ class CommonDialog extends StatelessWidget {
       title: title != null
           ? Text(
               title ?? '',
-              style: AppTextStyles.s14w400Primary(),
+              style: AppTextStyles.s14w500Primary(),
             )
           : null,
       content: message != null
           ? Text(
               message ?? '',
-              style: AppTextStyles.s14w400Primary(),
+              style: AppTextStyles.s14w500Primary(),
             )
           : null,
     );
@@ -108,21 +108,21 @@ class CommonDialog extends StatelessWidget {
                 child: Text(
                   e.text ?? S.current.ok,
                   style: e.isDefault
-                      ? AppTextStyles.s14w400Secondary()
-                      : AppTextStyles.s14w400Primary(),
+                      ? AppTextStyles.s14w500Secondary()
+                      : AppTextStyles.s14w500Primary(),
                 ),
               ))
           .toList(growable: false),
       title: title != null
           ? Text(
               title ?? '',
-              style: AppTextStyles.s14w400Primary(),
+              style: AppTextStyles.s14w500Primary(),
             )
           : null,
       content: message != null
           ? Text(
               message ?? '',
-              style: AppTextStyles.s14w400Primary(),
+              style: AppTextStyles.s14w500Primary(),
             )
           : null,
     );

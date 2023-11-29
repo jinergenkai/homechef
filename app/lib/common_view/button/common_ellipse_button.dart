@@ -6,7 +6,7 @@ import '../../app.dart';
 class CommonEllipseButon extends StatefulWidget {
   const CommonEllipseButon({
     super.key,
-    this.onPress,
+    this.onPressed,
     this.text = "Button",
     this.color,
     this.textColor,
@@ -16,7 +16,7 @@ class CommonEllipseButon extends StatefulWidget {
     this.action = "Action",
     this.icon,
   });
-  final Function? onPress;
+  final Function? onPressed;
   final String? text;
   final Color? color;
   final Color? textColor;
@@ -41,7 +41,7 @@ class _CommonEllipseButonState extends State<CommonEllipseButon> {
           ),
           width: double.infinity,
           child: ElevatedButton(
-            onPressed: widget.onPress as void Function()?,
+            onPressed: widget.onPressed as void Function()?,
             style: ElevatedButton.styleFrom(
               elevation: 0,
               backgroundColor: widget.color ?? AppColors.current.primaryColor,
@@ -66,7 +66,7 @@ class _CommonEllipseButonState extends State<CommonEllipseButon> {
                           child: Text(
                             widget.text ?? "Button",
                             textAlign: TextAlign.center,
-                            style: (widget.onPress == null) ? AppTextStyles.s15w600(color: AppColors.current.disabledColor) : AppTextStyles.s15w600(color: widget.textColor ?? AppColors.current.whiteColor),
+                            style: (widget.onPressed == null) ? AppTextStyles.s16w700(color: AppColors.current.blackColor) : AppTextStyles.s16w700(color: widget.textColor ?? AppColors.current.whiteColor),
                           ),
                         ),
                         SizedBox(width: Dimens.d40.responsive()),
@@ -74,7 +74,7 @@ class _CommonEllipseButonState extends State<CommonEllipseButon> {
                     )
                   : Text(
                       widget.text ?? "Button",
-                      style: (widget.onPress == null) ? AppTextStyles.s15w600(color: AppColors.current.disabledColor) : AppTextStyles.s15w600(color: widget.textColor ?? AppColors.current.whiteColor),
+                      style: (widget.onPressed == null) ? AppTextStyles.s16w700(color: AppColors.current.blackColor) : AppTextStyles.s16w700(color: widget.textColor ?? AppColors.current.whiteColor),
                     ),
             ),
           ),
@@ -87,8 +87,8 @@ class _CommonEllipseButonState extends State<CommonEllipseButon> {
           width: double.infinity,
           child: ElevatedButton(
             onPressed: () {
-              if (widget.onPress != null) {
-                widget.onPress!();
+              if (widget.onPressed != null) {
+                widget.onPressed!();
               }
             },
             style: ElevatedButton.styleFrom(
@@ -117,7 +117,7 @@ class _CommonEllipseButonState extends State<CommonEllipseButon> {
                   ),
                   child: Text(
                     widget.quantity,
-                    style: AppTextStyles.s15w600(color: AppColors.current.primaryTextColor),
+                    style: AppTextStyles.s16w600(color: AppColors.current.primaryTextColor),
                   ),
                 ),
                 Expanded(
@@ -126,13 +126,13 @@ class _CommonEllipseButonState extends State<CommonEllipseButon> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(widget.price.toString(), style: AppTextStyles.s15w600White()),
+                        Text(widget.price.toString(), style: AppTextStyles.s16w600White()),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             Text(
                               widget.action,
-                              style: AppTextStyles.s15w600White(),
+                              style: AppTextStyles.s16w600White(),
                             ),
                             Icon(Icons.keyboard_arrow_right, size: Dimens.d30.responsive()),
                           ],
@@ -153,8 +153,8 @@ class _CommonEllipseButonState extends State<CommonEllipseButon> {
           width: double.infinity,
           child: OutlinedButton(
             onPressed: () {
-              if (widget.onPress != null) {
-                widget.onPress!();
+              if (widget.onPressed != null) {
+                widget.onPressed!();
               }
             },
             style: OutlinedButton.styleFrom(
@@ -172,7 +172,7 @@ class _CommonEllipseButonState extends State<CommonEllipseButon> {
               padding: EdgeInsets.symmetric(vertical: Dimens.d12.responsive()),
               child: Text(
                 widget.text ?? "Button",
-                style: AppTextStyles.s15w600(color: AppColors.current.primaryColor),
+                style: AppTextStyles.s16w600(color: AppColors.current.primaryColor),
               ),
             ),
           ),

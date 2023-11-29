@@ -60,6 +60,8 @@ export PATH="$PATH:~/.gem/gems/lefthook-0.7.7/bin"
     - disabled double quote.
     - add more app base color like Black Red, disabled ....
     - create tool generate color - style
+    - lack of command: make build_resources.
+    - add default theme (like Montserrat or somthingelse)
 
 ## License
 - MIT

@@ -27,7 +27,7 @@ class _ItemDetailPageState extends BasePageState<ItemDetailPage, ItemDetailBloc>
       body: Center(
         child: Text(
           widget.user.toString(),
-          style: AppTextStyles.s14w400Primary(),
+          style: AppTextStyles.s14w500Primary(),
         ),
       ),
     );

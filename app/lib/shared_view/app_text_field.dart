@@ -32,7 +32,7 @@ class AppTextField extends StatelessWidget {
           alignment: Alignment.centerLeft,
           child: Text(
             title,
-            style: AppTextStyles.s14w400Secondary(),
+            style: AppTextStyles.s16w600Primary(),
           ),
         ),
         SizedBox(height: Dimens.d8.responsive()),
@@ -40,7 +40,32 @@ class AppTextField extends StatelessWidget {
           onTap: onTap,
           onChanged: onChanged,
           controller: controller,
-          decoration: InputDecoration(hintText: hintText),
+          decoration: InputDecoration(
+            contentPadding: EdgeInsets.symmetric(
+              horizontal: Dimens.d20.responsive(),
+              vertical: Dimens.d12.responsive(),
+            ),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(Dimens.d12.responsive()),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(Dimens.d12.responsive()),
+              borderSide: BorderSide(
+                color: AppColors.current.disabledColor,
+                width: Dimens.d1.responsive(),
+              ),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(Dimens.d12.responsive()),
+              borderSide: BorderSide(
+                color: AppColors.current.primaryColor,
+                width: Dimens.d1.responsive(),
+              ),
+            ),
+            
+            hintText: hintText,
+            hintStyle: AppTextStyles.s16w500(color: AppColors.current.disabledColor),
+          ),
           keyboardType: keyboardType,
           obscureText: obscureText,
         ),

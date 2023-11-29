@@ -2,8 +2,8 @@ import 'package:auto_route/auto_route.dart';
 import 'package:domain/domain.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+// import 'package:flutter_bloc/flutter_bloc.dart';
+// import 'package:flutter_svg/flutter_svg.dart';
 import 'package:resources/resources.dart';
 
 import '../../app.dart';
@@ -39,7 +39,7 @@ class _OnboardingPageState extends BasePageState<OnboardingPage, OnboardingBloc>
 
               //login button
               CommonEllipseButon(
-                onPress: () => {navigator.push(const AppRouteInfo.login())},
+                onPressed: () => {navigator.push(const AppRouteInfo.login())},
                 text: S.current.signIn,
               ),
               SizedBox(
@@ -48,21 +48,21 @@ class _OnboardingPageState extends BasePageState<OnboardingPage, OnboardingBloc>
               const CommonDivider(),
               SizedBox(height: Dimens.d25.responsive()),
               CommonEllipseButon(
-                onPress: () => {},
+                onPressed: () => {},
                 text: S.current.continueWithGoogle,
                 color: const Color(0xff5384ee),
                 textColor: AppColors.current.whiteColor,
                 icon: Assets.images.googleIcon.svg(color: AppColors.current.whiteColor, height: Dimens.d30.responsive(), width: Dimens.d30.responsive()),
               ),
               CommonEllipseButon(
-                onPress: () => {},
+                onPressed: () => {},
                 text: S.current.continueWithFacebook,
                 color: const Color(0xff0866ff),
                 textColor: AppColors.current.whiteColor,
                 icon: Icon(Icons.facebook, size: Dimens.d30.responsive()),
               ),
               CommonEllipseButon(
-                onPress: () => {},
+                onPressed: () => {},
                 color: const Color.fromARGB(255, 0, 0, 0),
                 textColor: AppColors.current.whiteColor,
                 text: S.current.continueWithApple,
@@ -72,11 +72,11 @@ class _OnboardingPageState extends BasePageState<OnboardingPage, OnboardingBloc>
               RichText(
                   text: TextSpan(
                 text: S.current.doNotHaveAccount,
-                style: AppTextStyles.s15w400(color: AppColors.current.blackColor),
+                style: AppTextStyles.s16w500(color: AppColors.current.blackColor),
                 children: [
                   TextSpan(
                     text: S.current.signUp,
-                    style: AppTextStyles.s15w600(color: AppColors.current.primaryColor),
+                    style: AppTextStyles.s16w600(color: AppColors.current.primaryColor),
                     recognizer: TapGestureRecognizer()..onTap = () => navigator.push(const AppRouteInfo.main()),
                   )
                 ],
@@ -104,7 +104,7 @@ class CommonDivider extends StatelessWidget {
         width: Dimens.d125.responsive(),
         color:const Color.fromARGB(255, 226, 226, 226),
       ),
-      Text("  ${S.current.or}  ", style: AppTextStyles.s15w400(color: AppColors.current.blackColor)),
+      Text("  ${S.current.or}  ", style: AppTextStyles.s16w500(color: AppColors.current.blackColor)),
       Container(
         height: Dimens.d1.responsive(),
         width: Dimens.d125.responsive(),

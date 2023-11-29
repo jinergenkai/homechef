@@ -19,6 +19,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends BasePageState<LoginPage, LoginBloc> {
   @override
   Widget buildPage(BuildContext context) {
+    // logD(MediaQuery.of(context).size.height.toString());
     return CommonScaffold(
       hideKeyboardWhenTouchOutside: true,
       appBar: CommonAppBar(
@@ -39,23 +40,23 @@ class _LoginPageState extends BasePageState<LoginPage, LoginBloc> {
       //   centerTitle: true,
       //   text: S.current.login,
       //   backgroundColor: AppColors.current.primaryColor,
-      //   titleTextStyle: AppTextStyles.s14w400Primary(),
+      //   titleTextStyle: AppTextStyles.s14w500Primary(),
       // ),
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: EdgeInsets.all(Dimens.d16.responsive()),
+          padding: EdgeInsets.all(Dimens.d24.responsive()),
           child: Column(
             children: [
               AppTextField(
-                title: S.current.text,
-                hintText: S.current.text,
+                title: S.current.phoneNumber,
+                hintText: S.current.enterYourPhoneNumber,
                 onChanged: (email) => bloc.add(EmailTextFieldChanged(email: email)),
                 keyboardType: TextInputType.emailAddress,
               ),
               SizedBox(height: Dimens.d24.responsive()),
               AppTextField(
                 title: S.current.password,
-                hintText: S.current.password,
+                hintText: S.current.enterPassword,
                 onChanged: (pass) => bloc.add(PasswordTextFieldChanged(password: pass)),
                 obscureText: true,
                 keyboardType: TextInputType.visiblePassword,
@@ -65,52 +66,48 @@ class _LoginPageState extends BasePageState<LoginPage, LoginBloc> {
                 buildWhen: (previous, current) => previous.onPageError != current.onPageError,
                 builder: (_, state) => Text(
                   state.onPageError,
-                  style: AppTextStyles.s14w400Secondary(),
+                  style: AppTextStyles.s14w500Secondary(),
                 ),
               ),
               BlocBuilder<LoginBloc, LoginState>(
-                buildWhen: (previous, current) =>
-                    previous.isLoginButtonEnabled != current.isLoginButtonEnabled,
+                buildWhen: (previous, current) => previous.isLoginButtonEnabled != current.isLoginButtonEnabled,
                 builder: (context, state) {
-                  return ElevatedButton(
-                    onPressed: state.isLoginButtonEnabled
-                        ? () => bloc.add(const LoginButtonPressed())
-                        : null,
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(AppColors.current.primaryColor
-                          .withOpacity(state.isLoginButtonEnabled ? 1 : 0.5)),
-                    ),
-                    child: Text(
-                      S.current.login,
-                      style: AppTextStyles.s14w400Primary(),
-                    ),
+                  return CommonEllipseButon(
+                    onPressed: state.isLoginButtonEnabled ? () => bloc.add(const LoginButtonPressed()) : null,
+                    // style: ButtonStyle(
+                    //   backgroundColor: MaterialStateProperty.all(AppColors.current.primaryColor.withOpacity(state.isLoginButtonEnabled ? 1 : 0.5)),
+                    // ),
+                    // child: Text(
+                    //   S.current.signIn,
+                    //   style: AppTextStyles.s14w500Primary(),
+                    // ),
+                    text: S.current.signIn,
                   );
                 },
               ),
               SizedBox(height: Dimens.d15.responsive()),
               CommonEllipseButon(
-                onPress: () => bloc.add(const FakeLoginButtonPressed()),
+                onPressed: () => bloc.add(const FakeLoginButtonPressed()),
                 text: S.current.fakeLogin,
               ),
               CommonEllipseButon(
-                onPress: () => bloc.add(const FakeLoginButtonPressed()),
+                onPressed: () => bloc.add(const FakeLoginButtonPressed()),
                 text: S.current.fakeLogin,
                 icon: Icon(Icons.facebook, size: Dimens.d40.responsive()),
               ),
               CommonEllipseButon(
-                onPress: () => bloc.add(const FakeLoginButtonPressed()),
+                onPressed: () => bloc.add(const FakeLoginButtonPressed()),
                 text: S.current.fakeLogin,
                 color: AppColors.current.primaryColor,
                 textColor: AppColors.current.secondaryColor,
                 buttonType: ButtonEllipseType.checkout,
               ),
               CommonEllipseButon(
-                onPress: () => bloc.add(const FakeLoginButtonPressed()),
-                text: S.current.fakeLogin,
-                color: AppColors.current.primaryColor,
-                textColor: AppColors.current.secondaryColor,
-                buttonType: ButtonEllipseType.inverse
-              ),
+                  onPressed: () => bloc.add(const FakeLoginButtonPressed()),
+                  text: S.current.fakeLogin,
+                  color: AppColors.current.primaryColor,
+                  textColor: AppColors.current.secondaryColor,
+                  buttonType: ButtonEllipseType.inverse),
               ElevatedButton(
                 onPressed: () => bloc.add(const FakeLoginButtonPressed()),
                 style: ButtonStyle(
@@ -118,7 +115,7 @@ class _LoginPageState extends BasePageState<LoginPage, LoginBloc> {
                 ),
                 child: Text(
                   S.current.fakeLogin,
-                  style: AppTextStyles.s14w400Primary(),
+                  style: AppTextStyles.s14w500Primary(),
                 ),
               ),
             ],

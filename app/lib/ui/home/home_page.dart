@@ -96,7 +96,7 @@ class _HomePageState extends BasePageState<HomePage, HomeBloc> {
                                 height: Dimens.d60.responsive(),
                                 child: Text(
                                   user.email,
-                                  style: AppTextStyles.s14w400Primary(),
+                                  style: AppTextStyles.s14w500Primary(),
                                 ),
                               ),
                             ),
