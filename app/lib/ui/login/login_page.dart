@@ -87,7 +87,7 @@ class _LoginPageState extends BasePageState<LoginPage, LoginBloc> {
                 buildWhen: (previous, current) => previous.isLoginButtonEnabled != current.isLoginButtonEnabled,
                 builder: (context, state) {
                   return CommonEllipseButon(
-                    onPressed: state.isLoginButtonEnabled ? () => bloc.add(const LoginButtonPressed()) : null,
+                    onPressed: state.isLoginButtonEnabled ? () => bloc.add(const FakeLoginButtonPressed()) : null,
                     // style: ButtonStyle(
                     //   backgroundColor: MaterialStateProperty.all(AppColors.current.primaryColor.withOpacity(state.isLoginButtonEnabled ? 1 : 0.5)),
                     // ),

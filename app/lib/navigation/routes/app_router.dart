@@ -38,6 +38,13 @@ class AppRouter extends $AppRouter {
             ],
           ),
           AutoRoute(
+            page: OrderListTab.page,
+            maintainState: true,
+            children: [
+              AutoRoute(page: OrderListRoute.page, initial: true),
+            ],
+          ),
+          AutoRoute(
             page: MyPageTab.page,
             maintainState: true,
             children: [
@@ -61,4 +68,9 @@ class SearchTabPage extends AutoRouter {
 @RoutePage(name: 'MyPageTab')
 class MyPageTabPage extends AutoRouter {
   const MyPageTabPage({super.key});
+}
+
+@RoutePage(name: 'OrderListTab')
+class OrderListTabPage extends AutoRouter {
+  const OrderListTabPage({super.key});
 }
