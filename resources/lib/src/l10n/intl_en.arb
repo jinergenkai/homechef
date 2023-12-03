@@ -38,7 +38,9 @@
   "close": "Close",
   "search": "Search",
   "myPage": "My Page",
+  "user": "User",
   "orders": "Orders",
+  "message": "Message",
   "home": "Home",
   "darkTheme": "Dark Theme",
   "japanese": "Japanese"

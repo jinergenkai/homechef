@@ -66,6 +66,7 @@ export 'ui/item_detail/item_detail_page.dart';
 export 'ui/login/login_page.dart';
 export 'ui/main/main_page.dart';
 export 'ui/my_page/my_page_page.dart';
+export 'ui/old_search/search_page.dart';
 export 'ui/onboarding/onboarding_page.dart';
-export 'ui/search/search_page.dart';
+export 'ui/order_list/order_list_page.dart';
 export 'utils/app_utils.dart';

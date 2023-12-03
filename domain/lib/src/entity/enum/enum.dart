@@ -49,7 +49,7 @@ enum NotificationType {
 
 enum BottomTab {
   home(icon: Icon(Icons.home), activeIcon: Icon(Icons.home)),
-  search(icon: Icon(Icons.search), activeIcon: Icon(Icons.search)),
+  message(icon: Icon(Icons.chat), activeIcon: Icon(Icons.chat)),
   orderList(icon: Icon(Icons.list), activeIcon: Icon(Icons.list)),
   myPage(icon: Icon(Icons.people), activeIcon: Icon(Icons.people)),;
 
@@ -65,12 +65,12 @@ enum BottomTab {
     switch (this) {
       case BottomTab.home:
         return S.current.home;
-      case BottomTab.search:
-        return S.current.search;
+      case BottomTab.message:
+        return S.current.message;
       case BottomTab.orderList:
-        return S.current.text;
+        return S.current.orders;
       case BottomTab.myPage:
-        return S.current.myPage;
+        return S.current.user;
     }
   }
 }

@@ -65,5 +65,11 @@ export PATH="$PATH:~/.gem/gems/lefthook-0.7.7/bin"
     - add default theme (like Montserrat or somthingelse)
     - add mock api io client for test api
 
+## Step for everything
+- Add new route
+    1. add @RoutePage() above widget page.
+    2. `make build_app`
+    3. 
+
 ## License
 - MIT

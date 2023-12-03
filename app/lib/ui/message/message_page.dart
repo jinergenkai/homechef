@@ -3,30 +3,30 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
   
 import '../../app.dart';
-import 'bloc/home.dart';
+import 'bloc/message.dart';
   
 @RoutePage()
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class MessagePage extends StatefulWidget {
+  const MessagePage({super.key});
   
   @override
   State<StatefulWidget> createState() {
-    return _HomePageState();
+    return _MessagePageState();
   }
 }
 
-class _HomePageState extends BasePageState<HomePage, HomeBloc> {
+class _MessagePageState extends BasePageState<MessagePage, MessageBloc> {
   @override
   void initState() {
     super.initState();
-    bloc.add(const HomePageInitiated());
+    bloc.add(const MessagePageInitiated());
   }
 
   @override
   Widget buildPage(BuildContext context) {
     return CommonScaffold(
       body: SafeArea(
-        child: BlocBuilder<HomeBloc, HomeState>(
+        child: BlocBuilder<MessageBloc, MessageState>(
           buildWhen: (previous, current) => previous != current,
           builder: (context, state) {
             return const Text('Register');
