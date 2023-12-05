@@ -16,44 +16,7 @@ class AppTextStyles {
     // height: 1.0,
   );
 
-  static TextStyle s14w500Primary({
-    double? tablet,
-    double? ultraTablet,
-  }) =>
-      _baseTextStyle.merge(TextStyle(
-        fontSize: Dimens.d14.responsive(tablet: tablet, ultraTablet: ultraTablet),
-        fontWeight: FontWeight.w500,
-        color: AppColors.current.primaryTextColor,
-      ));
-
-  static TextStyle s16w600Primary({
-    double? tablet,
-    double? ultraTablet,
-  }) =>
-      _baseTextStyle.merge(TextStyle(
-        fontSize: Dimens.d16.responsive(tablet: tablet, ultraTablet: ultraTablet),
-        fontWeight: FontWeight.w600,
-        color: AppColors.current.primaryTextColor,
-      ));
-  static TextStyle s16w600White({
-    double? tablet,
-    double? ultraTablet,
-  }) =>
-      _baseTextStyle.merge(TextStyle(
-        fontSize: Dimens.d16.responsive(tablet: tablet, ultraTablet: ultraTablet),
-        fontWeight: FontWeight.w600,
-        color: AppColors.current.whiteColor,
-      ));
-
-  static TextStyle s16w600Secondary({
-    double? tablet,
-    double? ultraTablet,
-  }) =>
-      _baseTextStyle.merge(TextStyle(
-        fontSize: Dimens.d16.responsive(tablet: tablet, ultraTablet: ultraTablet),
-        fontWeight: FontWeight.w600,
-        color: AppColors.current.secondaryTextColor,
-      ));
+  //*** textStyle without color
 
   static TextStyle s16w500({
     required Color color,
@@ -98,6 +61,48 @@ class AppTextStyles {
         fontWeight: FontWeight.w600,
         color: color,
       ));
+
+
+  //*** textStyle with color
+  static TextStyle s14w500Primary({
+    double? tablet,
+    double? ultraTablet,
+  }) =>
+      _baseTextStyle.merge(TextStyle(
+        fontSize: Dimens.d14.responsive(tablet: tablet, ultraTablet: ultraTablet),
+        fontWeight: FontWeight.w500,
+        color: AppColors.current.primaryTextColor,
+      ));
+
+  static TextStyle s16w600Primary({
+    double? tablet,
+    double? ultraTablet,
+  }) =>
+      _baseTextStyle.merge(TextStyle(
+        fontSize: Dimens.d16.responsive(tablet: tablet, ultraTablet: ultraTablet),
+        fontWeight: FontWeight.w600,
+        color: AppColors.current.primaryTextColor,
+      ));
+  static TextStyle s16w600White({
+    double? tablet,
+    double? ultraTablet,
+  }) =>
+      _baseTextStyle.merge(TextStyle(
+        fontSize: Dimens.d16.responsive(tablet: tablet, ultraTablet: ultraTablet),
+        fontWeight: FontWeight.w600,
+        color: AppColors.current.whiteColor,
+      ));
+
+  static TextStyle s16w600Secondary({
+    double? tablet,
+    double? ultraTablet,
+  }) =>
+      _baseTextStyle.merge(TextStyle(
+        fontSize: Dimens.d16.responsive(tablet: tablet, ultraTablet: ultraTablet),
+        fontWeight: FontWeight.w600,
+        color: AppColors.current.secondaryTextColor,
+      ));
+
 
   static TextStyle s16w600Black({
     double? tablet,

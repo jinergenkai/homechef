@@ -64,6 +64,7 @@ export PATH="$PATH:~/.gem/gems/lefthook-0.7.7/bin"
     - lack of command: make build_resources.
     - add default theme (like Montserrat or somthingelse)
     - add mock api io client for test api
+    - add snippet like Dimens, AppColor
 
 ## Step for everything
 - Add new route

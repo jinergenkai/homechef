@@ -116,29 +116,11 @@ class _HomePageState extends BasePageState<HomePage, HomeBloc> {
                     ),
                     SizedBox(height: Dimens.d20.responsive()),
                     //*Chef List
-                    Container(
-                      height: Dimens.d200.responsive(),
-                      child: ListView.builder(
-                        // shrinkWrap: true,
-                        itemCount: 5,
-                        itemBuilder: (context, index) => Container(
-                          color: Colors.red,
-                          margin: EdgeInsets.only(bottom: Dimens.d5.responsive()),
-                          height: Dimens.d70.responsive(),
-                          child: Row(
-                            children: [
-                              Icon(Icons.account_circle, size: Dimens.d50.responsive()),
-                              Column(
-                                children: [
-                                  Text("Chef Name"),
-                                  Text("Chef Address"),
-                                  Text("Chef Phone"),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
+                    ListView.builder(
+                      shrinkWrap: true,
+                      physics: ClampingScrollPhysics(),
+                      itemCount: 5,
+                      itemBuilder: (context, index) => CardChefProfile(),
                     ),
                   ],
                 ),
@@ -146,6 +128,47 @@ class _HomePageState extends BasePageState<HomePage, HomeBloc> {
             );
           },
         ),
+      ),
+    );
+  }
+}
+
+class CardChefProfile extends StatelessWidget {
+  const CardChefProfile({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      // height: Dimens.d100.responsive(),
+      // width: Dimens.d150.responsive(),
+        color: Colors.red,
+        margin: EdgeInsets.only(bottom: Dimens.d5.responsive()),
+      child: Row(
+        children: [
+          Icon(Icons.account_circle, size: Dimens.d80.responsive()),
+          Expanded(
+            child: Container(
+              height: Dimens.d80.responsive(),
+              padding: EdgeInsets.all(Dimens.d10.responsive()),
+              child: Column(
+                crossAxisAlignment:CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Chef Name Ne",
+                    style: AppTextStyles.s20w600(color: AppColors.current.blackColor),
+                  ),
+                  Text("Chef Address"),
+                  Text(
+                    "Description: I am a chef hahahaalkfaaaa",
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
