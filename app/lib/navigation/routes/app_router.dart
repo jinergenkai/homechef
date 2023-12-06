@@ -34,7 +34,22 @@ class AppRouter extends $AppRouter {
             page: MessageTab.page,
             maintainState: true,
             children: [
-              AutoRoute(page: MessageRoute.page, initial: true),
+              AutoRoute(page: MessageRoute.page, initial: true, children: [
+                AutoRoute(
+                  page: SubMessageTab.page,
+                  maintainState: true,
+                  children: [
+                    AutoRoute(page: SubMessageRoute.page, initial: true),
+                  ],
+                ),
+                AutoRoute(
+                  page: NotificationTab.page,
+                  maintainState: true,
+                  children: [
+                    AutoRoute(page: NotificationRoute.page, initial: true),
+                  ],
+                ),
+              ]),
             ],
           ),
           AutoRoute(
@@ -55,6 +70,7 @@ class AppRouter extends $AppRouter {
       ];
 }
 
+//***
 @RoutePage(name: 'HomeTab')
 class HomeTabPage extends AutoRouter {
   const HomeTabPage({super.key});
@@ -73,4 +89,15 @@ class MyPageTabPage extends AutoRouter {
 @RoutePage(name: 'OrderListTab')
 class OrderListTabPage extends AutoRouter {
   const OrderListTabPage({super.key});
+}
+
+//***
+@RoutePage(name: 'SubMessageTab')
+class SubMessageTabPage extends AutoRouter {
+  const SubMessageTabPage({super.key});
+}
+
+@RoutePage(name: 'NotificationTab')
+class NotificationTabPage extends AutoRouter {
+  const NotificationTabPage({super.key});
 }
