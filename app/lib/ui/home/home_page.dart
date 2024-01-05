@@ -49,16 +49,18 @@ class _HomePageState extends BasePageState<HomePage, HomeBloc> {
                     Align(alignment: Alignment.centerLeft, child: Text("Special Promotions", style: AppTextStyles.s20w600(color: AppColors.current.blackColor))),
                     CarouselSlider(
                       options: CarouselOptions(height: 130.0),
-                      items: [1, 2, 3, 4, 5].map((i) {
+                      items: ["Discount", 2, 3, 4, 5].map((i) {
                         return Builder(
                           builder: (BuildContext context) {
                             return Container(
                                 width: MediaQuery.of(context).size.width,
-                                margin: EdgeInsets.symmetric(horizontal: 5.0),
-                                decoration: BoxDecoration(color: Colors.amber),
+                                margin: EdgeInsets.symmetric(horizontal: 1.0),
+                                decoration: BoxDecoration(color: AppColors.current.primaryColor),
                                 child: Text(
-                                  'text $i',
-                                  style: TextStyle(fontSize: 16.0),
+                                  
+                                  '$i',
+                                  textAlign: TextAlign.center,
+                                  style: AppTextStyles.s16w700(color: AppColors.current.whiteColor),
                                 ));
                           },
                         );
