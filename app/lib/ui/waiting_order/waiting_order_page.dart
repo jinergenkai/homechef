@@ -91,8 +91,8 @@ class GenericOrderItem extends StatelessWidget {
             children: [
               // *** Title
               Text("Cooking orders post #03", style: AppTextStyles.s20w600(color: AppColors.current.blackColor)),
-              Text("Posted 1 hour ago"),
-              Divider(),
+              const Text("Posted 1 hour ago"),
+              const Divider(),
               // *** Overview
               Table(
                   columnWidths: const {
@@ -103,25 +103,25 @@ class GenericOrderItem extends StatelessWidget {
                   children: [
                     TableRow(children: [
                       Assets.images.timer.image(),
-                      Text("Monday 1/1/2020"),
+                      const Text("Monday 1/1/2020"),
                     ]),
                     TableRow(children: [
                       Assets.images.checkList.image(),
-                      Text("Oc xao toi"),
+                      const Text("Oc xao toi"),
                     ]),
                     TableRow(children: [
                       Assets.images.dollar.image(),
-                      Text("300.000 VND"),
+                      const Text("300.000 VND"),
                     ]),
                     TableRow(children: [
                       Assets.images.location.image(),
-                      Text("Duong 1D, Khu Do Thi Sala, Quan 2, TP.HCM"),
+                      const Text("Duong 1D, Khu Do Thi Sala, Quan 2, TP.HCM"),
                     ]),
                   ]),
               // *** Action
-              SizedBox(height: 5,),
+              const SizedBox(height: 5,),
               Align(alignment: Alignment.center, child: CommonSmallButton(onpressed: () {}, text: "More detail")),
-              Divider(),
+              const Divider(),
               //               Row(
               //   children: [
               //     Assets.images.user.image(),

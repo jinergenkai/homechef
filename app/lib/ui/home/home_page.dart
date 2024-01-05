@@ -54,7 +54,7 @@ class _HomePageState extends BasePageState<HomePage, HomeBloc> {
                           builder: (BuildContext context) {
                             return Container(
                                 width: MediaQuery.of(context).size.width,
-                                margin: EdgeInsets.symmetric(horizontal: 1.0),
+                                margin: const EdgeInsets.symmetric(horizontal: 1.0),
                                 decoration: BoxDecoration(color: AppColors.current.primaryColor),
                                 child: Text(
                                   
@@ -78,7 +78,7 @@ class _HomePageState extends BasePageState<HomePage, HomeBloc> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            Text("Create new\ncooking order"),
+                            const Text("Create new\ncooking order"),
                             Icon(
                               Icons.add_circle_outline,
                               color: AppColors.current.whiteColor,
@@ -97,7 +97,7 @@ class _HomePageState extends BasePageState<HomePage, HomeBloc> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            Text("Order Cooking\ndirectly"),
+                            const Text("Order Cooking\ndirectly"),
                             Icon(
                               Icons.add_circle_outline,
                               color: AppColors.current.whiteColor,
@@ -120,9 +120,9 @@ class _HomePageState extends BasePageState<HomePage, HomeBloc> {
                     //*Chef List
                     ListView.builder(
                       shrinkWrap: true,
-                      physics: ClampingScrollPhysics(),
+                      physics: const ClampingScrollPhysics(),
                       itemCount: 5,
-                      itemBuilder: (context, index) => CardChefProfile(),
+                      itemBuilder: (context, index) => const CardChefProfile(),
                     ),
                   ],
                 ),
@@ -161,8 +161,8 @@ class CardChefProfile extends StatelessWidget {
                     "Chef Name Ne",
                     style: AppTextStyles.s20w600(color: AppColors.current.blackColor),
                   ),
-                  Text("Chef Address"),
-                  Text(
+                  const Text("Chef Address"),
+                  const Text(
                     "Description: I am a chef hahahaalkfaaaa",
                     overflow: TextOverflow.ellipsis,
                   ),

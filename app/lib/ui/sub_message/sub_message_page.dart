@@ -101,8 +101,8 @@ class MessageItem extends StatelessWidget {
                       title?.data ?? "",
                       style: AppTextStyles.s20w600(color: AppColors.current.blackColor),
                     ),
-                    Text("Chef Address"),
-                    Text(
+                    const Text("Chef Address"),
+                    const Text(
                       "Description: I am a chef hahahaalkfaaaa",
                       overflow: TextOverflow.ellipsis,
                     ),
