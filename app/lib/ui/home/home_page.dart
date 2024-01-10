@@ -1,7 +1,9 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:domain/domain.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../app.dart';
 import 'bloc/home.dart';
@@ -54,17 +56,39 @@ class _HomePageState extends BasePageState<HomePage, HomeBloc> {
                           builder: (BuildContext context) {
                             return Container(
                                 width: MediaQuery.of(context).size.width,
+                                padding: EdgeInsets.symmetric(horizontal: Dimens.d5.responsive()),
                                 margin: const EdgeInsets.symmetric(horizontal: 1.0),
-                                decoration: BoxDecoration(color: AppColors.current.primaryColor),
-                                child: Text(
-                                  
-                                  '$i',
-                                  textAlign: TextAlign.center,
-                                  style: AppTextStyles.s16w700(color: AppColors.current.whiteColor),
-                                ));
+                                // decoration: BoxDecoration(color: AppColors.current.primaryColor),
+                                child: 
+                                Assets.images.promotionPng.image(height: Dimens.d130.responsive(), width: Dimens.d130.responsive())
+                                // Text(
+                                //   '$i',
+                                //   textAlign: TextAlign.center,
+                                //   style: AppTextStyles.s16w700(color: AppColors.current.whiteColor),
+                                // )
+                                );
                           },
                         );
                       }).toList(),
+                    ),
+                    SizedBox(height: Dimens.d20.responsive()),
+                    //*Create new cooking order
+                    GestureDetector(
+                      onTap: () => navigator.push(const AppRouteInfo.onboarding()),
+                      child: Container(
+                          height: Dimens.d75.responsive(),
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(Dimens.d10.responsive()),
+                            gradient: LinearGradient(colors: [Color(0xFF68B3F4), Color(0xFFBAD8F2)]),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              const Text("Create new\ncooking order"),
+                              Assets.images.workPng.image(height: Dimens.d75.responsive(), width: Dimens.d75.responsive())
+                            ],
+                          )),
                     ),
                     SizedBox(height: Dimens.d20.responsive()),
                     //*Create new cooking order
@@ -73,35 +97,13 @@ class _HomePageState extends BasePageState<HomePage, HomeBloc> {
                         width: double.infinity,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(Dimens.d10.responsive()),
-                          gradient: AppColors.current.primaryGradient,
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            const Text("Create new\ncooking order"),
-                            Icon(
-                              Icons.add_circle_outline,
-                              color: AppColors.current.whiteColor,
-                            )
-                          ],
-                        )),
-                    SizedBox(height: Dimens.d20.responsive()),
-                    //*Create new cooking order
-                    Container(
-                        height: Dimens.d75.responsive(),
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(Dimens.d10.responsive()),
-                          gradient: AppColors.current.primaryGradient,
+                          gradient: LinearGradient(colors: [Color(0xFFEB6147), Color(0xFFFFB690)]),
                         ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
                             const Text("Order Cooking\ndirectly"),
-                            Icon(
-                              Icons.add_circle_outline,
-                              color: AppColors.current.whiteColor,
-                            )
+                            Assets.images.highfivePng.image(height: Dimens.d75.responsive(), width: Dimens.d75.responsive())
                           ],
                         )),
                     SizedBox(height: Dimens.d20.responsive()),
@@ -122,7 +124,8 @@ class _HomePageState extends BasePageState<HomePage, HomeBloc> {
                       shrinkWrap: true,
                       physics: const ClampingScrollPhysics(),
                       itemCount: 5,
-                      itemBuilder: (context, index) => const CardChefProfile(),
+                      // itemBuilder: (context, index) => const CardChefProfile(),
+                      itemBuilder: (context, index) => const MessageItem(),
                     ),
                   ],
                 ),
@@ -145,8 +148,8 @@ class CardChefProfile extends StatelessWidget {
     return Container(
       // height: Dimens.d100.responsive(),
       // width: Dimens.d150.responsive(),
-        color: Colors.red,
-        margin: EdgeInsets.only(bottom: Dimens.d5.responsive()),
+      color: Colors.red,
+      margin: EdgeInsets.only(bottom: Dimens.d5.responsive()),
       child: Row(
         children: [
           Icon(Icons.account_circle, size: Dimens.d80.responsive()),
@@ -155,7 +158,7 @@ class CardChefProfile extends StatelessWidget {
               height: Dimens.d80.responsive(),
               padding: EdgeInsets.all(Dimens.d10.responsive()),
               child: Column(
-                crossAxisAlignment:CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     "Chef Name Ne",
