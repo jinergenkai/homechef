@@ -11,4 +11,9 @@ class AppRouteInfo with _$AppRouteInfo {
   const factory AppRouteInfo.onboarding() = _Onboarding;
   const factory AppRouteInfo.main() = _Main;
   const factory AppRouteInfo.itemDetail(User user) = _UserDetail;
+  const factory AppRouteInfo.chooseMenu() = _chooseMenu;
+  const factory AppRouteInfo.setTime() = _setTime;
+  const factory AppRouteInfo.confirmAndPay() = _confirmAndPay;
+
+
 }

@@ -4,7 +4,7 @@ import '../app.dart';
 
 class AppTextField extends StatelessWidget {
   const AppTextField({
-    required this.title,
+    this.title = '',
     this.hintText = '',
     this.suffixIcon,
     this.controller,
@@ -12,6 +12,7 @@ class AppTextField extends StatelessWidget {
     this.onTap,
     this.keyboardType = TextInputType.text,
     this.obscureText = false,
+    this.maxLines = 1,
     super.key,
   });
 
@@ -23,6 +24,7 @@ class AppTextField extends StatelessWidget {
   final TextInputType keyboardType;
   final TextEditingController? controller;
   final bool obscureText;
+  final int? maxLines;
 
   @override
   Widget build(BuildContext context) {
@@ -30,13 +32,14 @@ class AppTextField extends StatelessWidget {
       children: [
         Align(
           alignment: Alignment.centerLeft,
-          child: Text(
+          child: title.isEmpty ? const SizedBox.shrink() : Text(
             title,
             style: AppTextStyles.s16w600Primary(),
           ),
         ),
         SizedBox(height: Dimens.d8.responsive()),
         TextField(
+          maxLines: maxLines,
           onTap: onTap,
           onChanged: onChanged,
           controller: controller,
@@ -65,7 +68,7 @@ class AppTextField extends StatelessWidget {
             
             hintText: hintText,
             hintStyle: AppTextStyles.s16w500(color: AppColors.current.disabledColor),
-            suffixIcon: obscureText
+            suffixIcon: obscureText || suffixIcon != null
                 ? Padding(
                     padding: EdgeInsets.only(right: Dimens.d20.responsive()),
                     child: suffixIcon?.svg(height: Dimens.d20.responsive(), width: Dimens.d20.responsive())

@@ -18,6 +18,9 @@ class AppRouter extends $AppRouter {
   List<AutoRoute> get routes => [
         AutoRoute(page: LoginRoute.page),
         AutoRoute(page: OnboardingRoute.page),
+        AutoRoute(page: ChooseMenuRoute.page),
+        AutoRoute(page: SetTimeRoute.page),
+        AutoRoute(page: ConfirmAndPayRoute.page),
         AutoRoute(page: MainRoute.page, children: [
           AutoRoute(
             page: HomeTab.page,
