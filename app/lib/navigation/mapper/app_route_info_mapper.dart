@@ -13,6 +13,8 @@ class AppRouteInfoMapper extends BaseRouteInfoMapper {
       main: () => const MainRoute(),
       onboarding: () => const OnboardingRoute(),
       itemDetail: (user) => ItemDetailRoute(user: user),
+      chooseAddress: () => const ChooseAddressRoute(),
+      createAddress: () => const CreateAddressRoute(),
     );
   }
 }

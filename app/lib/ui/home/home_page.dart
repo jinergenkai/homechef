@@ -34,17 +34,28 @@ class _HomePageState extends BasePageState<HomePage, HomeBloc> {
           builder: (context, state) {
             return SingleChildScrollView(
               child: Container(
-                padding: EdgeInsets.all(Dimens.d25.responsive()),
+                padding: EdgeInsets.all(Dimens.d20.responsive()),
                 child: Column(
                   children: [
                     //*Header Hello
-                    Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
-                      Assets.images.customerLauncherIcon.image(height: Dimens.d50.responsive(), width: Dimens.d45.responsive()),
-                      Text(
-                        "Welcome back\n${"Nguyen Hung"}",
-                        style: AppTextStyles.s20w600(color: AppColors.current.primaryColor),
+                    Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+                      Container(
+                        // color: Colors.red,
+                        child: Assets.images.customerLauncherIcon.image(height: Dimens.d60.responsive(), width: Dimens.d60.responsive())),
+                      Container(
+                        // color: Colors.blue,
+                        padding: EdgeInsets.only(left: Dimens.d10.responsive()),
+                        child: Text(
+                          "Welcome back\n${"Nguyen Hung"}",
+                          style: AppTextStyles.s20w600(color: AppColors.current.primaryColor),
+                        ),
                       ),
-                      Icon(Icons.notifications, color: AppColors.current.primaryColor)
+                      Expanded(
+                        child: Container(
+                          padding: EdgeInsets.all(Dimens.d10.responsive()),
+                          alignment: Alignment.centerRight,
+                          child: Icon(Icons.notifications, color: AppColors.current.primaryColor)),
+                      )
                     ]),
                     SizedBox(height: Dimens.d20.responsive()),
                     //*Promotion
@@ -71,10 +82,9 @@ class _HomePageState extends BasePageState<HomePage, HomeBloc> {
                         );
                       }).toList(),
                     ),
-                    SizedBox(height: Dimens.d20.responsive()),
                     //*Create new cooking order
                     GestureDetector(
-                      onTap: () => navigator.push(const AppRouteInfo.onboarding()),
+                      onTap: () => navigator.push(const AppRouteInfo.chooseAddress()),
                       child: Container(
                           height: Dimens.d75.responsive(),
                           width: double.infinity,
@@ -85,13 +95,13 @@ class _HomePageState extends BasePageState<HomePage, HomeBloc> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
-                              const Text("Create new\ncooking order"),
+                              Text("Create new\ncooking order", style: AppTextStyles.s16w600White()),
                               Assets.images.workPng.image(height: Dimens.d75.responsive(), width: Dimens.d75.responsive())
                             ],
                           )),
                     ),
-                    SizedBox(height: Dimens.d20.responsive()),
-                    //*Create new cooking order
+                    SizedBox(height: Dimens.d10.responsive()),
+                    //*Order Cooking directly
                     Container(
                         height: Dimens.d75.responsive(),
                         width: double.infinity,
@@ -102,7 +112,7 @@ class _HomePageState extends BasePageState<HomePage, HomeBloc> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            const Text("Order Cooking\ndirectly"),
+                              Text("Order Cooking\ndirectly", style: AppTextStyles.s16w600White()),
                             Assets.images.highfivePng.image(height: Dimens.d75.responsive(), width: Dimens.d75.responsive())
                           ],
                         )),
