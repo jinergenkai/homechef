@@ -8,6 +8,7 @@ class CommonScaffold extends StatelessWidget {
     required this.body,
     this.appBar,
     this.floatingActionButton,
+    this.floatingActionButtonLocation,
     this.drawer,
     this.backgroundColor,
     this.hideKeyboardWhenTouchOutside = false,
@@ -18,6 +19,7 @@ class CommonScaffold extends StatelessWidget {
   final PreferredSizeWidget? appBar;
   final Widget? drawer;
   final Widget? floatingActionButton;
+  final FloatingActionButtonLocation? floatingActionButtonLocation;
   final Color? backgroundColor;
   final bool hideKeyboardWhenTouchOutside;
 
@@ -28,6 +30,7 @@ class CommonScaffold extends StatelessWidget {
       body: Shimmer(child: body),
       appBar: appBar,
       drawer: drawer,
+      floatingActionButtonLocation: floatingActionButtonLocation,
       floatingActionButton: floatingActionButton,
     );
 

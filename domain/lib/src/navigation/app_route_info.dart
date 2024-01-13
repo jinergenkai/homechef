@@ -16,6 +16,4 @@ class AppRouteInfo with _$AppRouteInfo {
   const factory AppRouteInfo.chooseMenu() = _chooseMenu;
   const factory AppRouteInfo.setTime() = _setTime;
   const factory AppRouteInfo.confirmAndPay() = _confirmAndPay;
-
-
 }

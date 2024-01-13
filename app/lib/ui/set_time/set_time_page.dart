@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:domain/domain.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -57,19 +58,6 @@ class _SetTimePageState extends BasePageState<SetTimePage, SetTimeBloc> {
 
                     //* Estimated arrival time
                     Text("The Chef's estimated arrival time is 09:30"),
-
-
-                      //* Button Next Step
-                      CommonEllipseButon(
-                        buttonType: ButtonEllipseType.checkout,
-                        action: "Next",
-                        price: 100,
-                        quantity: "123",
-                        onPressed: () {
-                          navigator.push(const AppRouteInfo.confirmAndPay());
-                        },
-                      )
-
                   ],
                 ),
               ),
@@ -77,6 +65,19 @@ class _SetTimePageState extends BasePageState<SetTimePage, SetTimeBloc> {
           },
         ),
       ),
+      //* floating button next
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: Container(
+          margin: EdgeInsets.symmetric(horizontal: Dimens.d15.responsive()),
+          child: CommonEllipseButon(
+            buttonType: ButtonEllipseType.checkout,
+            action: "Next",
+            price: 100,
+            quantity: "123",
+            onPressed: () {
+              navigator.push(const AppRouteInfo.confirmAndPay());
+            },
+          )),
     );
   }
 }
