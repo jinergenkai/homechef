@@ -37,7 +37,7 @@ class AppTextField extends StatelessWidget {
             style: AppTextStyles.s16w600Primary(),
           ),
         ),
-        SizedBox(height: Dimens.d8.responsive()),
+        title.isEmpty ? SizedBox.shrink() : SizedBox(height: Dimens.d8.responsive()),
         TextField(
           maxLines: maxLines,
           onTap: onTap,
