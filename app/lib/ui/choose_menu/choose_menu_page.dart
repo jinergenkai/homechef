@@ -53,27 +53,26 @@ class _ChooseMenuPageState extends BasePageState<ChooseMenuPage, ChooseMenuBloc>
                       // ),
                       //* Number of People
                       CommonSmallTitle(text: "People"),
-
                       Container(
                         decoration: BoxDecoration(
-                          //round box
                           borderRadius: BorderRadius.circular(Dimens.d45.responsive()),
-                          // color: AppColors.current.blackColor,
                           border: Border.all(
-                            color: AppColors.current.blackColor.withOpacity(0.5), // Set the border color here
+                            color: AppColors.current.blackColor.withOpacity(0.2), // Set the border color here
                             width: 2.0, // Set the border width if needed
                           ),
                         ),
-                        // height: 45,
+                        height: 30,
                         // width: Dimens.d200.responsive(),
                         child: IntrinsicWidth(
                           child: Row(
                             children: [
                               ElevatedButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  bloc.add(const PeopleChanged(amount: -1));
+                                },
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: Colors.transparent,
-                                  shape: CircleBorder(),
+                                  // shape: CircleBorder(),
                                   elevation: 0,
                                 ),
                                 child: Container(
@@ -87,13 +86,20 @@ class _ChooseMenuPageState extends BasePageState<ChooseMenuPage, ChooseMenuBloc>
                               ),
 
                               Divider(color: Colors.black),
-                              Text(" 1 "),
+                              BlocBuilder<ChooseMenuBloc, ChooseMenuState>(
+                                buildWhen: (previous, current) => previous.people != current.people,
+                                builder: (context, state) {
+                                  return Text("${state.people}", style: AppTextStyles.s16w600(color: AppColors.current.primaryTextColor));
+                                },
+                              ),
                               Divider(color: Colors.black),
                               ElevatedButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  bloc.add(const PeopleChanged(amount: 1));
+                                },
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: Colors.transparent,
-                                  shape: CircleBorder(),
+                                  // shape: CircleBorder(),
                                   elevation: 0,
                                 ),
                                 child: Container(
@@ -117,24 +123,55 @@ class _ChooseMenuPageState extends BasePageState<ChooseMenuPage, ChooseMenuBloc>
                       //* Number of Courses
                       CommonSmallTitle(text: "Courses"),
                       BorderContainer(
-                          child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text("3 Courses"),
-                          SizedBox(
-                            height: 5,
-                          ),
-                          AppTextField(
-                            hintText: "1....",
-                            suffixIcon: Assets.images.iconBack,
-                            keyboardType: TextInputType.visiblePassword,
-                          ),
-                          AppTextField(
-                            hintText: "2....",
-                            suffixIcon: Assets.images.iconBack,
-                            keyboardType: TextInputType.visiblePassword,
-                          ),
-                        ],
+                          child: BlocBuilder<ChooseMenuBloc, ChooseMenuState>(
+                        buildWhen: (previous, current) => previous.menu != current.menu,
+                        builder: (context, state) {
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text("${state.menu.length} Courses", style: AppTextStyles.s16w600(color: AppColors.current.primaryColor)),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              ListView.builder(
+                                shrinkWrap: true,
+                                physics: const ClampingScrollPhysics(),
+                                itemBuilder: (context, index) => 
+                              AppTextField(
+                                hintText: "${index}",
+                                // controller: "${state.menu[index]}",
+                                suffixIcon: Assets.images.trash,
+                                
+                                keyboardType: TextInputType.visiblePassword,
+                              ),
+                                itemCount: state.menu.length,
+                              ),
+                              SizedBox(
+                                height: 10,),
+                              Container(
+                                width: double.infinity,
+                                height: Dimens.d40.responsive(),
+                                child: OutlinedButton(
+                                    style: ButtonStyle(
+                                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                        RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(10),
+                                          side: BorderSide(color: Colors.black),
+                                        ),
+                                      ),
+                                    ),
+                                    onPressed: () {
+                                      bloc.add(const AddCourse());
+                                    },
+                                    child: Container(
+                                      alignment: Alignment.centerLeft,
+                                      padding: EdgeInsets.only(left: Dimens.d5.responsive()),
+                                      child: Text("+", style: AppTextStyles.s20w600(color: AppColors.current.primaryTextColor)),
+                                    )),
+                              ),
+                            ],
+                          );
+                        },
                       )),
 
                       //* Prefer Style

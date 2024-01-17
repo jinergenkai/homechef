@@ -70,8 +70,8 @@ class AppTextField extends StatelessWidget {
             hintStyle: AppTextStyles.s16w500(color: AppColors.current.disabledColor),
             suffixIcon: obscureText || suffixIcon != null
                 ? Padding(
-                    padding: EdgeInsets.only(right: Dimens.d20.responsive()),
-                    child: suffixIcon?.svg(height: Dimens.d20.responsive(), width: Dimens.d20.responsive())
+                    padding: EdgeInsets.only(right: Dimens.d25.responsive()),
+                    child: suffixIcon?.svg(height: Dimens.d10.responsive(), width: Dimens.d10.responsive())
                   )
                 : null,
           ),

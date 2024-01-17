@@ -49,7 +49,7 @@ class _CreateAddressPageState extends BasePageState<CreateAddressPage, CreateAdd
                       title: "ADDRESS",
                       hintText: "Enter address",
                       // onChanged: (pass) => bloc.add(PasswordTextFieldChanged(password: pass)),
-                      suffixIcon: Assets.images.hiddenText,
+                      suffixIcon: Assets.images.locationBlackSvg,
                       keyboardType: TextInputType.text,
                     ),
                     SizedBox(height: Dimens.d20.responsive()),
