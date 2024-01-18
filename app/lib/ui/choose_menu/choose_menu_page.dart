@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../app.dart';
+import '../../common_view/border_container.dart';
 import 'bloc/choose_menu.dart';
 
 @RoutePage()
@@ -57,8 +58,8 @@ class _ChooseMenuPageState extends BasePageState<ChooseMenuPage, ChooseMenuBloc>
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(Dimens.d45.responsive()),
                           border: Border.all(
-                            color: AppColors.current.blackColor.withOpacity(0.2), // Set the border color here
-                            width: 2.0, // Set the border width if needed
+                            color: AppColors.current.disabledColor,
+                            width: 1.0, 
                           ),
                         ),
                         height: 30,
@@ -119,6 +120,7 @@ class _ChooseMenuPageState extends BasePageState<ChooseMenuPage, ChooseMenuBloc>
                           ),
                         ),
                       ),
+                      SizedBox(height: 20),
 
                       //* Number of Courses
                       CommonSmallTitle(text: "Courses"),
@@ -130,24 +132,23 @@ class _ChooseMenuPageState extends BasePageState<ChooseMenuPage, ChooseMenuBloc>
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text("${state.menu.length} Courses", style: AppTextStyles.s16w600(color: AppColors.current.primaryColor)),
-                              SizedBox(
-                                height: 5,
-                              ),
+                              SizedBox(height: 5),
                               ListView.builder(
                                 shrinkWrap: true,
                                 physics: const ClampingScrollPhysics(),
-                                itemBuilder: (context, index) => 
-                              AppTextField(
-                                hintText: "${index}",
-                                // controller: "${state.menu[index]}",
-                                suffixIcon: Assets.images.trash,
-                                
-                                keyboardType: TextInputType.visiblePassword,
-                              ),
+                                itemBuilder: (context, index) => Padding(
+                                  padding: const EdgeInsets.only(top: 8.0),
+                                  child: AppTextField(
+                                    hintText: "${index}",
+                                    // controller: "${state.menu[index]}",
+                                    suffixIcon: Assets.images.trash,
+
+                                    keyboardType: TextInputType.visiblePassword,
+                                  ),
+                                ),
                                 itemCount: state.menu.length,
                               ),
-                              SizedBox(
-                                height: 10,),
+                              SizedBox(height: 20),
                               Container(
                                 width: double.infinity,
                                 height: Dimens.d40.responsive(),
@@ -173,75 +174,70 @@ class _ChooseMenuPageState extends BasePageState<ChooseMenuPage, ChooseMenuBloc>
                           );
                         },
                       )),
+                      SizedBox(height: 20),
 
                       //* Prefer Style
                       CommonSmallTitle(text: "Prefer Style"),
-                      Container(
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5),
-                          border: Border.all(
-                            color: Colors.black,
-                            width: 1,
-                          ),
-                        ),
-                        child: CheckboxListTile(
-                          title: Text("Checkbox 1"),
-                          value: false,
-                          onChanged: (value) {},
-                          controlAffinity: ListTileControlAffinity.leading,
-                        ),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          BorderContainer(width: MediaQuery.of(context).size.width/3.5,padding: EdgeInsets.all(Dimens.d10.responsive()), child: Center(child: Text("Northern", style: AppTextStyles.s16w600(color: AppColors.current.primaryColor)))),
+                          BorderContainer(width: MediaQuery.of(context).size.width/3.5,padding: EdgeInsets.all(Dimens.d10.responsive()), child: Center(child: Text("Central", style: AppTextStyles.s16w600(color: AppColors.current.primaryColor)))),
+                          BorderContainer(width: MediaQuery.of(context).size.width/3.5,padding: EdgeInsets.all(Dimens.d10.responsive()), child: Center(child: Text("Southern", style: AppTextStyles.s16w600(color: AppColors.current.primaryColor)))),
+                        ],
                       ),
-                      Container(
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5),
-                          border: Border.all(
-                            color: Colors.black,
-                            width: 1,
-                          ),
-                        ),
-                        child: CheckboxListTile(
-                          title: Text("Checkbox 2"),
-                          value: false,
-                          onChanged: (value) {},
-                          controlAffinity: ListTileControlAffinity.leading,
-                        ),
-                      ),
-                      Container(
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5),
-                          border: Border.all(
-                            color: Colors.black,
-                            width: 1,
-                          ),
-                        ),
-                        child: CheckboxListTile(
-                          title: Text("Checkbox 3"),
-                          value: false,
-                          onChanged: (value) {},
-                          controlAffinity: ListTileControlAffinity.leading,
-                        ),
-                      ),
-
-                      //* Dessert
-                      CommonSmallTitle(text: "Dessert"),
-                      BorderContainer(child: Text("Fruit")),
+                      // Container(
+                      //   width: double.infinity,
+                      //   decoration: BoxDecoration(
+                      //     borderRadius: BorderRadius.circular(5),
+                      //     border: Border.all(
+                      //       color: Colors.black,
+                      //       width: 1,
+                      //     ),
+                      //   ),
+                      //   child: CheckboxListTile(
+                      //     title: Text("Checkbox 3"),
+                      //     value: false,
+                      //     onChanged: (value) {},
+                      //     controlAffinity: ListTileControlAffinity.leading,
+                      //   ),
+                      // ),
+                      SizedBox(height: 20),
 
                       //* Optional
                       CommonSmallTitle(text: "Optional"),
-                      Text("Optional"),
-
+                      BorderContainer(
+                          padding: EdgeInsets.all(Dimens.d15.responsive()),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text("Fruit", style: AppTextStyles.s16w600(color: AppColors.current.primaryColor)),
+                              StyledSwitch(
+                                enabledColor: AppColors.current.primaryColor,
+                              ),
+                            ],
+                          )),
+                      SizedBox(height: 10),
+                      BorderContainer(
+                          padding: EdgeInsets.all(Dimens.d15.responsive()),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text("Grocery shopping", style: AppTextStyles.s16w600(color: AppColors.current.primaryColor)),
+                              StyledSwitch(
+                                enabledColor: AppColors.current.primaryColor,
+                              ),
+                            ],
+                          )),
+                      SizedBox(height: 20),
                       //* Note for Tasker
                       CommonSmallTitle(text: "Note for Tasker"),
                       AppTextField(
                         maxLines: null,
                       ),
 
-                      SizedBox(
-                        height: 20,
-                      ),
+                      SizedBox(height: 20),
 
                       //* Button Next Step
                       CommonEllipseButon(
@@ -257,31 +253,6 @@ class _ChooseMenuPageState extends BasePageState<ChooseMenuPage, ChooseMenuBloc>
           },
         ),
       ),
-    );
-  }
-}
-
-class BorderContainer extends StatelessWidget {
-  const BorderContainer({
-    required this.child,
-    super.key,
-  });
-
-  final Widget child;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(Dimens.d10.responsive()),
-        border: Border.all(
-          color: AppColors.current.primaryColor,
-          width: 1,
-        ),
-      ),
-      padding: EdgeInsets.all(Dimens.d10.responsive()),
-      child: child,
     );
   }
 }
