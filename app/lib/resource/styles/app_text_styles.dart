@@ -18,6 +18,17 @@ class AppTextStyles {
 
   //*** textStyle without color
 
+    static TextStyle s14w500({
+    required Color color,
+    double? tablet,
+    double? ultraTablet,
+  }) =>
+      _baseTextStyle.merge(TextStyle(
+        fontSize: Dimens.d14.responsive(tablet: tablet, ultraTablet: ultraTablet),
+        fontWeight: FontWeight.w500,
+        color: color,
+      ));
+
   static TextStyle s16w500({
     required Color color,
     double? tablet,

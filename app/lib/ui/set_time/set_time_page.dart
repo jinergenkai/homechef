@@ -4,6 +4,7 @@ import 'package:domain/domain.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:shared/shared.dart';
 
 import '../../app.dart';
 import '../../common_view/border_container.dart';
@@ -51,26 +52,61 @@ class _SetTimePageState extends BasePageState<SetTimePage, SetTimeBloc> {
                   children: [
                     //* Date picker
                     BorderContainer(
-                      // height: 100,
-                      color: AppColors.current.disabledColor,
-                      padding: EdgeInsets.all(Dimens.d15.responsive()),
-                      child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                        // height: 100,
+                        color: AppColors.current.disabledColor,
+                        padding: EdgeInsets.all(Dimens.d15.responsive()),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text("Date", style: AppTextStyles.s16w700(color: AppColors.current.primaryTextColor)),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Container(
+                                // height: 150,
+                                child: CarouselSliderMutiple()),
+                          ],
+                        )),
 
-                      children: [
-                    Text("Date", style: AppTextStyles.s16w700(color: AppColors.current.primaryTextColor)),
-                    SizedBox(height: 10,),
-                        Container(
-                          // height: 150,
-                          child: CarouselSliderMutiple()),
-                      ],
-                    )),
-
+                    SizedBox(
+                      height: 20,
+                    ),
                     //* Time picker
-                    Text("Time picker"),
+                    BorderContainer(
+                        padding: EdgeInsets.all(Dimens.d15.responsive()),
+                        child: Row(children: [
+                          Assets.images.clock.image(),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Text("Time", style: AppTextStyles.s16w700(color: AppColors.current.primaryTextColor)),
+                          Expanded(
+                            child: Align(
+                              alignment: Alignment.centerRight,
+                              child: IntrinsicWidth(
+                                child: BorderContainer(
+                                  padding: EdgeInsets.symmetric(horizontal: Dimens.d20.responsive(), vertical: Dimens.d8.responsive()),
+                                    child: Row(
+                                  children: [
+                                    Text("12", style: AppTextStyles.s20w600(color: AppColors.current.primaryTextColor)),
+                                    Container(
+                                      margin: EdgeInsets.symmetric(horizontal: Dimens.d10.responsive()),
+                                      height: Dimens.d20.responsive(),
+                                      width: Dimens.d1.responsive(),
+                                      color: AppColors.current.primaryColor,
+                                    ),
+                                    Text("00", style: AppTextStyles.s20w600(color: AppColors.current.primaryTextColor)),
+                                  ],
+                                )),
+                              ),
+                            ),
+                          )
+                        ])),
+                    
+                    SizedBox(height: 10),
 
                     //* Estimated arrival time
-                    Text("The Chef's estimated arrival time is 09:30"),
+                    Text("The Chef's estimated arrival time is ${DateTime.now().toStringWithFormat("dd/MM")}", style: AppTextStyles.s16w600(color: AppColors.current.primaryColor)),
                   ],
                 ),
               ),
@@ -148,7 +184,7 @@ class CarouselSliderMutiple extends StatelessWidget {
                     flex: 1,
                     child: Container(
                       margin: EdgeInsets.symmetric(horizontal: 4),
-                      height: 110,
+                      height: 100,
                       // child: Image.network(imgList[idx], fit: BoxFit.cover),
                       child: BorderContainer(
                         padding: EdgeInsets.all(Dimens.d1.responsive()),
@@ -156,13 +192,16 @@ class CarouselSliderMutiple extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                          SizedBox(height: 3),
-                          Text("${weekdays[(firstDay + idx) % 7 ]}", style: AppTextStyles.s16w700(color: AppColors.current.primaryTextColor.withOpacity(0.7))),
-                          SizedBox(height: 3),
-                          Divider(color: AppColors.current.primaryColor,),
-                          Text("${dateList[idx].split("/")[0]}", style: AppTextStyles.s20w600(color: AppColors.current.primaryTextColor)),
-                          Text("${dateList[idx].split("/")[1]}", style: AppTextStyles.s16w700(color: AppColors.current.primaryTextColor.withOpacity(0.7))),
-                        ],),
+                            SizedBox(height: 3),
+                            Text("${weekdays[(firstDay + idx) % 7]}", style: AppTextStyles.s16w700(color: AppColors.current.primaryTextColor.withOpacity(0.7))),
+                            SizedBox(height: 3),
+                            Divider(
+                              color: AppColors.current.primaryColor,
+                            ),
+                            Text("${dateList[idx].split("/")[0]}", style: AppTextStyles.s16w600(color: AppColors.current.primaryTextColor)),
+                            Text("${dateList[idx].split("/")[1]}", style: AppTextStyles.s14w500(color: AppColors.current.primaryTextColor.withOpacity(0.7))),
+                          ],
+                        ),
                       ),
                     ),
                   )
