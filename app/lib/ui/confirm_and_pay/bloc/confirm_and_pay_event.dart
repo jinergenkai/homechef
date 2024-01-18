@@ -12,3 +12,8 @@ abstract class ConfirmAndPayEvent extends BaseBlocEvent {
 class ConfirmAndPayPageInitiated extends ConfirmAndPayEvent with _$ConfirmAndPayPageInitiated {
   const factory ConfirmAndPayPageInitiated() = _ConfirmAndPayPageInitiated;
 }
+
+@freezed
+class BookButtonPressed extends ConfirmAndPayEvent with _$BookButtonPressed {
+  const factory BookButtonPressed() = _BookButtonPressed;
+}

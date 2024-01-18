@@ -10,5 +10,6 @@ class ConfirmAndPayState extends BaseBlocState with _$ConfirmAndPayState {
 
   const factory ConfirmAndPayState({
     @Default('') String id,
+    @Default(false) bool booked,
   }) = _ConfirmAndPayState;
 }

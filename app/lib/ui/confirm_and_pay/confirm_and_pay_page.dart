@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:domain/domain.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared/shared.dart';
 
 import '../../app.dart';
 import '../../common_view/blur_border_container.dart';
@@ -124,43 +125,42 @@ class _ConfirmAndPayPageState extends BasePageState<ConfirmAndPayPage, ConfirmAn
 
                         SizedBox(height: 10),
                         BorderContainer(
+                          child: Column(
+                            children: [
+                              //* pre-calculated
+                              Container(
+                                  color: AppColors.current.primaryColor.withOpacity(0.1),
+                                  padding: EdgeInsets.symmetric(horizontal: Dimens.d15.responsive(), vertical: Dimens.d5.responsive()),
+                                  child: Row(children: [
+                                    Expanded(child: Text("Pre-Calculated", style: AppTextStyles.s16w600(color: AppColors.current.primaryTextColor))),
+                                    Text("250 000 đ", style: AppTextStyles.s16w500(color: AppColors.current.primaryTextColor)),
+                                  ])),
 
-                          child: Column(children: [
-                        
-                          //* pre-calculated
-                          Container(
-                              color: AppColors.current.primaryColor.withOpacity(0.1),
-                              padding: EdgeInsets.symmetric(horizontal: Dimens.d15.responsive(), vertical: Dimens.d5.responsive()),
-                              child: Row(children: [
-                                Expanded(child: Text("Pre-Calculated", style: AppTextStyles.s16w600(color: AppColors.current.primaryTextColor))),
-                                Text("250 000 đ", style: AppTextStyles.s16w500(color: AppColors.current.primaryTextColor)),
-                              ])),
-                        
-                          //* Voucher
-                          Container(
-                              color: AppColors.current.primaryColor.withOpacity(0.1),
-                              padding: EdgeInsets.symmetric(horizontal: Dimens.d15.responsive(), vertical: Dimens.d5.responsive()),
-                              child: Row(children: [
-                                Expanded(child: Text("Voucher", style: AppTextStyles.s16w600(color: AppColors.current.primaryTextColor))),
-                                Text("-50 000 đ", style: AppTextStyles.s16w600(color: AppColors.current.primaryColor)),
-                              ])),
-                        
-                          Divider(
-                            height: 20,
-                            color: AppColors.current.blackColor.withOpacity(0.4),
-                            endIndent: Dimens.d20.responsive(),
-                            indent: Dimens.d20.responsive(),
+                              //* Voucher
+                              Container(
+                                  color: AppColors.current.primaryColor.withOpacity(0.1),
+                                  padding: EdgeInsets.symmetric(horizontal: Dimens.d15.responsive(), vertical: Dimens.d5.responsive()),
+                                  child: Row(children: [
+                                    Expanded(child: Text("Voucher", style: AppTextStyles.s16w600(color: AppColors.current.primaryTextColor))),
+                                    Text("-50 000 đ", style: AppTextStyles.s16w600(color: AppColors.current.primaryColor)),
+                                  ])),
+
+                              Divider(
+                                height: 20,
+                                color: AppColors.current.blackColor.withOpacity(0.4),
+                                endIndent: Dimens.d20.responsive(),
+                                indent: Dimens.d20.responsive(),
+                              ),
+                              //* Total price
+                              Container(
+                                  color: AppColors.current.primaryColor.withOpacity(0.1),
+                                  padding: EdgeInsets.symmetric(horizontal: Dimens.d15.responsive(), vertical: Dimens.d5.responsive()),
+                                  child: Row(children: [
+                                    Expanded(child: Text("Total", style: AppTextStyles.s20w600(color: AppColors.current.primaryTextColor))),
+                                    Text("200 000 đ", style: AppTextStyles.s16w700(color: AppColors.current.primaryTextColor)),
+                                  ])),
+                            ],
                           ),
-                          //* Total price
-                          Container(
-                              color: AppColors.current.primaryColor.withOpacity(0.1),
-                              padding: EdgeInsets.symmetric(horizontal: Dimens.d15.responsive(), vertical: Dimens.d5.responsive()),
-                              child: Row(children: [
-                                Expanded(child: Text("Total", style: AppTextStyles.s20w600(color: AppColors.current.primaryTextColor))),
-                                Text("200 000 đ", style: AppTextStyles.s16w700(color: AppColors.current.primaryTextColor)),
-                              ])),
-                        
-                          ],),
                         ),
 
                         SizedBox(
@@ -176,8 +176,14 @@ class _ConfirmAndPayPageState extends BasePageState<ConfirmAndPayPage, ConfirmAn
       floatingActionButton: Container(
         margin: EdgeInsets.symmetric(horizontal: Dimens.d30.responsive()),
         child: CommonEllipseButon(
-          onPressed: () {
-            navigator.push(const AppRouteInfo.createAddress());
+          onPressed: () async {
+            await showDialog(context: context, builder: (context) => AlertDialog(title: Text("Booked")));
+            bloc.add(const BookButtonPressed());
+            navigator.showDialog(
+              AppPopupInfo.confirmDialog(message: "Booked", onPressed: Func0(() async {
+          })),
+            );
+            // navigator.push(const AppRouteInfo.createAddress());
           },
           text: "Book",
         ),
