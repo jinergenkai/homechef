@@ -50,11 +50,17 @@ class _ChooseAddressPageState extends BasePageState<ChooseAddressPage, ChooseAdd
                 shrinkWrap: true,
                 itemCount: 3,
                 itemBuilder: (context, index) {
-                  return AddressItem(
-                      onPressed: () {
-                        navigator.push(const AppRouteInfo.chooseMenu());
-                      },
-                      title: Text("Thành Phố Thủ Đức $index"));
+                  return Container(
+                    margin: EdgeInsets.symmetric(
+                      horizontal: Dimens.d24.responsive(),
+                      vertical: Dimens.d8.responsive(),
+                    ),
+                    child: AddressItem(
+                        onPressed: () {
+                          navigator.push(const AppRouteInfo.chooseMenu());
+                        },
+                        title: Text("Thành Phố Thủ Đức $index")),
+                  );
                 },
               ),
             );
@@ -109,10 +115,10 @@ class AddressItem extends StatelessWidget {
             ),
           ],
         ),
-        margin: EdgeInsets.symmetric(
-          horizontal: Dimens.d24.responsive(),
-          vertical: Dimens.d8.responsive(),
-        ),
+        // margin: EdgeInsets.symmetric(
+        //   horizontal: Dimens.d24.responsive(),
+        //   vertical: Dimens.d8.responsive(),
+        // ),
         padding: EdgeInsets.symmetric(
           horizontal: Dimens.d10.responsive(),
           vertical: Dimens.d10.responsive(),
@@ -146,8 +152,9 @@ class AddressItem extends StatelessWidget {
                     ],
                   ),
                   SizedBox(height: Dimens.d10.responsive()),
-                  const Text(
+                  Text(
                     "FPT University HCMC, Đường D1, Long Thạnh Mỹ, TP Thủ Đức, Thành Phố Hồ Chí Minh, Việt Nam, Trái Đất.",
+                    style: AppTextStyles.s14w500(color: AppColors.current.primaryTextColor),
                     maxLines: 4,
                     overflow: TextOverflow.ellipsis,
                   ),
