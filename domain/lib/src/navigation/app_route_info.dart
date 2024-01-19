@@ -7,6 +7,8 @@ part 'app_route_info.freezed.dart';
 /// page
 @freezed
 class AppRouteInfo with _$AppRouteInfo {
+
+  //* customer
   const factory AppRouteInfo.login() = _Login;
   const factory AppRouteInfo.onboarding() = _Onboarding;
   const factory AppRouteInfo.main() = _Main;
@@ -16,4 +18,9 @@ class AppRouteInfo with _$AppRouteInfo {
   const factory AppRouteInfo.chooseMenu() = _chooseMenu;
   const factory AppRouteInfo.setTime() = _setTime;
   const factory AppRouteInfo.confirmAndPay() = _confirmAndPay;
+
+
+  //* chef 
+  const factory AppRouteInfo.chefMain() = _chefMain;
+
 }

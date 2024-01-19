@@ -18,6 +18,7 @@ class AppRouteInfoMapper extends BaseRouteInfoMapper {
       confirmAndPay: () => const ConfirmAndPayRoute(),
       chooseAddress: () => const ChooseAddressRoute(),
       createAddress: () => const CreateAddressRoute(),
+      chefMain: () => const ChefMainRoute(),
     );
   }
 }

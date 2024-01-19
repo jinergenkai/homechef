@@ -14,6 +14,12 @@ class AppColors {
     required this.blackColor,
     required this.whiteColor,
     required this.redColor,
+
+    //* chef
+    required this.chefPrimaryColor,
+    required this.chefSecondaryColor,
+    required this.chefPrimaryTextColor,
+    required this.chefSecondaryTextColor,
   });
 
   static late AppColors current;
@@ -26,6 +32,12 @@ class AppColors {
   final Color blackColor;
   final Color whiteColor;
   final Color redColor;
+
+  //* chef
+  final Color chefPrimaryColor;
+  final Color chefSecondaryColor;
+  final Color chefPrimaryTextColor;
+  final Color chefSecondaryTextColor;
 
   /// gradient
   final LinearGradient primaryGradient;
@@ -40,6 +52,12 @@ class AppColors {
     blackColor: Color.fromARGB(255, 0, 0, 0),
     whiteColor: Color.fromARGB(255, 255, 255, 255),
     redColor: Color.fromARGB(255, 255, 0, 0),
+    
+    //* chef
+    chefPrimaryColor: Color(0xFF00696B),
+    chefSecondaryColor: Color.fromARGB(255, 62, 62, 70),
+    chefPrimaryTextColor: Color.fromARGB(255, 67, 78, 88),
+    chefSecondaryTextColor: Color(0xFF00696B),
   );
 
   static const darkThemeColor = AppColors(
@@ -52,6 +70,12 @@ class AppColors {
     blackColor: Color.fromARGB(255, 0, 0, 0),
     whiteColor: Color.fromARGB(255, 255, 255, 255),
     redColor: Color.fromARGB(255, 255, 0, 0),
+
+    //* chef
+    chefPrimaryColor: Color.fromARGB(255, 62, 62, 70),
+    chefSecondaryColor: Color(0xFF00696B),
+    chefPrimaryTextColor: Color(0xFF00696B),
+    chefSecondaryTextColor: Color.fromARGB(255, 62, 62, 70),
   );
 
   static AppColors of(BuildContext context) {
@@ -72,6 +96,12 @@ class AppColors {
     Color? blackColor,
     Color? whiteColor,
     Color? redColor,
+
+    //* chef
+    Color? chefPrimaryColor,
+    Color? chefSecondaryColor,
+    Color? chefPrimaryTextColor,
+    Color? chefSecondaryTextColor,
   }) {
     return AppColors(
       primaryColor: primaryColor ?? this.primaryColor,
@@ -83,6 +113,12 @@ class AppColors {
       blackColor: blackColor ?? this.blackColor,
       whiteColor: whiteColor ?? this.whiteColor,
       redColor: redColor ?? this.redColor,
+
+      //* chef
+      chefPrimaryColor: chefPrimaryColor ?? this.chefPrimaryColor,
+      chefSecondaryColor: chefSecondaryColor ?? this.chefSecondaryColor,
+      chefPrimaryTextColor: chefPrimaryTextColor ?? this.chefPrimaryTextColor,
+      chefSecondaryTextColor: chefSecondaryTextColor ?? this.chefSecondaryTextColor,
     );
   }
 }

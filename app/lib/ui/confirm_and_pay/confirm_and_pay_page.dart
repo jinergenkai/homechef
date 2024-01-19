@@ -129,7 +129,6 @@ class _ConfirmAndPayPageState extends BasePageState<ConfirmAndPayPage, ConfirmAn
                             children: [
                               //* pre-calculated
                               Container(
-                                  color: AppColors.current.primaryColor.withOpacity(0.1),
                                   padding: EdgeInsets.symmetric(horizontal: Dimens.d15.responsive(), vertical: Dimens.d5.responsive()),
                                   child: Row(children: [
                                     Expanded(child: Text("Pre-Calculated", style: AppTextStyles.s16w600(color: AppColors.current.primaryTextColor))),
@@ -138,7 +137,6 @@ class _ConfirmAndPayPageState extends BasePageState<ConfirmAndPayPage, ConfirmAn
 
                               //* Voucher
                               Container(
-                                  color: AppColors.current.primaryColor.withOpacity(0.1),
                                   padding: EdgeInsets.symmetric(horizontal: Dimens.d15.responsive(), vertical: Dimens.d5.responsive()),
                                   child: Row(children: [
                                     Expanded(child: Text("Voucher", style: AppTextStyles.s16w600(color: AppColors.current.primaryTextColor))),
@@ -153,7 +151,6 @@ class _ConfirmAndPayPageState extends BasePageState<ConfirmAndPayPage, ConfirmAn
                               ),
                               //* Total price
                               Container(
-                                  color: AppColors.current.primaryColor.withOpacity(0.1),
                                   padding: EdgeInsets.symmetric(horizontal: Dimens.d15.responsive(), vertical: Dimens.d5.responsive()),
                                   child: Row(children: [
                                     Expanded(child: Text("Total", style: AppTextStyles.s20w600(color: AppColors.current.primaryTextColor))),

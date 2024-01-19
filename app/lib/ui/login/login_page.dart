@@ -66,16 +66,16 @@ class _LoginPageState extends BasePageState<LoginPage, LoginBloc> {
               ),
               BlocBuilder<LoginBloc, LoginState>(
                 buildWhen: (previous, current) => previous.onPageError != current.onPageError,
-                builder: (_, state) => 
-                state.onPageError != "" ?
-                Container(
-                  alignment: Alignment.centerLeft,
-                  padding: EdgeInsets.all(Dimens.d8.responsive()),
-                  child: Text(
-                    state.onPageError,
-                    style: AppTextStyles.s16w500(color: AppColors.current.redColor),
-                  ),
-                ) : Container(),
+                builder: (_, state) => state.onPageError != ""
+                    ? Container(
+                        alignment: Alignment.centerLeft,
+                        padding: EdgeInsets.all(Dimens.d8.responsive()),
+                        child: Text(
+                          state.onPageError,
+                          style: AppTextStyles.s16w500(color: AppColors.current.redColor),
+                        ),
+                      )
+                    : Container(),
               ),
               SizedBox(height: Dimens.d10.responsive()),
               Align(
@@ -100,7 +100,7 @@ class _LoginPageState extends BasePageState<LoginPage, LoginBloc> {
                 },
               ),
               SizedBox(height: Dimens.d24.responsive()),
-                            const CommonDivider(),
+              const CommonDivider(),
               SizedBox(height: Dimens.d25.responsive()),
               CommonEllipseButon(
                 onPressed: () => {},
@@ -130,10 +130,13 @@ class _LoginPageState extends BasePageState<LoginPage, LoginBloc> {
                 style: AppTextStyles.s16w500(color: AppColors.current.blackColor),
                 children: [
                   TextSpan(
-                    text: S.current.signUp,
-                    style: AppTextStyles.s16w600(color: AppColors.current.primaryColor),
-                    recognizer: TapGestureRecognizer()..onTap = () => navigator.push(const AppRouteInfo.main()),
-                  )
+                      text: S.current.signUp,
+                      style: AppTextStyles.s16w600(color: AppColors.current.primaryColor),
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () {
+                          print(1);
+                          navigator.push(const AppRouteInfo.chefMain());
+                        })
                 ],
               )),
             ],

@@ -23,6 +23,13 @@ class AppNavigatorImpl extends AppNavigator with LogMixin {
     MyPageTab(),
   ];
 
+    final tabRoutesChef = const [
+    ChefHomeRoute(),
+    ChefMessageRoute(),
+    ChefOrderListRoute(),
+    ChefMyRouteRoute(),
+  ];
+
   TabsRouter? tabsRouter;
 
   final AppRouter _appRouter;

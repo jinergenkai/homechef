@@ -23,6 +23,21 @@ class AppRouter extends $AppRouter {
         AutoRoute(page: CreateAddressRoute.page),
         AutoRoute(page: SetTimeRoute.page),
         AutoRoute(page: ConfirmAndPayRoute.page),
+        AutoRoute(page: ChefMainRoute.page, children: [
+          AutoRoute(
+            // page: true ? ChefActiveAccountRoute.page : ChefHomeRoute.page,
+            page: ChefHomeRoute.page,
+          ),
+          AutoRoute(
+            page: ChefMessageRoute.page,
+          ),
+          AutoRoute(
+            page: ChefOrderListRoute.page,
+          ),
+          AutoRoute(
+            page: ChefMyRouteRoute.page,
+          ),
+        ]),
         AutoRoute(page: MainRoute.page, children: [
           AutoRoute(
             page: HomeTab.page,
