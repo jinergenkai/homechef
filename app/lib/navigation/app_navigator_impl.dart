@@ -27,7 +27,7 @@ class AppNavigatorImpl extends AppNavigator with LogMixin {
     ChefHomeRoute(),
     ChefMessageRoute(),
     ChefOrderListRoute(),
-    ChefMyRouteRoute(),
+    ChefMyPageRoute(),
   ];
 
   TabsRouter? tabsRouter;

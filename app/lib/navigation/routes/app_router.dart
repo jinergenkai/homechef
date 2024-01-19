@@ -35,7 +35,7 @@ class AppRouter extends $AppRouter {
             page: ChefOrderListRoute.page,
           ),
           AutoRoute(
-            page: ChefMyRouteRoute.page,
+            page: ChefMyPageRoute.page,
           ),
         ]),
         AutoRoute(page: MainRoute.page, children: [
