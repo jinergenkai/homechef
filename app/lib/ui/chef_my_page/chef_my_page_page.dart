@@ -62,7 +62,7 @@ class _ChefMyPagePageState extends BasePageState<ChefMyPagePage, ChefMyPageBloc>
               SizedBox(height: Dimens.d15.responsive()),
               ElevatedButton(
                 // onPressed: () => bloc.add(const LogoutButtonPressed()),
-                onPressed: () => Void,
+                onPressed: () => navigator.push(const AppRouteInfo.onboarding()),
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all(AppColors.current.primaryColor),
                 ),

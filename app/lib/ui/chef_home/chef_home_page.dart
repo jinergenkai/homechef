@@ -46,21 +46,21 @@ class _ChefHomePageState extends BasePageState<ChefHomePage, ChefHomeBloc> {
                         padding: EdgeInsets.only(left: Dimens.d10.responsive()),
                         child: Text(
                           "Welcome back\n${"Nguyen Hung"}",
-                          style: AppTextStyles.s20w600(color: AppColors.current.primaryColor),
+                          style: AppTextStyles.s20w600(color: AppColors.current.chefPrimaryColor),
                         ),
                       ),
                       Expanded(
                         child: Container(
                           padding: EdgeInsets.all(Dimens.d10.responsive()),
                           alignment: Alignment.centerRight,
-                          child: Icon(Icons.notifications, color: AppColors.current.primaryColor)),
+                          child: Icon(Icons.notifications, color: AppColors.current.chefPrimaryColor)),
                       )
                     ]),
-                    SizedBox(height: Dimens.d20.responsive()),
+                    SizedBox(height: Dimens.d40.responsive()),
                     //*Promotion
                     Align(alignment: Alignment.centerLeft, child: Text("LONG JOURNEY WITH US", style: AppTextStyles.s20w600(color: AppColors.current.blackColor))),
                     CarouselSlider(
-                      options: CarouselOptions(height: 130.0),
+                      options: CarouselOptions(height: 200.0,),
                       items: ["Discount", 2, 3, 4, 5].map((i) {
                         return Builder(
                           builder: (BuildContext context) {
@@ -68,9 +68,9 @@ class _ChefHomePageState extends BasePageState<ChefHomePage, ChefHomeBloc> {
                                 width: MediaQuery.of(context).size.width,
                                 padding: EdgeInsets.symmetric(horizontal: Dimens.d5.responsive()),
                                 margin: const EdgeInsets.symmetric(horizontal: 1.0),
-                                // decoration: BoxDecoration(color: AppColors.current.primaryColor),
+                                // decoration: BoxDecoration(color: AppColors.current.chefPrimaryColor),
                                 child: 
-                                Assets.images.promotionPng.image(height: Dimens.d130.responsive(), width: Dimens.d130.responsive())
+                                Assets.images.chefPromotion.image(height: Dimens.d130.responsive(), width: Dimens.d150.responsive())
                                 // Text(
                                 //   '$i',
                                 //   textAlign: TextAlign.center,

@@ -14,11 +14,13 @@ final lightTheme = ThemeData(
 
 final darkTheme = ThemeData(
   fontFamily: "Montserrat",
-  brightness: Brightness.dark,
+  // brightness: Brightness.dark,
+  brightness: Brightness.light,
   splashColor: Colors.transparent,
 )..addAppColor(
     AppThemeType.dark,
-    AppColors.darkThemeColor,
+    // AppColors.darkThemeColor,
+    AppColors.chefAppColor,
   );
 
 enum AppThemeType { light, dark }

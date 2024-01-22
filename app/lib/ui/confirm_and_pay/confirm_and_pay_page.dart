@@ -174,11 +174,17 @@ class _ConfirmAndPayPageState extends BasePageState<ConfirmAndPayPage, ConfirmAn
         margin: EdgeInsets.symmetric(horizontal: Dimens.d30.responsive()),
         child: CommonEllipseButon(
           onPressed: () async {
-            await showDialog(context: context, builder: (context) => AlertDialog(title: Text("Booked")));
-            bloc.add(const BookButtonPressed());
+            // await showDialog(context: context, builder: (context) => AlertDialog(title: Text("Booked")));
+            // bloc.add(const BookButtonPressed());
             navigator.showDialog(
-              AppPopupInfo.confirmDialog(message: "Booked", onPressed: Func0(() async {
-          })),
+              AppPopupInfo.confirmDialog(
+                  message: "Booked",
+                  onPressed: Func0(() async {
+                    // navigator.popUntilRoot();
+                    // navigator.push(const AppRouteInfo.main());
+                    // navigator.replace(const AppRouteInfo.main());
+                    navigator.popUntilRouteName("MainRoute");
+                  })),
             );
             // navigator.push(const AppRouteInfo.createAddress());
           },

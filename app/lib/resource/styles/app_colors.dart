@@ -52,12 +52,30 @@ class AppColors {
     blackColor: Color.fromARGB(255, 0, 0, 0),
     whiteColor: Color.fromARGB(255, 255, 255, 255),
     redColor: Color.fromARGB(255, 255, 0, 0),
-    
+
     //* chef
     chefPrimaryColor: Color(0xFF00696B),
     chefSecondaryColor: Color.fromARGB(255, 62, 62, 70),
     chefPrimaryTextColor: Color.fromARGB(255, 67, 78, 88),
     chefSecondaryTextColor: Color(0xFF00696B),
+  );
+
+    static const chefAppColor = AppColors(
+    primaryColor: Color(0xFF00696B),
+    secondaryColor: Color.fromARGB(255, 62, 62, 70),
+    primaryTextColor: Color.fromARGB(255, 67, 78, 88),
+    secondaryTextColor: Color(0xFF00696B),
+    primaryGradient: LinearGradient(colors: [Color(0xFFFFFFFF), Color(0xFFFE6C30)]),
+    disabledColor: Color.fromARGB(255, 216, 216, 216),
+    blackColor: Color.fromARGB(255, 0, 0, 0),
+    whiteColor: Color.fromARGB(255, 255, 255, 255),
+    redColor: Color.fromARGB(255, 255, 0, 0),
+
+    //* chef
+    chefPrimaryColor: Color.fromARGB(255, 156, 221, 222),
+    chefSecondaryColor: Color.fromARGB(255, 62, 62, 70),
+    chefPrimaryTextColor: Color.fromARGB(255, 67, 78, 88),
+    chefSecondaryTextColor: Color.fromARGB(255, 156, 221, 222),
   );
 
   static const darkThemeColor = AppColors(

@@ -109,13 +109,13 @@ class _LoginPageState extends BasePageState<LoginPage, LoginBloc> {
                 textColor: AppColors.current.whiteColor,
                 icon: Assets.images.googleIcon.svg(color: AppColors.current.whiteColor, height: Dimens.d30.responsive(), width: Dimens.d30.responsive()),
               ),
-              CommonEllipseButon(
-                onPressed: () => {},
-                text: S.current.continueWithFacebook,
-                color: const Color(0xff0866ff),
-                textColor: AppColors.current.whiteColor,
-                icon: Icon(Icons.facebook, size: Dimens.d30.responsive()),
-              ),
+              // CommonEllipseButon(
+              //   onPressed: () => {},
+              //   text: S.current.continueWithFacebook,
+              //   color: const Color(0xff0866ff),
+              //   textColor: AppColors.current.whiteColor,
+              //   icon: Icon(Icons.facebook, size: Dimens.d30.responsive()),
+              // ),
               CommonEllipseButon(
                 onPressed: () => {},
                 color: const Color.fromARGB(255, 0, 0, 0),
