@@ -74,7 +74,7 @@ class _OnboardingPageState extends BasePageState<OnboardingPage, OnboardingBloc>
                       await Future.delayed(const Duration(milliseconds: 300));
                       navigator.popAndPush(const AppRouteInfo.onboarding());
                     },
-                    text: "Continue as ${state.isDarkTheme ? "Customer" : "Chef"}",
+                    text: "Tiếp tục như ${state.isDarkTheme ? "người dùng" : "đầu bếp"}",
                     // text: "Continue as Chef",
                     color: AppColors.current.chefPrimaryColor,
                     textColor: AppColors.current.whiteColor,

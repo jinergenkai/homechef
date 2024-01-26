@@ -11,6 +11,7 @@ class AppRouteInfo with _$AppRouteInfo {
   //* customer
   const factory AppRouteInfo.login() = _Login;
   const factory AppRouteInfo.signUp() = _SignUp;
+  const factory AppRouteInfo.forgotPassword() = _ForgotPassword;
   const factory AppRouteInfo.onboarding() = _Onboarding;
   const factory AppRouteInfo.main() = _Main;
   const factory AppRouteInfo.itemDetail(User user) = _UserDetail;

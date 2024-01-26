@@ -36,9 +36,7 @@ class _MyAppState extends BasePageState<MyApp, AppBloc> {
     return ScreenUtilInit(
       designSize: const Size(DeviceConstants.designDeviceWidth, DeviceConstants.designDeviceHeight),
       builder: (context, _) => BlocBuilder<AppBloc, AppState>(
-        buildWhen: (previous, current) =>
-            previous.isDarkTheme != current.isDarkTheme ||
-            previous.languageCode != current.languageCode,
+        buildWhen: (previous, current) => previous.isDarkTheme != current.isDarkTheme || previous.languageCode != current.languageCode,
         builder: (context, state) {
           return MaterialApp.router(
             builder: (context, child) {
@@ -62,10 +60,7 @@ class _MyAppState extends BasePageState<MyApp, AppBloc> {
             theme: lightTheme,
             darkTheme: darkTheme,
             debugShowCheckedModeBanner: false,
-            localeResolutionCallback: (Locale? locale, Iterable<Locale> supportedLocales) =>
-                supportedLocales.contains(locale)
-                    ? locale
-                    : const Locale(LocaleConstants.defaultLocale),
+            localeResolutionCallback: (Locale? locale, Iterable<Locale> supportedLocales) => supportedLocales.contains(locale) ? locale : const Locale(LocaleConstants.defaultLocale),
             locale: Locale(state.languageCode.localeCode),
             supportedLocales: S.delegate.supportedLocales,
             localizationsDelegates: const [
@@ -84,7 +79,8 @@ class _MyAppState extends BasePageState<MyApp, AppBloc> {
     return widget.initialResource.initialRoutes.map<PageRouteInfo>((e) {
       switch (e) {
         case InitialAppRoute.login:
-          return const LoginRoute();
+          // return const LoginRoute();
+          return const OnboardingRoute();
         case InitialAppRoute.main:
           return const MainRoute();
       }

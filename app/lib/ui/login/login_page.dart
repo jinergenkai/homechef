@@ -50,8 +50,8 @@ class _LoginPageState extends BasePageState<LoginPage, LoginBloc> {
           child: Column(
             children: [
               AppTextField(
-                title: S.current.phoneNumber,
-                hintText: S.current.enterYourPhoneNumber,
+                title: S.current.email,
+                hintText: "nhập email",
                 onChanged: (email) => bloc.add(EmailTextFieldChanged(email: email)),
                 keyboardType: TextInputType.emailAddress,
               ),
@@ -78,26 +78,18 @@ class _LoginPageState extends BasePageState<LoginPage, LoginBloc> {
                     : Container(),
               ),
               SizedBox(height: Dimens.d10.responsive()),
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Text("Forgot password?", style: AppTextStyles.s16w600Secondary()),
+              GestureDetector(
+                onTap: () => navigator.push(const AppRouteInfo.forgotPassword()),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(S.current.forgotPassword, style: AppTextStyles.s16w600Secondary()),
+                ),
               ),
               SizedBox(height: Dimens.d32.responsive()),
-              BlocBuilder<LoginBloc, LoginState>(
-                buildWhen: (previous, current) => previous.isLoginButtonEnabled != current.isLoginButtonEnabled,
-                builder: (context, state) {
-                  return CommonEllipseButon(
-                    onPressed: state.isLoginButtonEnabled ? () => bloc.add(const FakeLoginButtonPressed()) : null,
-                    // style: ButtonStyle(
-                    //   backgroundColor: MaterialStateProperty.all(AppColors.current.primaryColor.withOpacity(state.isLoginButtonEnabled ? 1 : 0.5)),
-                    // ),
-                    // child: Text(
-                    //   S.current.signIn,
-                    //   style: AppTextStyles.s14w500Primary(),
-                    // ),
-                    text: S.current.signIn,
-                  );
-                },
+              //* login button
+              CommonEllipseButon(
+                onPressed: () => bloc.add(const LoginButtonPressed()),
+                text: S.current.signIn,
               ),
               SizedBox(height: Dimens.d24.responsive()),
               const CommonDivider(),
@@ -135,7 +127,7 @@ class _LoginPageState extends BasePageState<LoginPage, LoginBloc> {
                       recognizer: TapGestureRecognizer()
                         ..onTap = () {
                           print(1);
-                          navigator.push(const AppRouteInfo.chefMain());
+                          navigator.push(const AppRouteInfo.signUp());
                         })
                 ],
               )),
