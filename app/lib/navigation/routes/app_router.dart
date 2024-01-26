@@ -22,7 +22,12 @@ class AppRouter extends $AppRouter {
         AutoRoute(page: OnboardingRoute.page),
         AutoRoute(page: ChooseMenuRoute.page),
         AutoRoute(page: ChooseAddressRoute.page),
+        AutoRoute(page: UpdateInfoRoute.page),
+
+        AutoRoute(page: UploadProfileRoute.page),
+        AutoRoute(page: ChefProfileRoute.page),
         AutoRoute(page: CreateAddressRoute.page),
+        AutoRoute(page: SearchOverTimeRoute.page),
         AutoRoute(page: SetTimeRoute.page),
         AutoRoute(page: ConfirmAndPayRoute.page),
         AutoRoute(page: ChefMainRoute.page, children: [

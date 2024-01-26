@@ -72,9 +72,9 @@ class _ChefOrderListPageState extends BasePageState<ChefOrderListPage, ChefOrder
                   labelStyle: AppTextStyles.s20w600(color: AppColors.current.whiteColor),
 
                   tabs: const [
-                    Tab(text: 'Waiting'),
-                    Tab(text: 'Processing'),
-                    Tab(text: 'Success'),
+                    Tab(text: 'Chờ'),
+                    Tab(text: 'Đã Nhận'),
+                    Tab(text: 'Xong'),
                   ],
                 ),
               ),

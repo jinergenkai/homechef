@@ -102,24 +102,26 @@ class GenericOrderItem extends StatelessWidget {
                   defaultVerticalAlignment: TableCellVerticalAlignment.middle,
                   children: [
                     TableRow(children: [
-                      Assets.images.timer.image(),
+                      Assets.images.timer.image(color: AppColors.current.primaryColor),
                       const Text("Monday 1/1/2020"),
                     ]),
                     TableRow(children: [
-                      Assets.images.checkList.image(),
+                      Assets.images.checkList.image(color: AppColors.current.primaryColor),
                       const Text("Oc xao toi"),
                     ]),
                     TableRow(children: [
-                      Assets.images.dollar.image(),
+                      Assets.images.dollar.image(color: AppColors.current.primaryColor),
                       const Text("300.000 VND"),
                     ]),
                     TableRow(children: [
-                      Assets.images.location.image(),
+                      Assets.images.location.image(color: AppColors.current.primaryColor),
                       const Text("Duong 1D, Khu Do Thi Sala, Quan 2, TP.HCM"),
                     ]),
                   ]),
               // *** Action
-              const SizedBox(height: 5,),
+              const SizedBox(
+                height: 5,
+              ),
               Align(alignment: Alignment.center, child: CommonSmallButton(onpressed: () {}, text: "More detail")),
               const Divider(),
               //               Row(
@@ -128,17 +130,22 @@ class GenericOrderItem extends StatelessWidget {
               //     Text(" Waiting for chef to accept...", style: AppTextStyles.s16w500(color: AppColors.current.primaryColor), overflow: TextOverflow.ellipsis),
               //   ],
               // ),
-              RichText(
-                text: TextSpan(
-                  children: [
-                    WidgetSpan(child: Assets.images.user.image()),
-                    TextSpan(
-                      text: " Waiting for chef to accept...",
-                      style: AppTextStyles.s16w500(color: AppColors.current.primaryColor),
-                    ),
-                  ],
+              Container(
+                alignment: Alignment.center,
+                child: RichText(
+                  textAlign: TextAlign.center,
+                  text: TextSpan(
+                    children: [
+                      // WidgetSpan(child: Assets.images.user.image(color: AppColors.current.primaryColor)),
+                      // WidgetSpan(child: Icon(Icons.search_rounded, size: 20, color: AppColors.current.primaryColor)),
+                      TextSpan(
+                        text: "  Chờ đầu bếp chấp nhận...",
+                        style: AppTextStyles.s16w500(color: AppColors.current.primaryColor),
+                      ),
+                    ],
+                  ),
+                  overflow: TextOverflow.ellipsis,
                 ),
-                overflow: TextOverflow.ellipsis,
               ),
             ],
           )),
@@ -159,13 +166,12 @@ class CommonSmallButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        backgroundColor: AppColors.current.primaryColor,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(Dimens.d8.responsive())),
-        padding: EdgeInsets.symmetric(horizontal: Dimens.d20.responsive(), vertical: Dimens.d10.responsive()),
-      ),
-      onPressed:
-        onpressed as void Function()?
-    , child: Text(text ?? "Button"));
+        style: ElevatedButton.styleFrom(
+          backgroundColor: AppColors.current.primaryColor,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(Dimens.d8.responsive())),
+          padding: EdgeInsets.symmetric(horizontal: Dimens.d20.responsive(), vertical: Dimens.d10.responsive()),
+        ),
+        onPressed: onpressed as void Function()?,
+        child: Text(text ?? "Button"));
   }
 }

@@ -14,7 +14,11 @@ import 'login.dart';
 
 @Injectable()
 class LoginBloc extends BaseBloc<LoginEvent, LoginState> {
-  LoginBloc(this._loginUseCase, this._fakeLoginUseCase) : super(const LoginState()) {
+  LoginBloc(
+    this._loginUseCase,
+    this._fakeLoginUseCase,
+    this._getInitialAppDataUseCase,
+  ) : super(const LoginState()) {
     on<EmailTextFieldChanged>(
       _onEmailTextFieldChanged,
       transformer: distinct(),
@@ -45,6 +49,7 @@ class LoginBloc extends BaseBloc<LoginEvent, LoginState> {
   final FakeLoginUseCase _fakeLoginUseCase;
   final auth = FirebaseAuth.instance;
   late AppPreferences _appPreferences;
+  final GetInitialAppDataUseCase _getInitialAppDataUseCase;
 
   bool _isLoginButtonEnabled(String email, String password) {
     return email.isNotEmpty && password.isNotEmpty;
@@ -78,16 +83,22 @@ class LoginBloc extends BaseBloc<LoginEvent, LoginState> {
       if (auth.currentUser == null) {
         throw const ValidationException(ValidationExceptionKind.invalidEmail);
       }
-      await navigator.replace(const AppRouteInfo.main());
+
+      final role = _getInitialAppDataUseCase.execute(const GetInitialAppDataInput()).isDarkMode;
+      if (role) {
+        await navigator.replace(const AppRouteInfo.chefMain());
+      } else {
+        await navigator.replace(const AppRouteInfo.main());
+      }
     } catch (e) {
-        await navigator.showDialog(
-          AppPopupInfo.confirmDialog(
-              message: "Email hoặc Mật khẩu không đúng!",
-              onPressed: Func0(() async {
-                await navigator.pop();
-                // navigator.push(const AppRouteInfo.main());
-              })),
-        );
+      await navigator.showDialog(
+        AppPopupInfo.confirmDialog(
+            message: "Email hoặc Mật khẩu không đúng!",
+            onPressed: Func0(() async {
+              await navigator.pop();
+              // navigator.push(const AppRouteInfo.main());
+            })),
+      );
     }
 
     // return runBlocCatching(

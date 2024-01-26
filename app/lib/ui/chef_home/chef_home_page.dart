@@ -3,14 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:auto_route/auto_route.dart';
 
-  
 import '../../app.dart';
 import 'bloc/chef_home.dart';
-  
+
 @RoutePage()
 class ChefHomePage extends StatefulWidget {
   const ChefHomePage({super.key});
-  
+
   @override
   State<StatefulWidget> createState() {
     return _ChefHomePageState();
@@ -39,28 +38,29 @@ class _ChefHomePageState extends BasePageState<ChefHomePage, ChefHomeBloc> {
                     //*Header Hello
                     Row(mainAxisAlignment: MainAxisAlignment.start, children: [
                       Container(
-                        // color: Colors.red,
-                        child: Assets.images.customerLauncherIcon.image(height: Dimens.d60.responsive(), width: Dimens.d60.responsive())),
+                          // color: Colors.red,
+                          child: Theme.of(context).appColor.primaryColor.value == AppColors.chefAppColor.primaryColor.value
+                              ? Assets.images.chefLauncherIcon.image(height: Dimens.d60.responsive(), width: Dimens.d60.responsive())
+                              : Assets.images.customerLauncherIcon.image(height: Dimens.d60.responsive(), width: Dimens.d60.responsive())),
                       Container(
                         // color: Colors.blue,
                         padding: EdgeInsets.only(left: Dimens.d10.responsive()),
                         child: Text(
-                          "Welcome back\n${"Nguyen Hung"}",
-                          style: AppTextStyles.s20w600(color: AppColors.current.chefPrimaryColor),
+                          "Chào mừng\n${"Nguyen Hung"}",
+                          style: AppTextStyles.s20w600(color: AppColors.current.primaryColor),
                         ),
                       ),
                       Expanded(
-                        child: Container(
-                          padding: EdgeInsets.all(Dimens.d10.responsive()),
-                          alignment: Alignment.centerRight,
-                          child: Icon(Icons.notifications, color: AppColors.current.chefPrimaryColor)),
+                        child: Container(padding: EdgeInsets.all(Dimens.d10.responsive()), alignment: Alignment.centerRight, child: Icon(Icons.notifications, color: AppColors.current.primaryColor)),
                       )
                     ]),
                     SizedBox(height: Dimens.d40.responsive()),
                     //*Promotion
-                    Align(alignment: Alignment.centerLeft, child: Text("LONG JOURNEY WITH US", style: AppTextStyles.s20w600(color: AppColors.current.blackColor))),
+                    Align(alignment: Alignment.centerLeft, child: Text("HÀNH TRÌNH DÀI CÙNG TÔI", style: AppTextStyles.s20w600(color: AppColors.current.blackColor))),
                     CarouselSlider(
-                      options: CarouselOptions(height: 200.0,),
+                      options: CarouselOptions(
+                        height: 200.0,
+                      ),
                       items: ["Discount", 2, 3, 4, 5].map((i) {
                         return Builder(
                           builder: (BuildContext context) {
@@ -68,9 +68,8 @@ class _ChefHomePageState extends BasePageState<ChefHomePage, ChefHomeBloc> {
                                 width: MediaQuery.of(context).size.width,
                                 padding: EdgeInsets.symmetric(horizontal: Dimens.d5.responsive()),
                                 margin: const EdgeInsets.symmetric(horizontal: 1.0),
-                                // decoration: BoxDecoration(color: AppColors.current.chefPrimaryColor),
-                                child: 
-                                Assets.images.chefPromotion.image(height: Dimens.d130.responsive(), width: Dimens.d150.responsive())
+                                // decoration: BoxDecoration(color: AppColors.current.primaryColor),
+                                child: Assets.images.chefPromotion.image(height: Dimens.d130.responsive(), width: Dimens.d150.responsive())
                                 // Text(
                                 //   '$i',
                                 //   textAlign: TextAlign.center,
@@ -86,7 +85,7 @@ class _ChefHomePageState extends BasePageState<ChefHomePage, ChefHomeBloc> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text("NEW COOKING ORDER", style: AppTextStyles.s20w600(color: AppColors.current.blackColor)),
+                        Text("ĐƠN NẤU MỚI", style: AppTextStyles.s20w600(color: AppColors.current.blackColor)),
                         Icon(
                           Icons.arrow_forward_ios,
                           color: AppColors.current.blackColor,

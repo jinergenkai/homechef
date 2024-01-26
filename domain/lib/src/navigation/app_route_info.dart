@@ -21,8 +21,13 @@ class AppRouteInfo with _$AppRouteInfo {
   const factory AppRouteInfo.setTime() = _setTime;
   const factory AppRouteInfo.confirmAndPay() = _confirmAndPay;
 
+  const factory AppRouteInfo.searchOverTime() = _searchOverTime;
+  const factory AppRouteInfo.chefProfile() = _chefProfile;
+
 
   //* chef 
   const factory AppRouteInfo.chefMain() = _chefMain;
+  const factory AppRouteInfo.updateInfo() = _updateInfo;
+  const factory AppRouteInfo.uploadProfile() = _uploadProfile;
 
 }

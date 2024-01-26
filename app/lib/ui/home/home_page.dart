@@ -102,7 +102,7 @@ class _HomePageState extends BasePageState<HomePage, HomeBloc> {
                     SizedBox(height: Dimens.d10.responsive()),
                     //*Order Cooking directly
                     GestureDetector(
-                      onTap: () async => signUpMethod(),
+                      onTap: () async => navigator.push(const AppRouteInfo.searchOverTime()),
                       child: Container(
                           height: Dimens.d75.responsive(),
                           width: double.infinity,
@@ -137,8 +137,10 @@ class _HomePageState extends BasePageState<HomePage, HomeBloc> {
                       shrinkWrap: true,
                       physics: const ClampingScrollPhysics(),
                       itemCount: 5,
-                      // itemBuilder: (context, index) => const CardChefProfile(),
-                      itemBuilder: (context, index) => const MessageItem(),
+                      itemBuilder: (context, index) => CardChefProfile(
+                        onPressed: () => navigator.push(const AppRouteInfo.chefProfile()),
+                      ),
+                      // itemBuilder: (context, index) => const MessageItem(),
                     ),
                   ],
                 ),
@@ -149,55 +151,68 @@ class _HomePageState extends BasePageState<HomePage, HomeBloc> {
       ),
     );
   }
-
-  Future<void> signUpMethod() async {
-    //sign up with firebase.
-    var email = "user@gmail.com";
-    var password = "123456";
-    await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password);
-
-    //get current user
-    var user = FirebaseAuth.instance.currentUser;
-    print("user firebase: " + user.toString());
-  }
 }
 
 class CardChefProfile extends StatelessWidget {
   const CardChefProfile({
     super.key,
+    this.onPressed,
   });
+
+  final VoidCallback? onPressed;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      // height: Dimens.d100.responsive(),
-      // width: Dimens.d150.responsive(),
-      color: Colors.red,
-      margin: EdgeInsets.only(bottom: Dimens.d5.responsive()),
-      child: Row(
-        children: [
-          Icon(Icons.account_circle, size: Dimens.d80.responsive()),
-          Expanded(
-            child: Container(
-              height: Dimens.d80.responsive(),
-              padding: EdgeInsets.all(Dimens.d10.responsive()),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Chef Name Ne",
-                    style: AppTextStyles.s20w600(color: AppColors.current.blackColor),
+    return GestureDetector(
+      onTap: onPressed,
+      child: Container(
+        padding: EdgeInsets.only(bottom: Dimens.d10.responsive()),
+        child: BorderContainer(
+          child: Row(
+            children: [
+              // Icon(Icons.account_circle, size: Dimens.d80.responsive()),
+              //image circle
+              Container(
+                height: Dimens.d80.responsive(),
+                width: Dimens.d80.responsive(),
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  image: DecorationImage(
+                    image: Assets.images.avatarChef.image().image,
+                    fit: BoxFit.cover,
                   ),
-                  const Text("Chef Address"),
-                  const Text(
-                    "Description: I am a chef hahahaalkfaaaa",
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ],
+                ),
               ),
-            ),
+              Expanded(
+                child: Container(
+                  height: Dimens.d110.responsive(),
+                  padding: EdgeInsets.all(Dimens.d10.responsive()),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Tommy Phạm",
+                        style: AppTextStyles.s20w600(color: AppColors.current.blackColor),
+                      ),
+                      SizedBox(height: Dimens.d5.responsive()),
+                      Text(
+                        "4.9s (15 reviews)",
+                        style: AppTextStyles.s14w500(color: AppColors.current.primaryTextColor),
+                      ),
+                      SizedBox(height: Dimens.d3.responsive()),
+                      Text(
+                        "Tôi tin rằng quan niệm công việc nội trợ là dành cho phụ nữ nên thay đổi.",
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 2,
+                        style: AppTextStyles.s14w500(color: AppColors.current.primaryColor),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }

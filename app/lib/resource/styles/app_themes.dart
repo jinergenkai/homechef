@@ -35,6 +35,9 @@ extension ThemeDataExtensions on ThemeData {
   AppColors get appColor {
     return _appColorMap[AppThemeSetting.currentAppThemeType] ?? AppColors.defaultAppColor;
   }
+
+  // get dark theme
+  bool get isDarkTheme => brightness == Brightness.dark;
 }
 
 class AppThemeSetting {
