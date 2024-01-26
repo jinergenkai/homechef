@@ -34,7 +34,7 @@ class _SetTimePageState extends BasePageState<SetTimePage, SetTimeBloc> {
         leadingIconColor: AppColors.current.secondaryColor,
         titleType: AppBarTitle.text,
         centerTitle: true,
-        text: "Choose Cooking Time",
+        text: "Thời gian - Địa điểm",
         backgroundColor: AppColors.current.whiteColor,
         titleTextStyle: AppTextStyles.s20w600(color: AppColors.current.primaryTextColor),
         height: Dimens.d70.responsive(),
@@ -58,7 +58,7 @@ class _SetTimePageState extends BasePageState<SetTimePage, SetTimeBloc> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text("Date", style: AppTextStyles.s16w700(color: AppColors.current.primaryTextColor)),
+                            Text("Ngày", style: AppTextStyles.s16w700(color: AppColors.current.primaryTextColor)),
                             SizedBox(
                               height: 10,
                             ),
@@ -79,34 +79,58 @@ class _SetTimePageState extends BasePageState<SetTimePage, SetTimeBloc> {
                           SizedBox(
                             width: 10,
                           ),
-                          Text("Time", style: AppTextStyles.s16w700(color: AppColors.current.primaryTextColor)),
+                          Text("Thời gian", style: AppTextStyles.s16w700(color: AppColors.current.primaryTextColor)),
                           Expanded(
                             child: Align(
                               alignment: Alignment.centerRight,
                               child: IntrinsicWidth(
                                 child: BorderContainer(
-                                  padding: EdgeInsets.symmetric(horizontal: Dimens.d20.responsive(), vertical: Dimens.d8.responsive()),
+                                    padding: EdgeInsets.symmetric(horizontal: Dimens.d20.responsive(), vertical: Dimens.d8.responsive()),
                                     child: Row(
-                                  children: [
-                                    Text("12", style: AppTextStyles.s20w600(color: AppColors.current.primaryTextColor)),
-                                    Container(
-                                      margin: EdgeInsets.symmetric(horizontal: Dimens.d10.responsive()),
-                                      height: Dimens.d20.responsive(),
-                                      width: Dimens.d1.responsive(),
-                                      color: AppColors.current.primaryColor,
-                                    ),
-                                    Text("00", style: AppTextStyles.s20w600(color: AppColors.current.primaryTextColor)),
-                                  ],
-                                )),
+                                      children: [
+                                        Text("12", style: AppTextStyles.s20w600(color: AppColors.current.primaryTextColor)),
+                                        Container(
+                                          margin: EdgeInsets.symmetric(horizontal: Dimens.d10.responsive()),
+                                          height: Dimens.d20.responsive(),
+                                          width: Dimens.d1.responsive(),
+                                          color: AppColors.current.primaryColor,
+                                        ),
+                                        Text("00", style: AppTextStyles.s20w600(color: AppColors.current.primaryTextColor)),
+                                      ],
+                                    )),
                               ),
                             ),
                           )
                         ])),
-                    
-                    SizedBox(height: 10),
+
+                    const SizedBox(height: 10),
 
                     //* Estimated arrival time
-                    Text("The Chef's estimated arrival time is ${DateTime.now().toStringWithFormat("dd/MM")}", style: AppTextStyles.s16w600(color: AppColors.current.primaryColor)),
+                    Container(
+                        padding: EdgeInsets.all(5),
+                        // child: Text("The Chef's estimated arrival time is ${DateTime.now().toStringWithFormat("dd/MM")}", style: AppTextStyles.s16w600(color: AppColors.current.primaryColor))),
+                        child: Text("Thời gian ước tính đầu bếp đến là ${DateTime.now().toStringWithFormat("dd/MM")}", style: AppTextStyles.s16w600(color: AppColors.current.primaryColor))),
+
+                    const SizedBox(height: 20),
+                    BorderContainer(
+                        padding: EdgeInsets.all(Dimens.d15.responsive()),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text("Nấu sẵn mang đến nhà", style: AppTextStyles.s16w600(color: AppColors.current.primaryColor)),
+                            StyledSwitch(
+                              enabledColor: AppColors.current.primaryColor,
+                            ),
+                          ],
+                        )),
+                    const SizedBox(height: 10),
+                    BorderAddressItem(
+                      onPressed: () {
+                        navigator.push(const AppRouteInfo.chooseAddress());
+                      },
+                      title: Text("Thành Phố Thủ Đức"),
+                    ),
+                   const SizedBox(height: 10),
                   ],
                 ),
               ),
@@ -120,7 +144,7 @@ class _SetTimePageState extends BasePageState<SetTimePage, SetTimeBloc> {
           margin: EdgeInsets.symmetric(horizontal: Dimens.d15.responsive()),
           child: CommonEllipseButon(
             buttonType: ButtonEllipseType.checkout,
-            action: "Next",
+            action: "Tiếp theo",
             price: 100,
             quantity: "123",
             onPressed: () {
@@ -209,6 +233,69 @@ class CarouselSliderMutiple extends StatelessWidget {
           }).toList(),
         );
       },
+    );
+  }
+}
+
+//* BorderAddressItem
+class BorderAddressItem extends StatelessWidget {
+  const BorderAddressItem({
+    super.key,
+    this.onPressed,
+    this.title,
+  });
+
+  final Function? onPressed;
+  final Text? title;
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () {
+        onPressed?.call();
+      },
+      child: BorderContainer(
+        padding: EdgeInsets.symmetric(
+          horizontal: Dimens.d10.responsive(),
+          vertical: Dimens.d10.responsive(),
+        ),
+        child: Column(
+          children: [
+            Container(
+              // height: Dimens.d80.responsive(),
+              padding: EdgeInsets.all(Dimens.d10.responsive()),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            title?.data ?? "",
+                            style: AppTextStyles.s20w600(color: AppColors.current.blackColor),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                      ),
+                      SizedBox(width: Dimens.d10.responsive()),
+                      Icon(Icons.edit_location_alt_rounded),
+                    ],
+                  ),
+                  SizedBox(height: Dimens.d10.responsive()),
+                  Text(
+                    "FPT University HCMC, Đường D1, Long Thạnh Mỹ, TP Thủ Đức, Thành Phố Hồ Chí Minh, Việt Nam, Trái Đất.",
+                    style: AppTextStyles.s14w500(color: AppColors.current.primaryTextColor),
+                    maxLines: 4,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

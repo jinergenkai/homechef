@@ -27,7 +27,7 @@ class BorderContainer extends StatelessWidget {
         borderRadius: BorderRadius.circular(5),
         border: Border.all(
           color: color ?? AppColors.current.primaryColor,
-          width: 1,
+          width: 1.5,
         ),
       ),
       padding: padding ?? EdgeInsets.all(10),

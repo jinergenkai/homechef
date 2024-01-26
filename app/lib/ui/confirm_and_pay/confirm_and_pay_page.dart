@@ -33,7 +33,7 @@ class _ConfirmAndPayPageState extends BasePageState<ConfirmAndPayPage, ConfirmAn
         leadingIconColor: AppColors.current.secondaryColor,
         titleType: AppBarTitle.text,
         centerTitle: true,
-        text: "Confirm and Pay",
+        text: "Xác nhận và thanh toán",
         backgroundColor: AppColors.current.whiteColor,
         titleTextStyle: AppTextStyles.s20w600(color: AppColors.current.primaryTextColor),
         height: Dimens.d70.responsive(),
@@ -49,7 +49,7 @@ class _ConfirmAndPayPageState extends BasePageState<ConfirmAndPayPage, ConfirmAn
                     child: Column(
                       children: [
                         //* Address location picked
-                        Row(children: [Assets.images.locationBlackPng.image(height: 30), SizedBox(width: 5), Text("Location", style: AppTextStyles.s20w600(color: AppColors.current.blackColor))]),
+                        Row(children: [Assets.images.locationBlackPng.image(height: 30), SizedBox(width: 5), Text("Địa chỉ", style: AppTextStyles.s20w600(color: AppColors.current.blackColor))]),
                         SizedBox(height: 10),
                         AddressItem(
                           onPressed: () {
@@ -59,7 +59,7 @@ class _ConfirmAndPayPageState extends BasePageState<ConfirmAndPayPage, ConfirmAn
                         ),
                         SizedBox(height: 20),
                         //* Cooking order picked
-                        Row(children: [Assets.images.orderList.image(height: 30), SizedBox(width: 5), Text("Cooking Order", style: AppTextStyles.s20w600(color: AppColors.current.blackColor))]),
+                        Row(children: [Assets.images.orderList.image(height: 30), SizedBox(width: 5), Text("Thực đơn", style: AppTextStyles.s20w600(color: AppColors.current.blackColor))]),
                         BlurBorderContainer(
                           padding: EdgeInsets.symmetric(horizontal: Dimens.d20.responsive(), vertical: Dimens.d10.responsive()),
                           margin: EdgeInsets.symmetric(vertical: Dimens.d10.responsive()),
@@ -68,22 +68,22 @@ class _ConfirmAndPayPageState extends BasePageState<ConfirmAndPayPage, ConfirmAn
                             children: [
                               //* working time
                               Row(children: [
-                                Expanded(child: Text("Working time", style: AppTextStyles.s16w600(color: AppColors.current.primaryTextColor))),
+                                Expanded(child: Text("Thời gian", style: AppTextStyles.s16w600(color: AppColors.current.primaryTextColor))),
                                 IconButton(onPressed: () => navigator.push(const AppRouteInfo.chooseAddress()), icon: Icon(Icons.edit))
                               ]),
-                              Row(children: [Expanded(child: Text("Date", style: AppTextStyles.s14w500(color: AppColors.current.primaryTextColor))), Text("Monday, 30/10/2023 - 11:30")]),
-                              Row(children: [Expanded(child: Text("Duration", style: AppTextStyles.s14w500(color: AppColors.current.primaryTextColor))), Text("2 hours, from 09:30 - 11:30")]),
+                              Row(children: [Expanded(child: Text("Ngày", style: AppTextStyles.s14w500(color: AppColors.current.primaryTextColor))), Text("Monday, 30/10/2023 - 11:30")]),
+                              Row(children: [Expanded(child: Text("Trong khoảng", style: AppTextStyles.s14w500(color: AppColors.current.primaryTextColor))), Text("2 hours, from 09:30 - 11:30")]),
 
                               //* Task Detail
                               Row(children: [
-                                Expanded(child: Text("Task Detail", style: AppTextStyles.s16w600(color: AppColors.current.primaryTextColor))),
+                                Expanded(child: Text("Chi tiết món", style: AppTextStyles.s16w600(color: AppColors.current.primaryTextColor))),
                                 IconButton(onPressed: () => navigator.push(const AppRouteInfo.chooseAddress()), icon: Icon(Icons.edit))
                               ]),
-                              Text("People          7", style: AppTextStyles.s14w500(color: AppColors.current.primaryTextColor)),
+                              Text("Số lượng người ăn    7", style: AppTextStyles.s14w500(color: AppColors.current.primaryTextColor)),
                               Text("Rau muống nhồi thịt", style: AppTextStyles.s14w500(color: AppColors.current.primaryTextColor)),
                               Text("Ốc hương om chuối", style: AppTextStyles.s14w500(color: AppColors.current.primaryTextColor)),
                               Text("Ba ba xào tỏi", style: AppTextStyles.s14w500(color: AppColors.current.primaryTextColor)),
-                              Text("Prefer style           Northern", style: AppTextStyles.s14w500(color: AppColors.current.primaryTextColor)),
+                              Text("Huowng vị ưa thích: miền bắc", style: AppTextStyles.s14w500(color: AppColors.current.primaryTextColor)),
                             ],
                           ),
                         ),
@@ -94,7 +94,7 @@ class _ConfirmAndPayPageState extends BasePageState<ConfirmAndPayPage, ConfirmAn
                             color: AppColors.current.primaryColor.withOpacity(0.1),
                             padding: EdgeInsets.all(Dimens.d5.responsive()),
                             child: Row(children: [
-                              Expanded(child: Text("Payment Method", style: AppTextStyles.s16w600(color: AppColors.current.primaryTextColor))),
+                              Expanded(child: Text("Phương thức thanh toán", style: AppTextStyles.s16w600(color: AppColors.current.primaryTextColor))),
                               Assets.images.vnd.image(),
                               IconButton(
                                   padding: EdgeInsets.zero,
@@ -115,7 +115,7 @@ class _ConfirmAndPayPageState extends BasePageState<ConfirmAndPayPage, ConfirmAn
                             color: AppColors.current.primaryColor.withOpacity(0.1),
                             padding: EdgeInsets.all(Dimens.d5.responsive()),
                             child: Row(children: [
-                              Expanded(child: Text("Enter Promotion code", style: AppTextStyles.s16w600(color: AppColors.current.primaryTextColor))),
+                              Expanded(child: Text("Nhập mã giảm giá", style: AppTextStyles.s16w600(color: AppColors.current.primaryTextColor))),
                               IconButton(
                                   padding: EdgeInsets.zero,
                                   // alignment: Alignment.center,
@@ -131,7 +131,7 @@ class _ConfirmAndPayPageState extends BasePageState<ConfirmAndPayPage, ConfirmAn
                               Container(
                                   padding: EdgeInsets.symmetric(horizontal: Dimens.d15.responsive(), vertical: Dimens.d5.responsive()),
                                   child: Row(children: [
-                                    Expanded(child: Text("Pre-Calculated", style: AppTextStyles.s16w600(color: AppColors.current.primaryTextColor))),
+                                    Expanded(child: Text("Giá tạm tính", style: AppTextStyles.s16w600(color: AppColors.current.primaryTextColor))),
                                     Text("250 000 đ", style: AppTextStyles.s16w500(color: AppColors.current.primaryTextColor)),
                                   ])),
 
@@ -153,7 +153,7 @@ class _ConfirmAndPayPageState extends BasePageState<ConfirmAndPayPage, ConfirmAn
                               Container(
                                   padding: EdgeInsets.symmetric(horizontal: Dimens.d15.responsive(), vertical: Dimens.d5.responsive()),
                                   child: Row(children: [
-                                    Expanded(child: Text("Total", style: AppTextStyles.s20w600(color: AppColors.current.primaryTextColor))),
+                                    Expanded(child: Text("Tổng", style: AppTextStyles.s20w600(color: AppColors.current.primaryTextColor))),
                                     Text("200 000 đ", style: AppTextStyles.s16w700(color: AppColors.current.primaryTextColor)),
                                   ])),
                             ],
@@ -176,19 +176,20 @@ class _ConfirmAndPayPageState extends BasePageState<ConfirmAndPayPage, ConfirmAn
           onPressed: () async {
             // await showDialog(context: context, builder: (context) => AlertDialog(title: Text("Booked")));
             // bloc.add(const BookButtonPressed());
-            navigator.showDialog(
+            await navigator.showDialog(
               AppPopupInfo.confirmDialog(
-                  message: "Booked",
+                  message: "Đặt đơn thành công",
                   onPressed: Func0(() async {
                     // navigator.popUntilRoot();
                     // navigator.push(const AppRouteInfo.main());
                     // navigator.replace(const AppRouteInfo.main());
                     navigator.popUntilRouteName("MainRoute");
+                    await navigator.replace(const AppRouteInfo.main());
                   })),
             );
             // navigator.push(const AppRouteInfo.createAddress());
           },
-          text: "Book",
+          text: "Đặt",
         ),
       ),
     );

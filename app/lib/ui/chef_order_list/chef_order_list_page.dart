@@ -46,7 +46,7 @@ class _ChefOrderListPageState extends BasePageState<ChefOrderListPage, ChefOrder
           shadowColor: AppColors.current.blackColor.withOpacity(0.2),
           height: Dimens.d70.responsive(),
           titleType: AppBarTitle.text,
-          text: "Your Orders List",
+          text: "Đơn đặt bữa ăn của bạn",
           titleTextStyle: AppTextStyles.s20w600(color: AppColors.current.primaryTextColor),
           centerTitle: true,
         ),

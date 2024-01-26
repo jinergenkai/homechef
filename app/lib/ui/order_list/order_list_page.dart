@@ -46,7 +46,7 @@ class _OrderListPageState extends BasePageState<OrderListPage, OrderListBloc> wi
           shadowColor: AppColors.current.blackColor.withOpacity(0.2),
           height: Dimens.d70.responsive(),
           titleType: AppBarTitle.text,
-          text: "Your Orders List",
+          text: "Bữa ăn của bạn",
           titleTextStyle: AppTextStyles.s20w600(color: AppColors.current.primaryTextColor),
           centerTitle: true,
         ),
@@ -72,9 +72,9 @@ class _OrderListPageState extends BasePageState<OrderListPage, OrderListBloc> wi
                   labelStyle: AppTextStyles.s20w600(color: AppColors.current.whiteColor),
 
                   tabs: const [
-                    Tab(text: 'Waiting'),
-                    Tab(text: 'Processing'),
-                    Tab(text: 'Success'),
+                    Tab(text: 'Chờ'),
+                    Tab(text: 'Đã nhận'),
+                    Tab(text: 'Xong'),
                   ],
                 ),
               ),

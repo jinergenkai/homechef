@@ -75,9 +75,13 @@ export PATH="$PATH:~/.gem/gems/lefthook-0.7.7/bin"
 ## License
 - MIT
 
-số người nấu. chi tiết hơn
-món ăn: suggestion - other. list trước
-option: bàn ghế (nấu giỗ)
-chọn address ở choose cooking time
-nấu tại địa điểm họ - hay nấu mang đén
-chọn đầu bếp nấu ăn hàn quốc - .
+<!-- - số người nấu. chi tiết hơn -->
+<!-- món ăn: suggestion - other. list trước -->
+<!-- option: bàn ghế (nấu giỗ) -->
+<!-- chọn address ở choose cooking time -->
+
+<!-- nấu tại địa điểm họ - hay nấu mang đén -->
+
+flow 2 =))
+chọn đầu bếp nấu ăn hàn quốc.
+- tính tiền theo thực đơn.

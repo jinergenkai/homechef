@@ -47,7 +47,7 @@ class _HomePageState extends BasePageState<HomePage, HomeBloc> {
                         // color: Colors.blue,
                         padding: EdgeInsets.only(left: Dimens.d10.responsive()),
                         child: Text(
-                          "Welcome back\n${"Nguyen Hung"}",
+                          "Chào mừng\n${"Nguyễn Hùng"}",
                           style: AppTextStyles.s20w600(color: AppColors.current.primaryColor),
                         ),
                       ),
@@ -57,7 +57,7 @@ class _HomePageState extends BasePageState<HomePage, HomeBloc> {
                     ]),
                     SizedBox(height: Dimens.d20.responsive()),
                     //*Promotion
-                    Align(alignment: Alignment.centerLeft, child: Text("Special Promotions", style: AppTextStyles.s20w600(color: AppColors.current.blackColor))),
+                    Align(alignment: Alignment.centerLeft, child: Text("Ưu đãi đặc biệt", style: AppTextStyles.s20w600(color: AppColors.current.blackColor))),
                     CarouselSlider(
                       options: CarouselOptions(height: 130.0),
                       items: ["Discount", 2, 3, 4, 5].map((i) {
@@ -79,9 +79,11 @@ class _HomePageState extends BasePageState<HomePage, HomeBloc> {
                         );
                       }).toList(),
                     ),
+                    const SizedBox(height: Dimens.d20),
                     //*Create new cooking order
                     GestureDetector(
-                      onTap: () => navigator.push(const AppRouteInfo.chooseAddress()),
+                      // onTap: () => navigator.push(const AppRouteInfo.chooseAddress()),
+                      onTap: () => navigator.push(const AppRouteInfo.chooseMenu()),
                       child: Container(
                           height: Dimens.d75.responsive(),
                           width: double.infinity,
@@ -92,7 +94,7 @@ class _HomePageState extends BasePageState<HomePage, HomeBloc> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
-                              Text("Create new\ncooking order", style: AppTextStyles.s16w600White()),
+                              Text("Tạo bữa ăn mới", style: AppTextStyles.s20w600(color: AppColors.current.whiteColor)),
                               Assets.images.workPng.image(height: Dimens.d75.responsive(), width: Dimens.d75.responsive())
                             ],
                           )),
@@ -111,17 +113,18 @@ class _HomePageState extends BasePageState<HomePage, HomeBloc> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
-                              Text("Order Cooking\ndirectly", style: AppTextStyles.s16w600White()),
+                              // Text("Order Cooking\ndirectly", style: AppTextStyles.s16w600White()),
+                              Text("Đặt đầu bếp \ntrực tiếp", style: AppTextStyles.s20w600(color: AppColors.current.whiteColor)),
                               Assets.images.highfivePng.image(height: Dimens.d75.responsive(), width: Dimens.d75.responsive())
                             ],
                           )),
                     ),
-                    SizedBox(height: Dimens.d20.responsive()),
+                    SizedBox(height: Dimens.d30.responsive()),
                     //*Recently famous chef
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text("Recently famous chef", style: AppTextStyles.s20w600(color: AppColors.current.blackColor)),
+                        Text("Đầu bếp nổi tiếng", style: AppTextStyles.s20w600(color: AppColors.current.blackColor)),
                         Icon(
                           Icons.arrow_forward_ios,
                           color: AppColors.current.blackColor,
