@@ -158,20 +158,24 @@ class CommonSmallButton extends StatelessWidget {
     super.key,
     this.onpressed,
     this.text,
+    this.color,
+    this.textColor,
   });
 
   final Function? onpressed;
   final String? text;
+  final Color? color;
+  final Color? textColor;
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
         style: ElevatedButton.styleFrom(
-          backgroundColor: AppColors.current.primaryColor,
+          backgroundColor: color ?? AppColors.current.primaryColor,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(Dimens.d8.responsive())),
           padding: EdgeInsets.symmetric(horizontal: Dimens.d20.responsive(), vertical: Dimens.d10.responsive()),
         ),
         onPressed: onpressed as void Function()?,
-        child: Text(text ?? "Button"));
+        child: Text(text ?? "Button", style: AppTextStyles.s14w500(color: textColor ?? AppColors.current.whiteColor)));
   }
 }

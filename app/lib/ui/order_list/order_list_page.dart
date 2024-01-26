@@ -84,8 +84,10 @@ class _OrderListPageState extends BasePageState<OrderListPage, OrderListBloc> wi
                   controller: _tabController,
                   children: const [
                     WaitingOrderPage(),
-                    InProcessingOrderPage(),
-                    DoneOrderPage(),
+                    WaitingOrderPage(),
+                    WaitingOrderPage(),
+                    // InProcessingOrderPage(),
+                    // DoneOrderPage(),
                   ],
                 ),
               ),

@@ -57,7 +57,7 @@ class _ChooseAddressPageState extends BasePageState<ChooseAddressPage, ChooseAdd
                     ),
                     child: AddressItem(
                         onPressed: () {
-                          navigator.push(const AppRouteInfo.chooseMenu());
+                          navigator.pop();
                         },
                         title: Text("Thành Phố Thủ Đức $index")),
                   );
@@ -88,7 +88,6 @@ class AddressItem extends StatelessWidget {
   const AddressItem({
     super.key,
     this.onPressed,
-    
     this.title,
   });
 
