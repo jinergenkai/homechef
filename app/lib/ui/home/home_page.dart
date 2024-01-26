@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../app.dart';
 import 'bloc/home.dart';
@@ -40,8 +41,8 @@ class _HomePageState extends BasePageState<HomePage, HomeBloc> {
                     //*Header Hello
                     Row(mainAxisAlignment: MainAxisAlignment.start, children: [
                       Container(
-                        // color: Colors.red,
-                        child: Assets.images.customerLauncherIcon.image(height: Dimens.d60.responsive(), width: Dimens.d60.responsive())),
+                          // color: Colors.red,
+                          child: Assets.images.customerLauncherIcon.image(height: Dimens.d60.responsive(), width: Dimens.d60.responsive())),
                       Container(
                         // color: Colors.blue,
                         padding: EdgeInsets.only(left: Dimens.d10.responsive()),
@@ -51,10 +52,7 @@ class _HomePageState extends BasePageState<HomePage, HomeBloc> {
                         ),
                       ),
                       Expanded(
-                        child: Container(
-                          padding: EdgeInsets.all(Dimens.d10.responsive()),
-                          alignment: Alignment.centerRight,
-                          child: Icon(Icons.notifications, color: AppColors.current.primaryColor)),
+                        child: Container(padding: EdgeInsets.all(Dimens.d10.responsive()), alignment: Alignment.centerRight, child: Icon(Icons.notifications, color: AppColors.current.primaryColor)),
                       )
                     ]),
                     SizedBox(height: Dimens.d20.responsive()),
@@ -70,8 +68,7 @@ class _HomePageState extends BasePageState<HomePage, HomeBloc> {
                                 padding: EdgeInsets.symmetric(horizontal: Dimens.d5.responsive()),
                                 margin: const EdgeInsets.symmetric(horizontal: 1.0),
                                 // decoration: BoxDecoration(color: AppColors.current.primaryColor),
-                                child: 
-                                Assets.images.promotionPng.image(height: Dimens.d130.responsive(), width: Dimens.d130.responsive())
+                                child: Assets.images.promotionPng.image(height: Dimens.d130.responsive(), width: Dimens.d130.responsive())
                                 // Text(
                                 //   '$i',
                                 //   textAlign: TextAlign.center,
@@ -102,20 +99,23 @@ class _HomePageState extends BasePageState<HomePage, HomeBloc> {
                     ),
                     SizedBox(height: Dimens.d10.responsive()),
                     //*Order Cooking directly
-                    Container(
-                        height: Dimens.d75.responsive(),
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(Dimens.d10.responsive()),
-                          gradient: LinearGradient(colors: [Color(0xFFEB6147), Color(0xFFFFB690)]),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
+                    GestureDetector(
+                      onTap: () async => signUpMethod(),
+                      child: Container(
+                          height: Dimens.d75.responsive(),
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(Dimens.d10.responsive()),
+                            gradient: LinearGradient(colors: [Color(0xFFEB6147), Color(0xFFFFB690)]),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
                               Text("Order Cooking\ndirectly", style: AppTextStyles.s16w600White()),
-                            Assets.images.highfivePng.image(height: Dimens.d75.responsive(), width: Dimens.d75.responsive())
-                          ],
-                        )),
+                              Assets.images.highfivePng.image(height: Dimens.d75.responsive(), width: Dimens.d75.responsive())
+                            ],
+                          )),
+                    ),
                     SizedBox(height: Dimens.d20.responsive()),
                     //*Recently famous chef
                     Row(
@@ -145,6 +145,17 @@ class _HomePageState extends BasePageState<HomePage, HomeBloc> {
         ),
       ),
     );
+  }
+
+  Future<void> signUpMethod() async {
+    //sign up with firebase.
+    var email = "user@gmail.com";
+    var password = "123456";
+    await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password);
+
+    //get current user
+    var user = FirebaseAuth.instance.currentUser;
+    print("user firebase: " + user.toString());
   }
 }
 

@@ -1,3 +1,4 @@
+
 def dartEnvironmentVariables = []
 if (project.hasProperty('dart-defines')) {
     dartEnvironmentVariables = project.property('dart-defines')
@@ -33,7 +34,11 @@ if (flutterVersionName == null) {
 
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'com.google.gms.google-services'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
+// plugins {
+//     id 'com.google.gms.google-services'
+// }
 
 android {
     compileSdkVersion 33
@@ -88,7 +93,7 @@ android {
             dimension "flavor-type"
             versionCode = 41
             versionName = "1.0.1"
-            applicationId "jp.flutter.app.dev"
+            applicationId "jp.flutter.app"
             manifestPlaceholders["host"] = "dev.chatwork.com"
             manifestPlaceholders["applicationName"] = "HomeChef"
             // manifestPlaceholders["apiKey"] = dartEnvironmentVariables.API_KEY
@@ -160,4 +165,6 @@ flutter {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    // implementation platform('com.google.firebase:firebase-bom:32.7.1')
+    // implementation 'com.google.firebase:firebase-analytics'
 }

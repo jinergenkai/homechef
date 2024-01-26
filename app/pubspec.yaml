@@ -17,6 +17,8 @@ dependencies:
   dartx: 1.1.0
   domain:
     path: ../domain
+  firebase_auth: ^4.16.0
+  firebase_core: ^2.24.2
   flutter:
     sdk: flutter
   flutter_bloc: 8.0.1
