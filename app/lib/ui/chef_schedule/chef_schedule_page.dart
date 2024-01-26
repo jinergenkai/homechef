@@ -187,7 +187,7 @@ class CellTable extends StatelessWidget {
       child: CommonSmallButton(
         onpressed: onPressed,
         text: text,
-        color: AppColors.current.chefPrimaryColor,
+        color: AppColors.current.primaryColor,
         textColor: onPressed != null ? AppColors.current.whiteColor : AppColors.current.blackColor,
       ),
     );
@@ -211,7 +211,7 @@ class TitleTable extends StatelessWidget {
       height: Dimens.d50.responsive(),
       child: Text(
         title,
-        style: AppTextStyles.s20w600(color: AppColors.current.chefPrimaryColor),
+        style: AppTextStyles.s20w600(color: AppColors.current.primaryColor),
         textAlign: TextAlign.center,
       ),
     );
