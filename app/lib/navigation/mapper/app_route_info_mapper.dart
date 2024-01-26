@@ -25,6 +25,7 @@ class AppRouteInfoMapper extends BaseRouteInfoMapper {
       chefMain: () => const ChefMainRoute(),
       signUp: () => const SignUpRoute(),
       forgotPassword: () => const ForgotPasswordRoute(),
+      chefSchedule: () => const ChefScheduleRoute(),
     );
   }
 }

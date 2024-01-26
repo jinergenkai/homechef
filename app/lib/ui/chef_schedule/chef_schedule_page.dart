@@ -1,27 +1,25 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:domain/domain.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shared/shared.dart';
 
 import '../../app.dart';
-import 'bloc/chef_profile.dart';
+import 'bloc/chef_schedule.dart';
 
 @RoutePage()
-class ChefProfilePage extends StatefulWidget {
-  const ChefProfilePage({super.key});
+class ChefSchedulePage extends StatefulWidget {
+  const ChefSchedulePage({super.key});
 
   @override
   State<StatefulWidget> createState() {
-    return _ChefProfilePageState();
+    return _ChefSchedulePageState();
   }
 }
 
-class _ChefProfilePageState extends BasePageState<ChefProfilePage, ChefProfileBloc> {
+class _ChefSchedulePageState extends BasePageState<ChefSchedulePage, ChefScheduleBloc> {
   @override
   void initState() {
     super.initState();
-    bloc.add(const ChefProfilePageInitiated());
+    bloc.add(const ChefSchedulePageInitiated());
   }
 
   @override
@@ -32,100 +30,37 @@ class _ChefProfilePageState extends BasePageState<ChefProfilePage, ChefProfileBl
         leadingIconColor: AppColors.current.secondaryColor,
         titleType: AppBarTitle.text,
         centerTitle: true,
-        text: "Hồ sơ đầu bếp",
+        text: "Lịch nhận việc trực tiếp",
         backgroundColor: AppColors.current.whiteColor,
         titleTextStyle: AppTextStyles.s20w600(color: AppColors.current.primaryTextColor),
         height: Dimens.d70.responsive(),
         elevation: 0.7,
       ),
       body: SafeArea(
-        child: BlocBuilder<ChefProfileBloc, ChefProfileState>(
+        child: BlocBuilder<ChefScheduleBloc, ChefScheduleState>(
           buildWhen: (previous, current) => previous != current,
           builder: (context, state) {
             return SingleChildScrollView(
                 child: Container(
                     alignment: Alignment.center,
-                    padding: EdgeInsets.all(Dimens.d15.responsive()),
+                    padding: EdgeInsets.all(Dimens.d20.responsive()),
                     child: Column(
                       children: [
-                        //* avatar
-                        Container(
-                          width: Dimens.d150.responsive(),
-                          height: Dimens.d150.responsive(),
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            image: DecorationImage(
-                              image: Assets.images.avatarChef.image().image,
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: Dimens.d10.responsive()),
-                        //* Name
-                        Text(
-                          "Tommy Phạm",
-                          style: AppTextStyles.s20w600(color: AppColors.current.blackColor),
-                        ),
-                        SizedBox(height: Dimens.d5.responsive()),
-                        //* Description
-                        Container(
-                          padding: EdgeInsets.symmetric(horizontal: Dimens.d30.responsive()),
-                          child: Text(
-                            "Tôi tin rằng quan niệm công việc nội trợ là dành cho phụ nữ nên thay đổi.",
-                            style: AppTextStyles.s14w500(color: AppColors.current.primaryTextColor.withOpacity(.75)),
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-
-                        SizedBox(height: Dimens.d15.responsive()),
-                        //* Start
-                        const Text("4.9", style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
-                        //star
-                        Container(
-                          padding: EdgeInsets.symmetric(horizontal: Dimens.d50.responsive()),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(Icons.star, color: Colors.yellow, size: Dimens.d35.responsive()),
-                              Icon(Icons.star, color: Colors.yellow, size: Dimens.d35.responsive()),
-                              Icon(Icons.star, color: Colors.yellow, size: Dimens.d35.responsive()),
-                              Icon(Icons.star, color: Colors.yellow, size: Dimens.d35.responsive()),
-                              Icon(Icons.star, color: Colors.yellow, size: Dimens.d35.responsive()),
-                            ],
-                          ),
-                        ),
-                        Text(
-                          "(7 đánh giá)",
-                          style: AppTextStyles.s14w500(color: AppColors.current.blackColor.withOpacity(.75)),
-                        ),
-                        SizedBox(height: Dimens.d15.responsive()),
-                        //* CV
-                        Container(
-                          padding: EdgeInsets.symmetric(horizontal: Dimens.d50.responsive()),
-                          child: CommonEllipseButon(
-                            onPressed: () {},
-                            text: "Kinh nghiệm (CV)",
-                            color: Color(0xFFF1FFFE),
-                            textColor: AppColors.current.primaryTextColor,
-                          ),
-                        ),
-                        // SizedBox(height: Dimens.d15.responsive()),
-                        //* lich su nau an
-                        Container(
-                          padding: EdgeInsets.symmetric(horizontal: Dimens.d50.responsive()),
-                          child: CommonEllipseButon(
-                            onPressed: () {},
-                            text: "Lịch sử nấu ăn",
-                            color: Color(0xFFF1FFFE),
-                            textColor: AppColors.current.primaryTextColor,
-                          ),
-                        ),
+                        //* option
+                        BorderContainer(
+                            padding: EdgeInsets.all(Dimens.d15.responsive()),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text("Nhận nấu trực tiếp.", style: AppTextStyles.s16w600(color: AppColors.current.primaryColor)),
+                                StyledSwitch(
+                                  enabledColor: AppColors.current.primaryColor,
+                                ),
+                              ],
+                            )),
                         SizedBox(height: Dimens.d20.responsive()),
-                        //* Lich trinh dau bep
-                        const Text("Lịch nhận nấu ăn", style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
-                        SizedBox(height: Dimens.d10.responsive()),
-                        TableChefSchedule(),
-
+                        //*table schedule
+                        DemoTableChefSchedule(),
                         SizedBox(height: Dimens.d100.responsive()),
                       ],
                     )));
@@ -138,17 +73,27 @@ class _ChefProfilePageState extends BasePageState<ChefProfilePage, ChefProfileBl
         margin: EdgeInsets.symmetric(horizontal: Dimens.d30.responsive()),
         child: CommonEllipseButon(
           onPressed: () async {
-            await navigator.push(const AppRouteInfo.chooseMenu());
+            navigator.pop();
           },
-          text: "Tạo đơn với đầu bếp này",
+          text: "Cập nhật lịch nhận việc",
         ),
       ),
     );
   }
 }
 
-class TableChefSchedule extends StatelessWidget {
-  const TableChefSchedule({
+
+
+
+
+
+
+
+
+
+
+class DemoTableChefSchedule extends StatelessWidget {
+  const DemoTableChefSchedule({
     super.key,
   });
 

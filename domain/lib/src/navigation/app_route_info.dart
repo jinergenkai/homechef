@@ -29,5 +29,6 @@ class AppRouteInfo with _$AppRouteInfo {
   const factory AppRouteInfo.chefMain() = _chefMain;
   const factory AppRouteInfo.updateInfo() = _updateInfo;
   const factory AppRouteInfo.uploadProfile() = _uploadProfile;
+  const factory AppRouteInfo.chefSchedule() = _chefSchedule;
 
 }
