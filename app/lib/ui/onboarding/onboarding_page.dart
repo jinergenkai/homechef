@@ -44,11 +44,12 @@ class _OnboardingPageState extends BasePageState<OnboardingPage, OnboardingBloc>
               child: Column(
                 children: [
                   // Logo
-                  state.isDarkTheme
+                  !state.isDarkTheme
                       ? Container(padding: EdgeInsets.all(Dimens.d40.responsive()), child: Assets.images.customerLauncherIcon.image(width: Dimens.d250.responsive(), height: Dimens.d250.responsive()))
                       : Container(
-                          width: 400.0, // Điều chỉnh kích thước của hình tròn tại đây
-                          height: 400.0,
+                          width: 300.0, // Điều chỉnh kích thước của hình tròn tại đây
+                          height: 300.0,
+                          margin: EdgeInsets.all(Dimens.d20.responsive()),
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             image: DecorationImage(
@@ -69,17 +70,19 @@ class _OnboardingPageState extends BasePageState<OnboardingPage, OnboardingBloc>
                       // navigator.push(const AppRouteInfo.chefMain());
                       // bloc.add(const OnChangedRole());
                       appBloc.add(AppThemeChanged(isDarkTheme: !state.isDarkTheme));
-                      navigator.push(const AppRouteInfo.onboarding());
+                      // delay 300ms
+                      await Future.delayed(const Duration(milliseconds: 300));
+                      navigator.popAndPush(const AppRouteInfo.onboarding());
                     },
-                    // text: "Continue as ${state.role}",
-                    text: "Continue as Chef",
+                    text: "Continue as ${state.isDarkTheme ? "Customer" : "Chef"}",
+                    // text: "Continue as Chef",
                     color: AppColors.current.chefPrimaryColor,
                     textColor: AppColors.current.whiteColor,
                     // icon: Icon(Icons.facebook, size: Dimens.d30.responsive()),
                   ),
-                  SizedBox(height: Dimens.d25.responsive()),
+                  SizedBox(height: Dimens.d10.responsive()),
                   const CommonDivider(),
-                  SizedBox(height: Dimens.d25.responsive()),
+                  SizedBox(height: Dimens.d10.responsive()),
                   CommonEllipseButon(
                     onPressed: () => {},
                     text: S.current.continueWithGoogle,
@@ -110,7 +113,7 @@ class _OnboardingPageState extends BasePageState<OnboardingPage, OnboardingBloc>
                       TextSpan(
                         text: S.current.signUp,
                         style: AppTextStyles.s16w600(color: AppColors.current.primaryColor),
-                        recognizer: TapGestureRecognizer()..onTap = () => navigator.push(const AppRouteInfo.main()),
+                        recognizer: TapGestureRecognizer()..onTap = () => navigator.push(const AppRouteInfo.signUp()),
                       )
                     ],
                   )),

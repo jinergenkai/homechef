@@ -14,8 +14,8 @@ final lightTheme = ThemeData(
 
 final darkTheme = ThemeData(
   fontFamily: "Montserrat",
-  // brightness: Brightness.dark,
   brightness: Brightness.light,
+  // brightness: Brightness.dark,
   splashColor: Colors.transparent,
 )..addAppColor(
     AppThemeType.dark,

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "792876822441",
+    "project_id": "homechef-8237c",
+    "storage_bucket": "homechef-8237c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:792876822441:android:ede0bf62f47b666c479eb8",
+        "android_client_info": {
+          "package_name": "jp.flutter.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDsjpYfX4PbOsnFJJtaVOqlk8w6hCY4Ze4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
