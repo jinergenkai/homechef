@@ -17,7 +17,6 @@ class LoginBloc extends BaseBloc<LoginEvent, LoginState> {
   LoginBloc(
     this._loginUseCase,
     this._fakeLoginUseCase,
-    this._getInitialAppDataUseCase,
   ) : super(const LoginState()) {
     on<EmailTextFieldChanged>(
       _onEmailTextFieldChanged,
@@ -48,8 +47,6 @@ class LoginBloc extends BaseBloc<LoginEvent, LoginState> {
   final LoginUseCase _loginUseCase;
   final FakeLoginUseCase _fakeLoginUseCase;
   final auth = FirebaseAuth.instance;
-  late AppPreferences _appPreferences;
-  final GetInitialAppDataUseCase _getInitialAppDataUseCase;
 
   bool _isLoginButtonEnabled(String email, String password) {
     return email.isNotEmpty && password.isNotEmpty;
@@ -72,56 +69,16 @@ class LoginBloc extends BaseBloc<LoginEvent, LoginState> {
   }
 
   FutureOr<void> _onLoginButtonPressed(LoginButtonPressed event, Emitter<LoginState> emit) async {
-    //login by firebase
-    try {
-      // final SharedPreferences prefs = await SharedPreferences.getInstance();
-      // _appPreferences = AppPreferences(prefs);
-
-      // _appPreferences.saveCurrentUser();
-
-      await auth.signInWithEmailAndPassword(email: state.email, password: state.password);
-      if (auth.currentUser == null) {
-        throw const ValidationException(ValidationExceptionKind.invalidEmail);
-      }
-
-      final role = _getInitialAppDataUseCase.execute(const GetInitialAppDataInput()).isDarkMode;
-      if (role) {
-        await navigator.replace(const AppRouteInfo.chefMain());
-      } else {
+    return runBlocCatching(
+      action: () async {
+        await _loginUseCase.execute(LoginInput(email: state.email, password: state.password));
         await navigator.replace(const AppRouteInfo.main());
-      }
-    } catch (e) {
-      await navigator.showDialog(
-        AppPopupInfo.confirmDialog(
-            message: "Email hoặc Mật khẩu không đúng!",
-            onPressed: Func0(() async {
-              await navigator.pop();
-              // navigator.push(const AppRouteInfo.main());
-            })),
-      );
-    }
-
-    // return runBlocCatching(
-    //   action: () async {
-    //     //login by firebase
-    //     try {
-    //       final output = await auth.signInWithEmailAndPassword(email: state.email, password: state.password);
-    //       if (output.user == null) {
-    //         throw const ValidationException(ValidationExceptionKind.invalidEmail);
-    //       }
-    //       await navigator.replace(const AppRouteInfo.main());
-    //     } catch (e) {
-    //       print(e);
-    //     }
-
-    //     // await _loginUseCase.execute(LoginInput(email: state.email, password: state.password));
-    //     await navigator.replace(const AppRouteInfo.main());
-    //   },
-    //   handleError: false,
-    //   doOnError: (e) async {
-    //     emit(state.copyWith(onPageError: exceptionMessageMapper.map(e)));
-    //   },
-    // );
+      },
+      handleError: false,
+      // doOnError: (e) async {
+      //   emit(state.copyWith(onPageError: exceptionMessageMapper.map(e)));
+      // },
+    );
   }
 
   FutureOr<void> _onFakeLoginButtonPressed(

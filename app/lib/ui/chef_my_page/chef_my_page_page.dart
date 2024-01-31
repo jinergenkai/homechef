@@ -109,6 +109,7 @@ class _ChefMyPagePageState extends BasePageState<ChefMyPagePage, ChefMyPageBloc>
                 },
               ),
               SizedBox(height: Dimens.d15.responsive()),
+              //* logout
               ElevatedButton(
                 // onPressed: () => bloc.add(const LogoutButtonPressed()),
                 onPressed: () => navigator.push(const AppRouteInfo.onboarding()),

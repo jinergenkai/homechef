@@ -188,7 +188,7 @@ class _ChooseMenuPageState extends BasePageState<ChooseMenuPage, ChooseMenuBloc>
                                           label: monAn,
                                           // enabled: monAn != 'Cơm tấm',
                                           style: MenuItemButton.styleFrom(
-                                            foregroundColor: AppColors.current.primaryColor,
+                                            // foregroundColor: AppColors.current.primaryColor,
                                           ),
                                         );
                                       }).toList()),

@@ -1,6 +1,7 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:domain/domain.dart';
 import 'package:injectable/injectable.dart';
+import 'package:firebase_auth/firebase_auth.dart' as auth;
 
 import '../../data.dart';
 
@@ -26,6 +27,9 @@ class RepositoryImpl implements Repository {
   final GenderDataMapper _genderDataMapper;
   final LocalUserDataMapper _localUserDataMapper;
 
+  // init firebase auth
+  final auth.FirebaseAuth _firebaseAuth = auth.FirebaseAuth.instance;
+
   @override
   bool get isLoggedIn => _appPreferences.isLoggedIn;
 
@@ -36,15 +40,13 @@ class RepositoryImpl implements Repository {
   bool get isFirstLaunchApp => _appPreferences.isFirstLaunchApp;
 
   @override
-  Stream<bool> get onConnectivityChanged =>
-      Connectivity().onConnectivityChanged.map((event) => event != ConnectivityResult.none);
+  Stream<bool> get onConnectivityChanged => Connectivity().onConnectivityChanged.map((event) => event != ConnectivityResult.none);
 
   @override
   bool get isDarkMode => _appPreferences.isDarkMode;
 
   @override
-  LanguageCode get languageCode =>
-      _languageCodeDataMapper.mapToEntity(_appPreferences.languageCode);
+  LanguageCode get languageCode => _languageCodeDataMapper.mapToEntity(_appPreferences.languageCode);
 
   @override
   Future<bool> saveIsFirstLogin(bool isFirstLogin) {
@@ -61,21 +63,39 @@ class RepositoryImpl implements Repository {
     required String email,
     required String password,
   }) async {
-    final response = await _appApiService.login(email: email, password: password);
+    await _firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
+    if (_firebaseAuth.currentUser == null) {
+      throw Exception('User not found');
+    }
+
     await Future.wait([
-      saveAccessToken(response?.data?.accessToken ?? ''),
+      saveAccessToken(await _firebaseAuth.currentUser?.getIdToken() ?? ''),
       saveUserPreference(
         User(
-          id: response?.data?.id ?? -1,
-          email: response?.data?.email ?? '',
+          displayName: _firebaseAuth.currentUser?.displayName ?? '',
+          email: _firebaseAuth.currentUser?.email ?? '',
+          phoneNumber: _firebaseAuth.currentUser?.phoneNumber ?? '',
+          photoUrl: _firebaseAuth.currentUser?.photoURL ?? '',
         ),
       ),
     ]);
+
+    // final response = await _appApiService.login(email: email, password: password);
+    // await Future.wait([
+    //   saveAccessToken(response?.data?.accessToken ?? ''),
+    //   saveUserPreference(
+    //     User(
+    //       id: response?.data?.id ?? -1,
+    //       email: response?.data?.email ?? '',
+    //     ),
+    //   ),
+    // ]);
   }
 
   @override
   Future<void> logout() async {
-    await _appApiService.logout();
+    // await _appApiService.logout();
+    await _firebaseAuth.signOut();
     await _appPreferences.clearCurrentUserData();
   }
 
@@ -172,9 +192,7 @@ class RepositoryImpl implements Repository {
 
   @override
   Stream<List<User>> getLocalUsersStream() {
-    return _appDatabase
-        .getUsersStream()
-        .map((event) => _localUserDataMapper.mapToListEntity(event));
+    return _appDatabase.getUsersStream().map((event) => _localUserDataMapper.mapToListEntity(event));
   }
 
   @override
@@ -188,6 +206,5 @@ class RepositoryImpl implements Repository {
   Future<void> saveAccessToken(String accessToken) => _appPreferences.saveAccessToken(accessToken);
 
   @override
-  Future<bool> saveUserPreference(User user) =>
-      _appPreferences.saveCurrentUser(_preferenceUserDataMapper.mapToData(user));
+  Future<bool> saveUserPreference(User user) => _appPreferences.saveCurrentUser(_preferenceUserDataMapper.mapToData(user));
 }

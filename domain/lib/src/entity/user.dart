@@ -10,6 +10,10 @@ class User with _$User {
   const factory User({
     @Default(User.defaultId) int id,
     @Default(User.defaultEmail) String email,
+    @Default("#displayName") String displayName,
+    @Default("#phoneNumber") String phoneNumber,
+    @Default("https://img.freepik.com/premium-vector/vector-illustration-chef-avatar-working-restaurant-head-chef-avatar-social-networks-rookie-work-restaurant-tastes-differ-food-gods_469123-403.jpg")
+    String photoUrl,
     @Default(User.defaultMoney) BigDecimal money,
     @Default(User.defaultBirthday) DateTime? birthday,
     @Default(User.defaultAvatar) ImageUrl avatar,

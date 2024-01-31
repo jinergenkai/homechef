@@ -53,6 +53,8 @@ dev_dependencies:
   nals_lints:
     path: ../nals_lints
   objectbox_generator: 2.1.0
+  firebase_auth: ^4.16.0
+  firebase_core: ^2.24.2
 
 objectbox:
   output_dir: src/repository/source/database/generated

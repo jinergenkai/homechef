@@ -12,3 +12,8 @@ abstract class ChefMyPageEvent extends BaseBlocEvent {
 class ChefMyPagePageInitiated extends ChefMyPageEvent with _$ChefMyPagePageInitiated {
   const factory ChefMyPagePageInitiated() = _ChefMyPagePageInitiated;
 }
+
+@freezed
+class LogoutButtonPressed extends ChefMyPageEvent with _$LogoutButtonPressed {
+  const factory LogoutButtonPressed() = _LogoutButtonPressed;
+}

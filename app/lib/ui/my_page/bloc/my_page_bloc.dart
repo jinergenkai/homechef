@@ -21,7 +21,6 @@ class MyPageBloc extends BaseBloc<MyPageEvent, MyPageState> {
   }
 
   final LogoutUseCase _logoutUseCase;
-  final auth = FirebaseAuth.instance;
 
   FutureOr<void> _onLogoutButtonPressed(
     LogoutButtonPressed event,
@@ -29,14 +28,9 @@ class MyPageBloc extends BaseBloc<MyPageEvent, MyPageState> {
   ) async {
     return runBlocCatching(
       action: () async {
-        // final prefs = await SharedPreferences.getInstance();
-        // await prefs.clear();
-
-        await auth.signOut();
-        // print("123");
-        // await _logoutUseCase.execute(const LogoutInput());
-        navigator.popUntilRouteName("");
-        await navigator.push(const AppRouteInfo.onboarding());
+        await _logoutUseCase.execute(const LogoutInput());
+        // navigator.popUntilRouteName("");
+        // await navigator.push(const AppRouteInfo.onboarding());
       },
     );
   }

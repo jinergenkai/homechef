@@ -67,6 +67,13 @@ class _SignUpPageState extends BasePageState<SignUpPage, SignUpBloc> {
               ),
               SizedBox(height: Dimens.d24.responsive()),
               AppTextField(
+                title: "Họ và tên",
+                hintText: "nhập họ và tên",
+                // onChanged: (email) => bloc.add(EmailTextFieldChanged(email: email)),
+                keyboardType: TextInputType.text,
+              ),
+              SizedBox(height: Dimens.d24.responsive()),
+              AppTextField(
                 title: "Mật khẩu",
                 hintText: "Nhập mật khẩu",
                 onChanged: (pass) => bloc.add(PasswordTextFieldChanged(password: pass)),
@@ -101,17 +108,16 @@ class _SignUpPageState extends BasePageState<SignUpPage, SignUpBloc> {
                 buildWhen: (previous, current) => previous.isSignUpButtonEnabled != current.isSignUpButtonEnabled,
                 builder: (context, state) {
                   return CommonEllipseButon(
-                    onPressed: () => bloc.add(const SignUpButtonPressed()),
+                      onPressed: () => bloc.add(const SignUpButtonPressed()),
 
-                    // style: ButtonStyle(
-                    //   backgroundColor: MaterialStateProperty.all(AppColors.current.primaryColor.withOpacity(state.isLoginButtonEnabled ? 1 : 0.5)),
-                    // ),
-                    // child: Text(
-                    //   S.current.signIn,
-                    //   style: AppTextStyles.s14w500Primary(),
-                    // ),
-                    text: "Đăng Ký"
-                  );
+                      // style: ButtonStyle(
+                      //   backgroundColor: MaterialStateProperty.all(AppColors.current.primaryColor.withOpacity(state.isLoginButtonEnabled ? 1 : 0.5)),
+                      // ),
+                      // child: Text(
+                      //   S.current.signIn,
+                      //   style: AppTextStyles.s14w500Primary(),
+                      // ),
+                      text: "Đăng Ký");
                 },
               ),
               SizedBox(height: Dimens.d30.responsive()),
