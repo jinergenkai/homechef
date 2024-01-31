@@ -83,6 +83,8 @@ class _MyAppState extends BasePageState<MyApp, AppBloc> {
           return const OnboardingRoute();
         case InitialAppRoute.main:
           return const MainRoute();
+        case InitialAppRoute.chefMain:
+          return const ChefMainRoute();
       }
     }).toList(growable: false);
   }

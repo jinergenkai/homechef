@@ -15,7 +15,7 @@ class LoadInitialResourceUseCase
   @protected
   @override
   LoadInitialResourceOutput buildUseCase(LoadInitialResourceInput input) {
-    final initialRoutes = [_repository.isLoggedIn ? InitialAppRoute.main : InitialAppRoute.login];
+    final initialRoutes = [_repository.isLoggedIn ? (_repository.isDarkMode ?InitialAppRoute.chefMain : InitialAppRoute.main) : InitialAppRoute.login];
 
     return LoadInitialResourceOutput(initialRoutes: initialRoutes);
   }

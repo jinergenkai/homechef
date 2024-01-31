@@ -5,6 +5,7 @@ import 'package:shared/shared.dart';
 enum InitialAppRoute {
   login,
   main,
+  chefMain,
 }
 
 enum Gender {
