@@ -2,12 +2,8 @@ import 'dart:async';
 
 import 'package:domain/domain.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
-import 'package:data/data.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
-import 'package:shared/shared.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../app.dart';
 import 'login.dart';

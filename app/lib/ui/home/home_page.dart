@@ -47,7 +47,8 @@ class _HomePageState extends BasePageState<HomePage, HomeBloc> {
                         // color: Colors.blue,
                         padding: EdgeInsets.only(left: Dimens.d10.responsive()),
                         child: Text(
-                          "Chào mừng\n${"Nguyễn Hùng"}",
+                          // "Chào mừng\n${"Nguyễn Hùng"}",
+                          "Chào mừng\n${state.displayName}",
                           style: AppTextStyles.s20w600(color: AppColors.current.primaryColor),
                         ),
                       ),

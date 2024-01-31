@@ -10,5 +10,6 @@ class HomeState extends BaseBlocState with _$HomeState {
 
   const factory HomeState({
     @Default('') String id,
+    @Default('') String displayName,
   }) = _HomeState;
 }
