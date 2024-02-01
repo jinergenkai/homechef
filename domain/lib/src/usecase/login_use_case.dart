@@ -47,7 +47,7 @@ class LoginUseCase extends BaseFutureUseCase<LoginInput, LoginOutput> {
       throw Exception("Email hoặc Mật khẩu không đúng!");
     }
 
-    return const LoginOutput();
+    return const LoginOutput(isLoginSuccess: true);
   }
 }
 

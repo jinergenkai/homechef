@@ -68,7 +68,6 @@ class LoginBloc extends BaseBloc<LoginEvent, LoginState> {
     return runBlocCatching(
       action: () async {
         await _loginUseCase.execute(LoginInput(email: state.email, password: state.password));
-        await navigator.replace(const AppRouteInfo.main());
       },
       handleError: false,
       // doOnError: (e) async {

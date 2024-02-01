@@ -19,6 +19,7 @@ class LogoutUseCase extends BaseFutureUseCase<LogoutInput, LogoutOutput> {
       await _repository.logout();
       await _navigator.replace(const AppRouteInfo.onboarding());
     }
+    // _navigator.replace(const AppRouteInfo.onboarding());
 
     return const LogoutOutput();
   }
