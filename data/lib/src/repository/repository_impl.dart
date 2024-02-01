@@ -68,6 +68,12 @@ class RepositoryImpl implements Repository {
       throw Exception('User not found');
     }
 
+    await _appApiService.loginV2(
+      accessToken: await _firebaseAuth.currentUser?.getIdToken() ?? '',
+      fcmToken: '',
+      role: 1,
+    );
+
     await Future.wait([
       saveAccessToken(await _firebaseAuth.currentUser?.getIdToken() ?? ''),
       saveUserPreference(

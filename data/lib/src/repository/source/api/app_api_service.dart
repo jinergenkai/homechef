@@ -30,6 +30,25 @@ class AppApiService {
     );
   }
 
+  Future<void> loginV2({
+    required String accessToken,
+    required String fcmToken,
+    required int role,
+  }) async {
+    final result = await _noneAuthAppServerApiClient.request(
+      method: RestMethod.post,
+      path: '/v1/auth/login',
+      body: {
+        'idToken': accessToken,
+        'fcmToken': fcmToken,
+        'role': role,
+      },
+      // decoder: (json) => ApiAuthResponseData.fromJson(json as Map<String, dynamic>),
+    );
+    print(result);
+    
+  }
+
   Future<void> logout() async {
     await _authAppServerApiClient.request(
       method: RestMethod.post,

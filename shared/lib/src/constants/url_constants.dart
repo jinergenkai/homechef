@@ -19,6 +19,7 @@ class UrlConstants {
   static const settingsPath = '/mypage/settings';
 
   static String get appApiBaseUrl {
+    return 'https://homechef.kidtalkie.tech/api';
     switch (EnvConstants.flavor) {
       case Flavor.develop:
         return 'http://api.dev.nals.vn/api';
