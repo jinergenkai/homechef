@@ -1,3 +1,4 @@
+import 'package:domain/domain.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../app.dart';
@@ -10,5 +11,6 @@ class ChooseAddressState extends BaseBlocState with _$ChooseAddressState {
 
   const factory ChooseAddressState({
     @Default('') String id,
+    @Default([]) List<Address> addresses,
   }) = _ChooseAddressState;
 }

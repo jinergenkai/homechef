@@ -58,7 +58,7 @@ class AppApiService {
     required String accessToken,
   }) async {
     await Dio(BaseOptions(headers: {'Authorization': 'Bearer $accessToken'})).put(
-      'https://homechef.kidtalkie.tech/api/v1/user/${user.id}', 
+      'https://homechef.kidtalkie.tech/api/v1/user/${user.id}',
       data: {
         "email": user.email,
         "fullName": user.fullName,
@@ -83,6 +83,40 @@ class AppApiService {
       converter.add(ApiDistrictData.fromJson(data as Map<String, dynamic>));
     }
     return ApiDistrictDataMapper().mapToListEntity(converter);
+  }
+
+  //* add address
+  Future<void> addAddress({
+    required String accessToken,
+    required Address address,
+  }) async {
+    await Dio(BaseOptions(headers: {'Authorization': 'Bearer $accessToken'})).post(
+      'https://homechef.kidtalkie.tech/api/v1/address',
+      data: {
+        "houseNumber": address.houseNumber,
+        "houseType": address.houseType,
+        "street": address.street,
+        "ward": address.ward,
+        "districtId": address.districtId,
+      },
+    );
+  }
+
+  //* get list<address> by path userId
+  Future<List<Address>?> getAddresses({
+    required String accessToken,
+    required String userId,
+  }) async {
+    print(userId + " " + accessToken);
+    final response = await Dio(BaseOptions(headers: {'Authorization': 'Bearer $accessToken'})).get(
+      'https://homechef.kidtalkie.tech/api/v1/address/customers/$userId',
+    );
+    final dataList = response.data as List<dynamic>;
+    final converter = <ApiAddressData>[];
+    for (var data in dataList) {
+      converter.add(ApiAddressData.fromJson(data as Map<String, dynamic>));
+    }
+    return ApiAddressDataMapper().mapToListEntity(converter);
   }
 
   Future<List<CurrentUser>?> getChefs() async {

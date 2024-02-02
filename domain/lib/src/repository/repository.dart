@@ -74,4 +74,8 @@ abstract class Repository {
 
   Future<List<CurrentUser>?> getChefs();
   Future<List<District>?> getDistricts();
+
+  //* Address
+  Future<void> addAddress(Address address);
+  Future<List<Address>?> getAddresses(String userId);
 }

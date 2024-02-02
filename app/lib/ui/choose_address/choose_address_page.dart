@@ -48,7 +48,7 @@ class _ChooseAddressPageState extends BasePageState<ChooseAddressPage, ChooseAdd
               ),
               child: ListView.builder(
                 shrinkWrap: true,
-                itemCount: 3,
+                itemCount: state.addresses.length,
                 itemBuilder: (context, index) {
                   return Container(
                     margin: EdgeInsets.symmetric(
@@ -57,9 +57,11 @@ class _ChooseAddressPageState extends BasePageState<ChooseAddressPage, ChooseAdd
                     ),
                     child: AddressItem(
                         onPressed: () {
-                          navigator.pop();
+                          navigator.pop(result : state.addresses[index]);
                         },
-                        title: Text("Thành Phố Thủ Đức $index")),
+                        title: Text("Thành Phố Thủ Đức ${state.addresses[index].districtId}"),
+                        address: state.addresses[index],
+                        ),
                   );
                 },
               ),
@@ -89,10 +91,12 @@ class AddressItem extends StatelessWidget {
     super.key,
     this.onPressed,
     this.title,
+    this.address,
   });
 
   final Function? onPressed;
   final Text? title;
+  final Address? address;
 
   @override
   Widget build(BuildContext context) {
@@ -153,7 +157,7 @@ class AddressItem extends StatelessWidget {
                   ),
                   SizedBox(height: Dimens.d10.responsive()),
                   Text(
-                    "FPT University HCMC, Đường D1, Long Thạnh Mỹ, TP Thủ Đức, Thành Phố Hồ Chí Minh, Việt Nam, Trái Đất.",
+                    address?.street ?? "FPT University HCMC, Đường D1, Long Thạnh Mỹ, TP Thủ Đức, Thành Phố Hồ Chí Minh, Việt Nam, Trái Đất.",
                     style: AppTextStyles.s14w500(color: AppColors.current.primaryTextColor),
                     maxLines: 4,
                     overflow: TextOverflow.ellipsis,

@@ -126,7 +126,8 @@ class _SetTimePageState extends BasePageState<SetTimePage, SetTimeBloc> {
                     const SizedBox(height: 10),
                     BorderAddressItem(
                       onPressed: () {
-                        navigator.push(const AppRouteInfo.chooseAddress());
+                        final result = navigator.push(const AppRouteInfo.chooseAddress());
+
                       },
                       title: Text("Thành Phố Thủ Đức"),
                     ),

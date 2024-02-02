@@ -11,6 +11,7 @@ import 'create_address.dart';
 class CreateAddressBloc extends BaseBloc<CreateAddressEvent, CreateAddressState> {
   CreateAddressBloc(
     this._getDistrictByProvinceUseCase,
+    this._createAddressUseCase,
   ) : super(const CreateAddressState()) {
     on<CreateAddressPageInitiated>(
       _onCreateAddressPageInitiated,
@@ -32,7 +33,8 @@ class CreateAddressBloc extends BaseBloc<CreateAddressEvent, CreateAddressState>
     );
   }
 
-  GetDistrictByProvinceUseCase _getDistrictByProvinceUseCase;
+  final GetDistrictByProvinceUseCase _getDistrictByProvinceUseCase;
+  final AddAddressUseCase _createAddressUseCase;
 
   FutureOr<void> _onCreateAddressPageInitiated(
     CreateAddressPageInitiated event,
@@ -71,21 +73,24 @@ class CreateAddressBloc extends BaseBloc<CreateAddressEvent, CreateAddressState>
     );
   }
 
-  // FutureOr<void> _onCreateAddressButtonPressed(
-  //   CreateAddressButtonPressed event,
-  //   Emitter<CreateAddressState> emit,
-  // ) async {
-  //   return runBlocCatching(action: () async {
-  //     final result = await _createAddressUseCase.execute(
-  //       CreateAddressInput(
-  //         address: state.address,
-  //         districtId: state.selectedDistrictId,
-  //       ),
-  //     );
-  //   },
-  //   doOnEventCompleted: () {
-  //     return navigator.pop();
-  //   }
-  //   );
-  // }
+  FutureOr<void> _onCreateAddressButtonPressed(
+    CreateAddressButtonPressed event, 
+    Emitter<CreateAddressState> emit,
+  ) async {
+    return runBlocCatching(action: () async {
+      final address = Address(
+        street: state.address,
+        districtId: state.selectedDistrictId,
+      );
+      await _createAddressUseCase.execute(
+        AddAddressInput(
+          address: address,
+        ),
+      );
+    },
+    doOnEventCompleted: () {
+      return navigator.replace(const AppRouteInfo.chooseAddress());
+    }
+    );
+  }
 }

@@ -158,8 +158,6 @@ class RepositoryImpl implements Repository {
       user: loginResponse.currentUser.copyWith(fullName: displayName),
     );
 
-    
-
     // final response = await _appApiService.register(
     //   username: username,
     //   email: email,
@@ -260,9 +258,24 @@ class RepositoryImpl implements Repository {
     return _appApiService.getChefs();
   }
 
-
   @override
   Future<List<District>?> getDistricts() async {
     return _appApiService.getDistricts();
+  }
+
+  @override
+  Future<void> addAddress(Address address) async {
+    return _appApiService.addAddress(
+      accessToken: await _appPreferences.accessToken,
+      address: address,
+    );
+  }
+
+  @override
+  Future<List<Address>?> getAddresses(String userId) async {
+    return _appApiService.getAddresses(
+      accessToken: await _appPreferences.accessToken,
+      userId: userId,
+    );
   }
 }
