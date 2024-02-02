@@ -71,6 +71,20 @@ class AppApiService {
     );
   }
 
+  //* Get districts
+  Future<List<District>?> getDistricts() async {
+    final response = await Dio().get(
+      'https://homechef.kidtalkie.tech/api/v1/address/districts/7fcf75c0-cb8e-4fc3-9a5a-e70a83a7a066',
+    );
+    final dataList = response.data as List<dynamic>;
+    final converter = <ApiDistrictData>[];
+
+    for (var data in dataList) {
+      converter.add(ApiDistrictData.fromJson(data as Map<String, dynamic>));
+    }
+    return ApiDistrictDataMapper().mapToListEntity(converter);
+  }
+
   Future<List<CurrentUser>?> getChefs() async {
     final response = await Dio().get(
       'https://homechef.kidtalkie.tech/api/v1/user/chef',

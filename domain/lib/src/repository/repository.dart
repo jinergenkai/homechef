@@ -73,4 +73,5 @@ abstract class Repository {
   int deleteAllUsersAndImageUrls();
 
   Future<List<CurrentUser>?> getChefs();
+  Future<List<District>?> getDistricts();
 }

@@ -259,4 +259,10 @@ class RepositoryImpl implements Repository {
   Future<List<CurrentUser>?> getChefs() async {
     return _appApiService.getChefs();
   }
+
+
+  @override
+  Future<List<District>?> getDistricts() async {
+    return _appApiService.getDistricts();
+  }
 }

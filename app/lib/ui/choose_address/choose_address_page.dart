@@ -31,7 +31,7 @@ class _ChooseAddressPageState extends BasePageState<ChooseAddressPage, ChooseAdd
         leadingIconColor: AppColors.current.secondaryColor,
         titleType: AppBarTitle.text,
         centerTitle: true,
-        text: "Choose Address",
+        text: "Chọn Địa Điểm Nấu",
         backgroundColor: AppColors.current.whiteColor,
         titleTextStyle: AppTextStyles.s20w600(color: AppColors.current.primaryTextColor),
         height: Dimens.d70.responsive(),
@@ -76,7 +76,7 @@ class _ChooseAddressPageState extends BasePageState<ChooseAddressPage, ChooseAdd
           onPressed: () {
             navigator.push(const AppRouteInfo.createAddress());
           },
-          text: "Add a new Address",
+          text: "Tạo Địa Điểm Mới",
         ),
       ),
     );
