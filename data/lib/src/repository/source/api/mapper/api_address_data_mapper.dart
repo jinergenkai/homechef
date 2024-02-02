@@ -8,10 +8,12 @@ class ApiAddressDataMapper extends BaseDataMapper<ApiAddressData, Address> {
     @override
     Address mapToEntity(ApiAddressData? data) {
       return Address(
-        houseNumber: data?.houseNumber ?? Address.defaultHouseNumber,
-houseType: data?.houseType ?? Address.defaultHouseType,
+        id: data?.id ?? Address.defaultId,
+houseNumber: data?.houseNumber ?? Address.defaultHouseNumber,
 street: data?.street ?? Address.defaultStreet,
 ward: data?.ward ?? Address.defaultWard,
+description: data?.description ?? Address.defaultDescription,
+district: data?.district ?? Address.defaultDistrict,
 districtId: data?.districtId ?? Address.defaultDistrictId,
       );
     }

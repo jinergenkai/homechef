@@ -94,7 +94,7 @@ class AppApiService {
       'https://homechef.kidtalkie.tech/api/v1/address',
       data: {
         "houseNumber": address.houseNumber,
-        "houseType": address.houseType,
+        "houseType": "APARTMENT",
         "street": address.street,
         "ward": address.ward,
         "districtId": address.districtId,

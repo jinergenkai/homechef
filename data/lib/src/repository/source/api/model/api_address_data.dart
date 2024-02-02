@@ -9,10 +9,12 @@ class ApiAddressData with _$ApiAddressData {
 	const ApiAddressData._();
 
 	factory ApiAddressData({
+		@JsonKey(name: 'id') String? id,
 		@JsonKey(name: 'houseNumber') String? houseNumber,
-		@JsonKey(name: 'houseType') String? houseType,
 		@JsonKey(name: 'street') String? street,
 		@JsonKey(name: 'ward') String? ward,
+		@JsonKey(name: 'description') String? description,
+		@JsonKey(name: 'district') String? district,
 		@JsonKey(name: 'districtId') String? districtId,
 	}) = _ApiAddressData;
 

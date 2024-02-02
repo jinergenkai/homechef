@@ -59,7 +59,7 @@ class _ChooseAddressPageState extends BasePageState<ChooseAddressPage, ChooseAdd
                         onPressed: () {
                           navigator.pop(result : state.addresses[index]);
                         },
-                        title: Text("Thành Phố Thủ Đức ${state.addresses[index].districtId}"),
+                        title: Text("${state.addresses[index].district}"),
                         address: state.addresses[index],
                         ),
                   );
