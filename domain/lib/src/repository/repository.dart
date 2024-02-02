@@ -36,7 +36,7 @@ abstract class Repository {
     required Gender gender,
   });
 
-  User getUserPreference();
+  CurrentUser getUserPreference();
 
   Future<void> clearCurrentUserData();
 
@@ -55,7 +55,7 @@ abstract class Repository {
 
   Future<void> saveAccessToken(String accessToken);
 
-  Future<bool> saveUserPreference(User user);
+  Future<bool> saveUserPreference(CurrentUser user);
 
   Future<User> getMe();
 

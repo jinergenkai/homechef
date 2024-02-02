@@ -25,7 +25,6 @@ class HomeBloc extends BaseBloc<HomeEvent, HomeState> {
     Emitter<HomeState> emit,
   ) async {
     final user = await _getCurrentUserUseCase.execute(GetCurrentUserInput(id: 1));
-    print(user.user.displayName);
-    emit(state.copyWith(displayName: user.user.displayName));
+    emit(state.copyWith(displayName: user.user.fullName));
   }
 }

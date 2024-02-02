@@ -1,3 +1,5 @@
+import 'package:dio/dio.dart';
+import 'package:domain/domain.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../../data.dart';
@@ -30,23 +32,22 @@ class AppApiService {
     );
   }
 
-  Future<void> loginV2({
+  // Future<DataResponse<ApiCurrentUserData>?> loginV2({
+  Future<LoginResponse> loginV2({
     required String accessToken,
     required String fcmToken,
     required int role,
   }) async {
-    final result = await _noneAuthAppServerApiClient.request(
-      method: RestMethod.post,
-      path: '/v1/auth/login',
-      body: {
+    final result = await Dio().post(
+      'https://homechef.kidtalkie.tech/api/v1/auth/login',
+      data: {
         'idToken': accessToken,
         'fcmToken': fcmToken,
         'role': role,
       },
-      // decoder: (json) => ApiAuthResponseData.fromJson(json as Map<String, dynamic>),
     );
-    print(result);
-    
+    final apiData = ApiLoginResponseData.fromJson(result.data as Map<String, dynamic>);
+    return ApiLoginResponseDataMapper(ApiCurrentUserDataMapper(ApiFeedbackDataMapper())).mapToEntity(apiData);
   }
 
   Future<void> logout() async {

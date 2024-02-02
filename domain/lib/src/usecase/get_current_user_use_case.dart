@@ -31,6 +31,6 @@ class GetCurrentUserOutput extends BaseOutput with _$GetCurrentUserOutput {
   const GetCurrentUserOutput._();
 
   const factory GetCurrentUserOutput({
-    @Default(User()) User user,
+    @Default(CurrentUser()) CurrentUser user,
   }) = _GetCurrentUserOutput;
 }

@@ -7,8 +7,8 @@ part 'login_state.freezed.dart';
 @freezed
 class LoginState extends BaseBlocState with _$LoginState {
   const factory LoginState({
-    @Default('') String email,
-    @Default('') String password,
+    @Default('user1@gmail.com') String email,
+    @Default('123123') String password,
     @Default(false) bool isLoginButtonEnabled,
     @Default(false) bool obscureText,
     @Default('') String onPageError,

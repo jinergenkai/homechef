@@ -68,21 +68,28 @@ class RepositoryImpl implements Repository {
       throw Exception('User not found');
     }
 
-    await _appApiService.loginV2(
+    //set Nguyen Hung is displayname of firebase user
+    await _firebaseAuth.currentUser?.updateDisplayName('Nguyen Hung');
+
+    var loginResponse = await _appApiService.loginV2(
       accessToken: await _firebaseAuth.currentUser?.getIdToken() ?? '',
       fcmToken: '',
       role: 1,
     );
+    print(loginResponse);
+    loginResponse = loginResponse.copyWith(currentUser: loginResponse.currentUser.copyWith(fullName: 'Nguyen Hung1'));
+    // loginResponse.currentUser.fullName = 'Nguyen Hung1';
 
     await Future.wait([
       saveAccessToken(await _firebaseAuth.currentUser?.getIdToken() ?? ''),
       saveUserPreference(
-        User(
-          displayName: _firebaseAuth.currentUser?.displayName ?? '',
-          email: _firebaseAuth.currentUser?.email ?? '',
-          phoneNumber: _firebaseAuth.currentUser?.phoneNumber ?? '',
-          photoUrl: _firebaseAuth.currentUser?.photoURL ?? '',
-        ),
+        // User(
+        //   displayName: _firebaseAuth.currentUser?.displayName ?? '',
+        //   email: _firebaseAuth.currentUser?.email ?? '',
+        //   phoneNumber: _firebaseAuth.currentUser?.phoneNumber ?? '',
+        //   photoUrl: _firebaseAuth.currentUser?.photoURL ?? '',
+        // ),
+        loginResponse.currentUser,
       ),
     ]);
 
@@ -134,19 +141,20 @@ class RepositoryImpl implements Repository {
       password: password,
       gender: _genderDataMapper.mapToData(gender),
     );
-    await Future.wait([
-      saveAccessToken(response?.data?.accessToken ?? ''),
-      saveUserPreference(
-        User(
-          id: response?.data?.id ?? -1,
-          email: response?.data?.email ?? '',
-        ),
-      ),
-    ]);
+    // await Future.wait([
+    //   saveAccessToken(response?.data?.accessToken ?? ''),
+    //   saveUserPreference(
+    //     User(
+    //       id: response?.data?.id ?? -1,
+    //       email: response?.data?.email ?? '',
+    //     ),
+    //   ),
+    // ]);
   }
 
   @override
-  User getUserPreference() => _preferenceUserDataMapper.mapToEntity(_appPreferences.currentUser);
+  // User getUserPreference() => _preferenceUserDataMapper.mapToEntity(_appPreferences.currentUser);
+  CurrentUser getUserPreference() => _appPreferences.currentUser ?? const CurrentUser();
 
   @override
   Future<void> clearCurrentUserData() => _appPreferences.clearCurrentUserData();
@@ -212,5 +220,6 @@ class RepositoryImpl implements Repository {
   Future<void> saveAccessToken(String accessToken) => _appPreferences.saveAccessToken(accessToken);
 
   @override
-  Future<bool> saveUserPreference(User user) => _appPreferences.saveCurrentUser(_preferenceUserDataMapper.mapToData(user));
+  // Future<bool> saveUserPreference(User user) => _appPreferences.saveCurrentUser(_preferenceUserDataMapper.mapToData(user));
+  Future<bool> saveUserPreference(CurrentUser user) => _appPreferences.saveCurrentUser(user);
 }

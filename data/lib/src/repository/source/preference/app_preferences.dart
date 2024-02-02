@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:domain/domain.dart';
 import 'package:encrypted_shared_preferences/encrypted_shared_preferences.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shared/shared.dart';
@@ -9,8 +10,7 @@ import '../../../../data.dart';
 
 @LazySingleton()
 class AppPreferences with LogMixin {
-  AppPreferences(this._sharedPreference)
-      : _encryptedSharedPreferences = EncryptedSharedPreferences(prefs: _sharedPreference);
+  AppPreferences(this._sharedPreference) : _encryptedSharedPreferences = EncryptedSharedPreferences(prefs: _sharedPreference);
 
   final SharedPreferences _sharedPreference;
   final EncryptedSharedPreferences _encryptedSharedPreferences;
@@ -27,8 +27,7 @@ class AppPreferences with LogMixin {
 
   bool get isFirstLogin => _sharedPreference.getBool(SharedPreferenceKeys.isFirstLogin) ?? true;
 
-  bool get isFirstLaunchApp =>
-      _sharedPreference.getBool(SharedPreferenceKeys.isFirstLaunchApp) ?? true;
+  bool get isFirstLaunchApp => _sharedPreference.getBool(SharedPreferenceKeys.isFirstLaunchApp) ?? true;
 
   Future<String> get accessToken {
     return _encryptedSharedPreferences.getString(SharedPreferenceKeys.accessToken);
@@ -44,13 +43,24 @@ class AppPreferences with LogMixin {
     return token.isNotEmpty;
   }
 
-  PreferenceUserData? get currentUser {
+  CurrentUser? get currentUser {
     final user = _sharedPreference.getString(SharedPreferenceKeys.currentUser);
     if (user == null) {
       return null;
     }
-
-    return PreferenceUserData.fromJson(json.decode(user));
+    Map<String, dynamic> json = jsonDecode(jsonDecode(user));
+    return CurrentUser(
+      id: json["id"],
+      email: json['email'],
+      fullName: json['fullName'],
+      avatarUrl: json['avatarUrl'],
+      phone: json['phone'],
+      // identityCard: json['identityCard'] as List<String>,
+      biography: json['biography'],
+      wallet: json['wallet'],
+      birthday: json['birthday'],
+      role: json['role'],
+    );
   }
 
   Future<bool> saveLanguageCode(String languageCode) {
@@ -79,10 +89,34 @@ class AppPreferences with LogMixin {
     );
   }
 
-  Future<bool> saveCurrentUser(PreferenceUserData preferenceUserData) {
+  // Future<bool> saveCurrentUser(PreferenceUserData preferenceUserData) {
+  //   return _sharedPreference.setString(
+  //     SharedPreferenceKeys.currentUser,
+  //     json.encode(preferenceUserData),
+  //   );
+  // }
+
+  Future<bool> saveCurrentUser(CurrentUser preferenceUserData) {
+    print(preferenceUserData.fullName);
+    // create json userdata
+    final Map<String, dynamic> data = {
+      "id": preferenceUserData.id,
+      "email": preferenceUserData.email,
+      "fullName": preferenceUserData.fullName,
+      "avatarUrl": preferenceUserData.avatarUrl,
+      "phone": preferenceUserData.phone,
+      "identityCard": preferenceUserData.identityCard,
+      "biography": preferenceUserData.biography,
+      "wallet": preferenceUserData.wallet,
+      "birthday": preferenceUserData.birthday,
+      "role": preferenceUserData.role,
+    };
+    print(jsonEncode(data));
+
     return _sharedPreference.setString(
       SharedPreferenceKeys.currentUser,
-      json.encode(preferenceUserData),
+      // json.encode(preferenceUserData),
+      jsonEncode(json.encode(data)),
     );
   }
 
