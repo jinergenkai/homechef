@@ -1,26 +1,48 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:shared/shared.dart';
 
 import '../../../domain.dart';
 
 part 'register_account_use_case.freezed.dart';
 
 @Injectable()
-class RegisterAccountUseCase
-    extends BaseFutureUseCase<RegisterAccountInput, RegisterAccountOutput> {
-  const RegisterAccountUseCase(this._repository);
+class RegisterAccountUseCase extends BaseFutureUseCase<RegisterAccountInput, RegisterAccountOutput> {
+  const RegisterAccountUseCase(this._repository, this._navigator);
 
   final Repository _repository;
+  final AppNavigator _navigator;
 
   @protected
   @override
   Future<RegisterAccountOutput> buildUseCase(RegisterAccountInput input) async {
-    await _repository.register(
-      email: input.email,
-      username: input.username,
-      password: input.password,
-      gender: input.gender,
-    );
+    try {
+      //login firebase
+      await _repository.register(
+        email: input.email,
+        username: input.username,
+        password: input.password,
+        gender: input.gender,
+        displayName: input.username,
+      );
+      await _navigator.replace(const AppRouteInfo.login());
+      // final role = _repository.isDarkMode;
+      // if (role) {
+      //   await _navigator.replace(const AppRouteInfo.chefMain());
+      // } else {
+      //   await _navigator.replace(const AppRouteInfo.main());
+      // }
+    } catch (e) {
+      await _navigator.showDialog(
+        AppPopupInfo.confirmDialog(
+            message: "Email hoặc Mật khẩu không đúng!",
+            onPressed: Func0(() async {
+              await _navigator.pop();
+              // navigator.push(const AppRouteInfo.main());
+            })),
+      );
+      throw Exception("Đăng ký không thành công!");
+    }
 
     return const RegisterAccountOutput();
   }

@@ -48,7 +48,7 @@ class AppPreferences with LogMixin {
     if (user == null) {
       return null;
     }
-    Map<String, dynamic> json = jsonDecode(jsonDecode(user));
+    final Map<String, dynamic> json = jsonDecode(jsonDecode(user));
     return CurrentUser(
       id: json["id"],
       email: json['email'],

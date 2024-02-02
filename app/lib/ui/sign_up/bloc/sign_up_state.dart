@@ -10,6 +10,7 @@ class SignUpState extends BaseBlocState with _$SignUpState {
 
   const factory SignUpState({
     @Default('') String email,
+    @Default('') String fullName,
     @Default('') String password,
     @Default('') String rePassword,
     @Default(false) bool isSignUpButtonEnabled,

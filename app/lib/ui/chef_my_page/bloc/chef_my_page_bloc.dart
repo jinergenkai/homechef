@@ -35,8 +35,11 @@ class ChefMyPageBloc extends BaseBloc<ChefMyPageEvent, ChefMyPageState> {
     );
   }
 
+
   FutureOr<void> _onChefMyPagePageInitiated(
     ChefMyPagePageInitiated event,
     Emitter<ChefMyPageState> emit,
-  ) async {}
+  ) async {
+
+  }
 }

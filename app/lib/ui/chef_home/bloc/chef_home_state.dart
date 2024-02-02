@@ -1,3 +1,4 @@
+import 'package:domain/domain.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../app.dart';
@@ -10,5 +11,6 @@ class ChefHomeState extends BaseBlocState with _$ChefHomeState {
 
   const factory ChefHomeState({
     @Default('') String id,
+    @Default(CurrentUser()) CurrentUser user,
   }) = _ChefHomeState;
 }

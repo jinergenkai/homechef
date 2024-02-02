@@ -46,7 +46,7 @@ class _ChefHomePageState extends BasePageState<ChefHomePage, ChefHomeBloc> {
                         // color: Colors.blue,
                         padding: EdgeInsets.only(left: Dimens.d10.responsive()),
                         child: Text(
-                          "Chào mừng\n${"Nguyen Hung"}",
+                          "Chào mừng\n${state.user.fullName}",
                           style: AppTextStyles.s20w600(color: AppColors.current.primaryColor),
                         ),
                       ),

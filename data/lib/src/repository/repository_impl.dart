@@ -74,10 +74,19 @@ class RepositoryImpl implements Repository {
     var loginResponse = await _appApiService.loginV2(
       accessToken: await _firebaseAuth.currentUser?.getIdToken() ?? '',
       fcmToken: '',
-      role: 1,
+      role: _appPreferences.isDarkMode ? 2 : 1,
     );
-    print(loginResponse);
-    loginResponse = loginResponse.copyWith(currentUser: loginResponse.currentUser.copyWith(fullName: 'Nguyen Hung1'));
+
+    //check true role of user
+    if (loginResponse.currentUser.role == "CUSTOMER" && _appPreferences.isDarkMode != false) {
+      throw Exception('User not found');
+    }
+    if (loginResponse.currentUser.role == "CHEF" && _appPreferences.isDarkMode != true) {
+      throw Exception('User not found');
+    }
+    
+    // print(loginResponse);
+    // loginResponse = loginResponse.copyWith(currentUser: loginResponse.currentUser.copyWith(fullName: 'Nguyen Hung1'));
     // loginResponse.currentUser.fullName = 'Nguyen Hung1';
 
     await Future.wait([
@@ -134,13 +143,23 @@ class RepositoryImpl implements Repository {
     required String email,
     required String password,
     required Gender gender,
+    required String displayName,
   }) async {
-    final response = await _appApiService.register(
-      username: username,
-      email: email,
-      password: password,
-      gender: _genderDataMapper.mapToData(gender),
+    final userCredential = await _firebaseAuth.createUserWithEmailAndPassword(email: email, password: password);
+    await userCredential.user?.updateDisplayName(displayName);
+
+    var loginResponse = await _appApiService.loginV2(
+      accessToken: await _firebaseAuth.currentUser?.getIdToken() ?? '',
+      fcmToken: '',
+      role: _appPreferences.isDarkMode ? 2 : 1,
     );
+
+    // final response = await _appApiService.register(
+    //   username: username,
+    //   email: email,
+    //   password: password,
+    //   gender: _genderDataMapper.mapToData(gender),
+    // );
     // await Future.wait([
     //   saveAccessToken(response?.data?.accessToken ?? ''),
     //   saveUserPreference(
@@ -154,7 +173,14 @@ class RepositoryImpl implements Repository {
 
   @override
   // User getUserPreference() => _preferenceUserDataMapper.mapToEntity(_appPreferences.currentUser);
-  CurrentUser getUserPreference() => _appPreferences.currentUser ?? const CurrentUser();
+  CurrentUser getUserPreference() {
+    var result = _appPreferences.currentUser ?? const CurrentUser();
+    result = result.copyWith(
+      fullName: _firebaseAuth.currentUser?.displayName ?? '',
+      avatarUrl: _firebaseAuth.currentUser?.photoURL ?? '',
+    );
+    return result;
+  }
 
   @override
   Future<void> clearCurrentUserData() => _appPreferences.clearCurrentUserData();

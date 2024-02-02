@@ -34,6 +34,7 @@ abstract class Repository {
     required String email,
     required String password,
     required Gender gender,
+    required String displayName,
   });
 
   CurrentUser getUserPreference();

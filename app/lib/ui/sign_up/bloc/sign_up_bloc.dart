@@ -11,7 +11,8 @@ import 'sign_up.dart';
 @Injectable()
 class SignUpBloc extends BaseBloc<SignUpEvent, SignUpState> {
   SignUpBloc(
-    this._getInitialAppDataUseCase,
+    // this._getInitialAppDataUseCase,
+    this._registerAccountUseCase,
   ) : super(const SignUpState()) {
     on<SignUpPageInitiated>(
       _onSignUpPageInitiated,
@@ -63,24 +64,27 @@ class SignUpBloc extends BaseBloc<SignUpEvent, SignUpState> {
   ) async {}
 
   final auth = FirebaseAuth.instance;
-  final GetInitialAppDataUseCase _getInitialAppDataUseCase;
+  final RegisterAccountUseCase _registerAccountUseCase;
 
   FutureOr<void> _onSignUpButtonPressed(
     SignUpButtonPressed event,
     Emitter<SignUpState> emit,
   ) async {
-    //sign in by firebase
-    final result = await auth.createUserWithEmailAndPassword(email: state.email, password: state.password);
+    // //sign in by firebase
+    // final result = await auth.createUserWithEmailAndPassword(email: state.email, password: state.password);
 
-    //get role
-    final role = _getInitialAppDataUseCase.execute(const GetInitialAppDataInput()).isDarkMode;
-    if (result.user != null) {
-      if (role) {
-        await navigator.replace(const AppRouteInfo.chefMain());
-      } else {
-        await navigator.replace(const AppRouteInfo.main());
-      }
-    }
+    // //get role
+    // final role = _getInitialAppDataUseCase.execute(const GetInitialAppDataInput()).isDarkMode;
+    // if (result.user != null) {
+    //   if (role) {
+    //     await navigator.replace(const AppRouteInfo.chefMain());
+    //   } else {
+    //     await navigator.replace(const AppRouteInfo.main());
+    //   }
+    // }
+    return runBlocCatching(action: () async {
+      await _registerAccountUseCase.execute(RegisterAccountInput(email: state.email, password: state.password, username: state.fullName, gender: Gender.defaultValue));
+    });
   }
 
   FutureOr<void> _onSignUpPageInitiated(
