@@ -74,7 +74,7 @@ class CreateAddressBloc extends BaseBloc<CreateAddressEvent, CreateAddressState>
   }
 
   FutureOr<void> _onCreateAddressButtonPressed(
-    CreateAddressButtonPressed event, 
+    CreateAddressButtonPressed event,
     Emitter<CreateAddressState> emit,
   ) async {
     return runBlocCatching(action: () async {
@@ -87,10 +87,9 @@ class CreateAddressBloc extends BaseBloc<CreateAddressEvent, CreateAddressState>
           address: address,
         ),
       );
-    },
-    doOnEventCompleted: () {
-      return navigator.replace(const AppRouteInfo.chooseAddress());
-    }
-    );
+    }, doOnEventCompleted: () {
+      return navigator.pop();
+      // return navigator.replace(const AppRouteInfo.chooseAddress());
+    });
   }
 }

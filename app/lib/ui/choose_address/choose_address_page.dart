@@ -46,6 +46,9 @@ class _ChooseAddressPageState extends BasePageState<ChooseAddressPage, ChooseAdd
               margin: EdgeInsets.symmetric(
                 vertical: Dimens.d8.responsive(),
               ),
+              padding: EdgeInsets.only(
+                bottom: Dimens.d40.responsive(),
+              ),
               child: ListView.builder(
                 shrinkWrap: true,
                 itemCount: state.addresses.length,
@@ -56,12 +59,12 @@ class _ChooseAddressPageState extends BasePageState<ChooseAddressPage, ChooseAdd
                       vertical: Dimens.d8.responsive(),
                     ),
                     child: AddressItem(
-                        onPressed: () {
-                          navigator.pop(result : state.addresses[index]);
-                        },
-                        title: Text("${state.addresses[index].district}"),
-                        address: state.addresses[index],
-                        ),
+                      onPressed: () {
+                        navigator.pop(result: state.addresses[index]);
+                      },
+                      title: Text("${state.addresses[index].district}"),
+                      address: state.addresses[index],
+                    ),
                   );
                 },
               ),
@@ -75,8 +78,9 @@ class _ChooseAddressPageState extends BasePageState<ChooseAddressPage, ChooseAdd
       floatingActionButton: Container(
         margin: EdgeInsets.symmetric(horizontal: Dimens.d30.responsive()),
         child: CommonEllipseButon(
-          onPressed: () {
-            navigator.push(const AppRouteInfo.createAddress());
+          onPressed: () async {
+            await navigator.push(const AppRouteInfo.createAddress());
+            bloc.add(const ChooseAddressPageInitiated());
           },
           text: "Tạo Địa Điểm Mới",
         ),
