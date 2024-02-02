@@ -26,12 +26,6 @@ class RegisterAccountUseCase extends BaseFutureUseCase<RegisterAccountInput, Reg
         displayName: input.username,
       );
       await _navigator.replace(const AppRouteInfo.login());
-      // final role = _repository.isDarkMode;
-      // if (role) {
-      //   await _navigator.replace(const AppRouteInfo.chefMain());
-      // } else {
-      //   await _navigator.replace(const AppRouteInfo.main());
-      // }
     } catch (e) {
       await _navigator.showDialog(
         AppPopupInfo.confirmDialog(

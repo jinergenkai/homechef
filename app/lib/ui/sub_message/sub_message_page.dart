@@ -31,11 +31,11 @@ class _SubMessagePageState extends BasePageState<SubMessagePage, SubMessageBloc>
           buildWhen: (previous, current) => previous != current,
           builder: (context, state) {
             return ListView.builder(
-              itemCount: 10,
+              itemCount: 2,
               itemBuilder: (context, index) {
                 return MessageItem(
                     onPressed: () {
-                      navigator.push(const AppRouteInfo.main());
+                      // navigator.push(const AppRouteInfo.main());
                     },
                     title: Text("message $index"));
               },

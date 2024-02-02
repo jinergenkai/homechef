@@ -47,7 +47,28 @@ class AppApiService {
       },
     );
     final apiData = ApiLoginResponseData.fromJson(result.data as Map<String, dynamic>);
+    print('apiData: $apiData');
+    print('accessToken: $accessToken');
     return ApiLoginResponseDataMapper(ApiCurrentUserDataMapper(ApiFeedbackDataMapper())).mapToEntity(apiData);
+  }
+
+  //* UpdateProfile
+  Future<void> updateProfile({
+    required CurrentUser user,
+    required String accessToken,
+  }) async {
+    await Dio(BaseOptions(headers: {'Authorization': 'Bearer $accessToken'})).put(
+      'https://homechef.kidtalkie.tech/api/v1/user/${user.id}', 
+      data: {
+        "email": user.email,
+        "fullName": user.fullName,
+        "avatarUrl": user.avatarUrl,
+        "phone": user.phone,
+        "identityCard": user.identityCard,
+        "biography": user.biography,
+        "birthday": user.birthday,
+      },
+    );
   }
 
   Future<List<CurrentUser>?> getChefs() async {

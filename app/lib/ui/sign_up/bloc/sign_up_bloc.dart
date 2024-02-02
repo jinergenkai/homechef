@@ -38,6 +38,11 @@ class SignUpBloc extends BaseBloc<SignUpEvent, SignUpState> {
       _onSignUpButtonPressed,
       transformer: log(),
     );
+
+    on<UsernameTextFieldChanged>(
+      _onUsernameTextFieldChanged,
+      transformer: log(),
+    );
   }
 
   FutureOr<void> _onEmailTextFieldChanged(
@@ -55,6 +60,15 @@ class SignUpBloc extends BaseBloc<SignUpEvent, SignUpState> {
   ) async {
     emit(state.copyWith(
       password: event.password,
+    ));
+  }
+
+  _onUsernameTextFieldChanged(
+    UsernameTextFieldChanged event,
+    Emitter<SignUpState> emit,
+  ) async {
+    emit(state.copyWith(
+      fullName: event.username,
     ));
   }
 
@@ -86,6 +100,7 @@ class SignUpBloc extends BaseBloc<SignUpEvent, SignUpState> {
       await _registerAccountUseCase.execute(RegisterAccountInput(email: state.email, password: state.password, username: state.fullName, gender: Gender.defaultValue));
     });
   }
+
 
   FutureOr<void> _onSignUpPageInitiated(
     SignUpPageInitiated event,

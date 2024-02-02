@@ -36,3 +36,10 @@ class EyeIconPressed extends SignUpEvent with _$EyeIconPressed {
 class SignUpButtonPressed extends SignUpEvent with _$SignUpButtonPressed {
   const factory SignUpButtonPressed() = _SignUpButtonPressed;
 }
+
+@freezed
+class UsernameTextFieldChanged extends SignUpEvent with _$UsernameTextFieldChanged {
+  const factory UsernameTextFieldChanged({
+    required String username,
+  }) = _UsernameTextFieldChanged;
+}

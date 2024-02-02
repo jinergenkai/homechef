@@ -69,7 +69,7 @@ class _SignUpPageState extends BasePageState<SignUpPage, SignUpBloc> {
               AppTextField(
                 title: "Họ và tên",
                 hintText: "nhập họ và tên",
-                // onChanged: (email) => bloc.add(EmailTextFieldChanged(email: email)),
+                onChanged: (username) => bloc.add(UsernameTextFieldChanged(username: username)),
                 keyboardType: TextInputType.text,
               ),
               SizedBox(height: Dimens.d24.responsive()),

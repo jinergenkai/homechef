@@ -90,7 +90,7 @@ class RepositoryImpl implements Repository {
     // loginResponse.currentUser.fullName = 'Nguyen Hung1';
 
     await Future.wait([
-      saveAccessToken(await _firebaseAuth.currentUser?.getIdToken() ?? ''),
+      saveAccessToken(await loginResponse.token),
       saveUserPreference(
         // User(
         //   displayName: _firebaseAuth.currentUser?.displayName ?? '',
@@ -153,6 +153,10 @@ class RepositoryImpl implements Repository {
       fcmToken: '',
       role: _appPreferences.isDarkMode ? 2 : 1,
     );
+    await _appApiService.updateProfile(
+      accessToken: loginResponse.token,
+      user: loginResponse.currentUser.copyWith(fullName: displayName),
+    );
 
     
 
@@ -177,10 +181,10 @@ class RepositoryImpl implements Repository {
   // User getUserPreference() => _preferenceUserDataMapper.mapToEntity(_appPreferences.currentUser);
   CurrentUser getUserPreference() {
     var result = _appPreferences.currentUser ?? const CurrentUser();
-    result = result.copyWith(
-      fullName: _firebaseAuth.currentUser?.displayName ?? '',
-      avatarUrl: _firebaseAuth.currentUser?.photoURL ?? '',
-    );
+    // result = result.copyWith(
+    //   fullName: _firebaseAuth.currentUser?.displayName ?? '',
+    //   avatarUrl: _firebaseAuth.currentUser?.photoURL ?? '',
+    // );
     return result;
   }
 
