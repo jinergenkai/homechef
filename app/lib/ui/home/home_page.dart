@@ -137,9 +137,12 @@ class _HomePageState extends BasePageState<HomePage, HomeBloc> {
                     ListView.builder(
                       shrinkWrap: true,
                       physics: const ClampingScrollPhysics(),
-                      itemCount: 5,
+                      itemCount: state.chefs.length,
                       itemBuilder: (context, index) => CardChefProfile(
                         onPressed: () => navigator.push(const AppRouteInfo.chefProfile()),
+                        fullName: state.chefs[index].fullName,
+                        biography: state.chefs[index].biography,
+                        // feedBack: state.chefs[index].,
                       ),
                       // itemBuilder: (context, index) => const MessageItem(),
                     ),
@@ -158,9 +161,17 @@ class CardChefProfile extends StatelessWidget {
   const CardChefProfile({
     super.key,
     this.onPressed,
+    this.fullName,
+    this.rating,
+    this.feedBack,
+    this.biography,
   });
 
   final VoidCallback? onPressed;
+  final String? fullName;
+  final String? rating;
+  final int? feedBack;
+  final String? biography;
 
   @override
   Widget build(BuildContext context) {
@@ -179,7 +190,7 @@ class CardChefProfile extends StatelessWidget {
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   image: DecorationImage(
-                    image: Assets.images.avatarChef.image().image,
+                    image: Assets.images.avatarPlaceholder.image().image,
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -192,17 +203,18 @@ class CardChefProfile extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Tommy Phạm",
+                        fullName ?? "Tommy Phạm",
                         style: AppTextStyles.s20w600(color: AppColors.current.blackColor),
                       ),
                       SizedBox(height: Dimens.d5.responsive()),
                       Text(
-                        "4.9s (15 reviews)",
+                        "${feedBack ?? 0} reviews",
+                        // "4.9s (15 reviews)",
                         style: AppTextStyles.s14w500(color: AppColors.current.primaryTextColor),
                       ),
                       SizedBox(height: Dimens.d3.responsive()),
                       Text(
-                        "Tôi tin rằng quan niệm công việc nội trợ là dành cho phụ nữ nên thay đổi.",
+                        biography!.isNotEmpty ? biography! : "Tôi tin rằng quan niệm công việc nội trợ là dành cho phụ nữ nên thay đổi.",
                         overflow: TextOverflow.ellipsis,
                         maxLines: 2,
                         style: AppTextStyles.s14w500(color: AppColors.current.primaryColor),

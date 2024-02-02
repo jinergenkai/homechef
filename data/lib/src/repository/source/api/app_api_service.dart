@@ -50,6 +50,19 @@ class AppApiService {
     return ApiLoginResponseDataMapper(ApiCurrentUserDataMapper(ApiFeedbackDataMapper())).mapToEntity(apiData);
   }
 
+  Future<List<CurrentUser>?> getChefs() async {
+    final response = await Dio().get(
+      'https://homechef.kidtalkie.tech/api/v1/user/chef',
+    );
+    final dataList = response.data as List<dynamic>;
+    final converter = <ApiCurrentUserData>[];
+
+    for (var data in dataList) {
+      converter.add(ApiCurrentUserData.fromJson(data as Map<String, dynamic>));
+    }
+    return ApiCurrentUserDataMapper(ApiFeedbackDataMapper()).mapToListEntity(converter);
+  }
+
   Future<void> logout() async {
     await _authAppServerApiClient.request(
       method: RestMethod.post,

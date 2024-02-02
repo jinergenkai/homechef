@@ -71,4 +71,6 @@ abstract class Repository {
   bool deleteImageUrl(int id);
 
   int deleteAllUsersAndImageUrls();
+
+  Future<List<CurrentUser>?> getChefs();
 }

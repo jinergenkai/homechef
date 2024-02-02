@@ -28,6 +28,7 @@ export 'src/usecase/base/sync/base_sync_use_case.dart';
 export 'src/usecase/clear_current_user_data_use_case.dart';
 export 'src/usecase/fake_login_use_case.dart';
 export 'src/usecase/forgot_password_use_case.dart';
+export 'src/usecase/get_chefs_use_case.dart';
 export 'src/usecase/get_current_user_use_case.dart';
 export 'src/usecase/get_initial_app_data_use_case.dart';
 export 'src/usecase/get_initial_home_data_use_case.dart';

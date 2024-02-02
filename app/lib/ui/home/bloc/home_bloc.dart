@@ -11,6 +11,7 @@ import 'home.dart';
 class HomeBloc extends BaseBloc<HomeEvent, HomeState> {
   HomeBloc(
     this._getCurrentUserUseCase,
+    this._getChefsUseCase,
   ) : super(const HomeState()) {
     on<HomePageInitiated>(
       _onHomePageInitiated,
@@ -19,13 +20,16 @@ class HomeBloc extends BaseBloc<HomeEvent, HomeState> {
   }
 
   final GetCurrentUserUseCase _getCurrentUserUseCase;
+  final GetChefsUseCase _getChefsUseCase;
 
   FutureOr<void> _onHomePageInitiated(
     HomePageInitiated event,
     Emitter<HomeState> emit,
   ) async {
     final user = await _getCurrentUserUseCase.execute(GetCurrentUserInput(id: 1));
-    print(user);
-    emit(state.copyWith(displayName: user.user.fullName.isNotEmpty ? user.user.fullName : user.user.id.substring(0, 10)));
+
+    final chefs = await _getChefsUseCase.execute(GetChefsInput(id: 1));
+    print(chefs);
+    emit(state.copyWith(displayName: user.user.fullName.isNotEmpty ? user.user.fullName : user.user.id.substring(0, 10), chefs: chefs.chefs));
   }
 }

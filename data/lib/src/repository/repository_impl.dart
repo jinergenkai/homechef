@@ -69,7 +69,7 @@ class RepositoryImpl implements Repository {
     }
 
     //set Nguyen Hung is displayname of firebase user
-    await _firebaseAuth.currentUser?.updateDisplayName('Nguyen Hung');
+    // await _firebaseAuth.currentUser?.updateDisplayName('Nguyen Hung');
 
     var loginResponse = await _appApiService.loginV2(
       accessToken: await _firebaseAuth.currentUser?.getIdToken() ?? '',
@@ -84,7 +84,7 @@ class RepositoryImpl implements Repository {
     if (loginResponse.currentUser.role == "CHEF" && _appPreferences.isDarkMode != true) {
       throw Exception('User not found');
     }
-    
+
     // print(loginResponse);
     // loginResponse = loginResponse.copyWith(currentUser: loginResponse.currentUser.copyWith(fullName: 'Nguyen Hung1'));
     // loginResponse.currentUser.fullName = 'Nguyen Hung1';
@@ -153,6 +153,8 @@ class RepositoryImpl implements Repository {
       fcmToken: '',
       role: _appPreferences.isDarkMode ? 2 : 1,
     );
+
+    
 
     // final response = await _appApiService.register(
     //   username: username,
@@ -248,4 +250,9 @@ class RepositoryImpl implements Repository {
   @override
   // Future<bool> saveUserPreference(User user) => _appPreferences.saveCurrentUser(_preferenceUserDataMapper.mapToData(user));
   Future<bool> saveUserPreference(CurrentUser user) => _appPreferences.saveCurrentUser(user);
+
+  @override
+  Future<List<CurrentUser>?> getChefs() async {
+    return _appApiService.getChefs();
+  }
 }

@@ -1,3 +1,4 @@
+import 'package:domain/domain.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../app.dart';
@@ -11,5 +12,6 @@ class HomeState extends BaseBlocState with _$HomeState {
   const factory HomeState({
     @Default('') String id,
     @Default('') String displayName,
+    @Default([]) List<CurrentUser> chefs,
   }) = _HomeState;
 }
