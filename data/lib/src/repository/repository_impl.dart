@@ -153,6 +153,7 @@ class RepositoryImpl implements Repository {
       fcmToken: '',
       role: _appPreferences.isDarkMode ? 2 : 1,
     );
+    // print(loginResponse);
     await _appApiService.updateProfile(
       accessToken: loginResponse.token,
       user: loginResponse.currentUser.copyWith(fullName: displayName),

@@ -38,18 +38,23 @@ class AppApiService {
     required String fcmToken,
     required int role,
   }) async {
-    final result = await Dio().post(
-      'https://homechef.kidtalkie.tech/api/v1/auth/login',
-      data: {
-        'idToken': accessToken,
-        'fcmToken': fcmToken,
-        'role': role,
-      },
-    );
-    final apiData = ApiLoginResponseData.fromJson(result.data as Map<String, dynamic>);
-    print('apiData: $apiData');
-    print('accessToken: $accessToken');
-    return ApiLoginResponseDataMapper(ApiCurrentUserDataMapper(ApiFeedbackDataMapper())).mapToEntity(apiData);
+    try {
+      final result = await Dio().post(
+        'https://homechef.kidtalkie.tech/api/v1/auth/login',
+        data: {
+          'idToken': accessToken,
+          'fcmToken': "string",
+          'role': role,
+        },
+      );
+      final apiData = ApiLoginResponseData.fromJson(result.data as Map<String, dynamic>);
+      print('apiData: $apiData');
+      // print('accessToken: $accessToken');
+      return ApiLoginResponseDataMapper(ApiCurrentUserDataMapper(ApiFeedbackDataMapper())).mapToEntity(apiData);
+    } catch (e) {
+      print(e);
+      throw e;
+    }
   }
 
   //* UpdateProfile

@@ -29,9 +29,12 @@ class ChooseMenuBloc extends BaseBloc<ChooseMenuEvent, ChooseMenuState> {
     PeopleChanged event,
     Emitter<ChooseMenuState> emit,
   ) {
+    final changedPeople = (state.people + event.amount >= 0) ? state.people + event.amount : state.people;
     emit(state.copyWith(
-      people: (state.people + event.amount >= 0) ? state.people + event.amount : state.people,
+      people: changedPeople,
+      cookingOrder: state.cookingOrder.copyWith(quantity: changedPeople),
     ));
+    // print(state.cookingOrder);
   }
 
   void _onAddCourse(
@@ -47,5 +50,6 @@ class ChooseMenuBloc extends BaseBloc<ChooseMenuEvent, ChooseMenuState> {
   FutureOr<void> _onChooseMenuPageInitiated(
     ChooseMenuPageInitiated event,
     Emitter<ChooseMenuState> emit,
-  ) async {}
+  ) async {
+  }
 }

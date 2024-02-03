@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:domain/domain.dart';
 
 import '../../../app.dart';
 
@@ -12,5 +13,6 @@ class ChooseMenuState extends BaseBlocState with _$ChooseMenuState {
     @Default('') String id,
     @Default(1) int people,
     @Default(["", ""]) List<String> menu,
+    @Default(CookingOrder()) CookingOrder cookingOrder,
   }) = _ChooseMenuState;
 }

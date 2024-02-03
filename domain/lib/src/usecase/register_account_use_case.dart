@@ -29,13 +29,13 @@ class RegisterAccountUseCase extends BaseFutureUseCase<RegisterAccountInput, Reg
     } catch (e) {
       await _navigator.showDialog(
         AppPopupInfo.confirmDialog(
-            message: "Email hoặc Mật khẩu không đúng!",
+            message: "Đăng ký không thành công!",
             onPressed: Func0(() async {
               await _navigator.pop();
               // navigator.push(const AppRouteInfo.main());
             })),
       );
-      throw Exception("Đăng ký không thành công!");
+      // throw Exception("Đăng ký không thành công!");
     }
 
     return const RegisterAccountOutput();
