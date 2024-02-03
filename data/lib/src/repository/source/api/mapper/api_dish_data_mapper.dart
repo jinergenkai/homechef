@@ -10,6 +10,7 @@ class ApiDishDataMapper extends BaseDataMapper<ApiDishData, Dish> {
       return Dish(
         id: data?.id ?? Dish.defaultId,
 name: data?.name ?? Dish.defaultName,
+price: data?.price ?? Dish.defaultPrice,
       );
     }
 }  

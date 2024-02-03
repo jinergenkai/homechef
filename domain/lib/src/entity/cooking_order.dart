@@ -15,6 +15,7 @@ class CookingOrder with _$CookingOrder {
 @Default(CookingOrder.defaultTotalPrice) int totalPrice,
 @Default(CookingOrder.defaultPrice) int price,
 @Default(CookingOrder.defaultQuantity) int quantity,
+@Default(CookingOrder.defaultOption) int option,
 @Default(CookingOrder.defaultDish) List<Dish> dish,
 @Default(CookingOrder.defaultDishType) String dishType,
 @Default(CookingOrder.defaultIntialTransactionMethod) String intialTransactionMethod,
@@ -29,6 +30,7 @@ static const defaultTransaction = <Transaction>[];
 static const defaultTotalPrice = 0;
 static const defaultPrice = 0;
 static const defaultQuantity = 0;
+static const defaultOption = 0;
 static const defaultDish = <Dish>[];
 static const defaultDishType = '';
 static const defaultIntialTransactionMethod = '';

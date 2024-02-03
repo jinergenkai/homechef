@@ -32,6 +32,7 @@ transaction: data?.transaction?.map((e) => _apiTransactionDataMapper.mapToEntity
 totalPrice: data?.totalPrice ?? CookingOrder.defaultTotalPrice,
 price: data?.price ?? CookingOrder.defaultPrice,
 quantity: data?.quantity ?? CookingOrder.defaultQuantity,
+option: data?.option ?? CookingOrder.defaultOption,
 dish: data?.dish?.map((e) => _apiDishDataMapper.mapToEntity(e)).toList() ?? CookingOrder.defaultDish,
 dishType: data?.dishType ?? CookingOrder.defaultDishType,
 intialTransactionMethod: data?.intialTransactionMethod ?? CookingOrder.defaultIntialTransactionMethod,

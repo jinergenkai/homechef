@@ -11,6 +11,7 @@ class ApiDishData with _$ApiDishData {
 	factory ApiDishData({
 		@JsonKey(name: 'id') String? id,
 		@JsonKey(name: 'name') String? name,
+		@JsonKey(name: 'price') int? price,
 	}) = _ApiDishData;
 
 	factory ApiDishData.fromJson(Map<String, dynamic> json) => _$ApiDishDataFromJson(json);
