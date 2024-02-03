@@ -35,6 +35,7 @@ quantity: data?.quantity ?? CookingOrder.defaultQuantity,
 option: data?.option ?? CookingOrder.defaultOption,
 dish: data?.dish?.map((e) => _apiDishDataMapper.mapToEntity(e)).toList() ?? CookingOrder.defaultDish,
 dishType: data?.dishType ?? CookingOrder.defaultDishType,
+note: data?.note ?? CookingOrder.defaultNote,
 intialTransactionMethod: data?.intialTransactionMethod ?? CookingOrder.defaultIntialTransactionMethod,
 rejectReason: data?.rejectReason ?? CookingOrder.defaultRejectReason,
       );

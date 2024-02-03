@@ -25,6 +25,7 @@ class ApiCookingOrderData with _$ApiCookingOrderData {
 		@JsonKey(name: 'option') int? option,
 		@JsonKey(name: 'dish') List<ApiDishData>? dish,
 		@JsonKey(name: 'dishType') String? dishType,
+		@JsonKey(name: 'note') String? note,
 		@JsonKey(name: 'intialTransactionMethod') String? intialTransactionMethod,
 		@JsonKey(name: 'rejectReason') String? rejectReason,
 	}) = _ApiCookingOrderData;

@@ -131,39 +131,28 @@ class _ChooseMenuPageState extends BasePageState<ChooseMenuPage, ChooseMenuBloc>
                       CommonSmallTitle(text: "Món ăn"),
                       BorderContainer(
                           child: BlocBuilder<ChooseMenuBloc, ChooseMenuState>(
-                        buildWhen: (previous, current) => previous.menu != current.menu,
+                        buildWhen: (previous, current) => previous.dishes != current.dishes,
                         builder: (context, state) {
                           return Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text("${state.menu.length} món chính", style: AppTextStyles.s16w600(color: AppColors.current.primaryColor)),
+                              Text("${state.dishes.length} món chính", style: AppTextStyles.s16w600(color: AppColors.current.primaryColor)),
                               SizedBox(height: 5),
                               ListView.builder(
                                 shrinkWrap: true,
                                 physics: const ClampingScrollPhysics(),
                                 itemBuilder: (context, index) =>
-                                    // Padding(
-                                    //   padding: const EdgeInsets.only(top: 8.0),
-                                    //   child: AppTextField(
-                                    //     hintText: "${index+1}",
-                                    //     // controller: "${state.menu[index]}",
-                                    //     suffixIcon: Assets.images.trash,
-
-                                    //     keyboardType: TextInputType.visiblePassword,
-                                    //   ),
-                                    // ),
                                     Container(
                                   margin: EdgeInsets.only(top: 8),
-                                  child: DropdownMenu<String>(
+                                  child: DropdownMenu<Dish>(
                                       width: MediaQuery.of(context).size.width * 0.835,
-                                      initialSelection: 'Cơm tấm',
-                                      controller: _courseController[index],
+                                      initialSelection: state.menu.first,
                                       requestFocusOnTap: false,
-                                      // onSelected: (ColorLabel? color) {
-                                      // setState(() {
-                                      //   _selectedValue = color ?? ColorLabel.green;
-                                      // });
-                                      // },
+                                      onSelected: (Dish? dish) {
+                                        if (dish != null) {
+                                          bloc.add(ChooseMenuDishChanged(dish: dish, index: index));
+                                        }
+                                      },
                                       inputDecorationTheme: InputDecorationTheme(
                                         fillColor: Colors.red,
                                         border: OutlineInputBorder(
@@ -171,29 +160,14 @@ class _ChooseMenuPageState extends BasePageState<ChooseMenuPage, ChooseMenuBloc>
                                           borderSide: BorderSide(color: AppColors.current.primaryColor, width: 1.0),
                                         ),
                                       ),
-                                      // dropdownMenuEntries: ColorLabel.values.map<DropdownMenuEntry<ColorLabel>>((ColorLabel color) {
-                                      //   return DropdownMenuEntry<ColorLabel>(
-                                      //     value: color,
-                                      //     label: color.label,
-                                      //     enabled: color.label != 'Grey',
-                                      //     style: MenuItemButton.styleFrom(
-                                      //       foregroundColor: color.color,
-                                      //     ),
-                                      //   );
-                                      // }).toList(),
-
-                                      dropdownMenuEntries: MonAn.map<DropdownMenuEntry<String>>((String monAn) {
-                                        return DropdownMenuEntry<String>(
+                                      dropdownMenuEntries: state.menu.map<DropdownMenuEntry<Dish>>((Dish monAn) {
+                                        return DropdownMenuEntry<Dish>(
                                           value: monAn,
-                                          label: monAn,
-                                          // enabled: monAn != 'Cơm tấm',
-                                          style: MenuItemButton.styleFrom(
-                                            // foregroundColor: AppColors.current.primaryColor,
-                                          ),
+                                          label: monAn.name,
                                         );
                                       }).toList()),
                                 ),
-                                itemCount: state.menu.length,
+                                itemCount: state.dishes.length,
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(top: 8.0),
@@ -206,6 +180,7 @@ class _ChooseMenuPageState extends BasePageState<ChooseMenuPage, ChooseMenuBloc>
                                 ),
                               ),
                               SizedBox(height: 20),
+                              //* add course
                               Container(
                                 width: double.infinity,
                                 height: Dimens.d40.responsive(),
@@ -296,6 +271,9 @@ class _ChooseMenuPageState extends BasePageState<ChooseMenuPage, ChooseMenuBloc>
                       //* Note for Tasker
                       CommonSmallTitle(text: "Ghi chú cho người nấu"),
                       AppTextField(
+                        onChanged: (value) {
+                          bloc.add(NoteChanged(note: value));
+                        },
                         maxLines: null,
                       ),
 

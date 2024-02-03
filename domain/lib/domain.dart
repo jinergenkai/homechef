@@ -39,6 +39,7 @@ export 'src/usecase/forgot_password_use_case.dart';
 export 'src/usecase/get_addresses_use_case.dart';
 export 'src/usecase/get_chefs_use_case.dart';
 export 'src/usecase/get_current_user_use_case.dart';
+export 'src/usecase/get_dishes_use_case.dart';
 export 'src/usecase/get_district_by_province_use_case.dart';
 export 'src/usecase/get_initial_app_data_use_case.dart';
 export 'src/usecase/get_initial_home_data_use_case.dart';

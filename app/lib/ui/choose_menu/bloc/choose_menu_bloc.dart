@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:domain/domain.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 
@@ -8,7 +9,9 @@ import 'choose_menu.dart';
 
 @Injectable()
 class ChooseMenuBloc extends BaseBloc<ChooseMenuEvent, ChooseMenuState> {
-  ChooseMenuBloc() : super(const ChooseMenuState()) {
+  ChooseMenuBloc(
+    this._getDishesUseCase,
+  ) : super(const ChooseMenuState()) {
     on<ChooseMenuPageInitiated>(
       _onChooseMenuPageInitiated,
       transformer: log(),
@@ -23,6 +26,21 @@ class ChooseMenuBloc extends BaseBloc<ChooseMenuEvent, ChooseMenuState> {
       _onAddCourse,
       transformer: log(),
     );
+
+    on<ChooseMenuDishChanged>(
+      _onChooseMenuDishChanged,
+      transformer: log(),
+    );
+
+    on<NoteChanged>(
+      _onNoteChanged,
+      transformer: log(),
+    );
+
+    on<FlavorChanged>(
+      _onFlavorChanged,
+      transformer: log(),
+    );
   }
 
   void _onPeopleChanged(
@@ -34,7 +52,20 @@ class ChooseMenuBloc extends BaseBloc<ChooseMenuEvent, ChooseMenuState> {
       people: changedPeople,
       cookingOrder: state.cookingOrder.copyWith(quantity: changedPeople),
     ));
-    // print(state.cookingOrder);
+    print(state.cookingOrder);
+    // print(state.menu);
+    // print(state.dishes);
+  }
+
+  void _onChooseMenuDishChanged(
+    ChooseMenuDishChanged event,
+    Emitter<ChooseMenuState> emit,
+  ) {
+    final List<Dish> dishes = List.from(state.dishes);
+    dishes[event.index] = event.dish;
+    emit(state.copyWith(
+      dishes: dishes,
+    ));
   }
 
   void _onAddCourse(
@@ -42,14 +73,41 @@ class ChooseMenuBloc extends BaseBloc<ChooseMenuEvent, ChooseMenuState> {
     Emitter<ChooseMenuState> emit,
   ) {
     // state.menu.add("1");
+    // print(menu);
     emit(state.copyWith(
-      menu: [...state.menu, ""],
+      dishes: [...state.dishes, state.menu.first],
     ));
   }
+
+  final GetDishesUseCase _getDishesUseCase;
 
   FutureOr<void> _onChooseMenuPageInitiated(
     ChooseMenuPageInitiated event,
     Emitter<ChooseMenuState> emit,
   ) async {
+    return runBlocCatching(action: () async {
+      final result = await _getDishesUseCase.execute(const GetDishesInput());
+      emit(state.copyWith(
+        menu: result.dishes,
+      ));
+    });
+  }
+
+  void _onNoteChanged(
+    NoteChanged event,
+    Emitter<ChooseMenuState> emit,
+  ) {
+    emit(state.copyWith(
+      cookingOrder: state.cookingOrder.copyWith(note: event.note),
+    ));
+  }
+
+  void _onFlavorChanged(
+    FlavorChanged event,
+    Emitter<ChooseMenuState> emit,
+  ) {
+    emit(state.copyWith(
+      cookingOrder: state.cookingOrder.copyWith(dishType: event.flavor),
+    ));
   }
 }

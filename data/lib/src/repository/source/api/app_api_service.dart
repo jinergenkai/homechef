@@ -137,6 +137,27 @@ class AppApiService {
     return ApiCurrentUserDataMapper(ApiFeedbackDataMapper()).mapToListEntity(converter);
   }
 
+  // #region order - dish
+
+  //* get list<dish>
+  Future<List<Dish>> getDishes({
+    required String accessToken,
+  }) async {
+    final response = await Dio(BaseOptions(headers: {'Authorization': 'Bearer $accessToken'})).get(
+      'https://homechef.kidtalkie.tech/api/v1/order/dish',
+    );
+    final dataList = response.data as List<dynamic>;
+    final converter = <ApiDishData>[];
+
+    for (var data in dataList) {
+      converter.add(ApiDishData.fromJson(data as Map<String, dynamic>));
+    }
+    return ApiDishDataMapper().mapToListEntity(converter);
+  }
+
+  // #endregion
+
+  // #region Auth, current user - old
   Future<void> logout() async {
     await _authAppServerApiClient.request(
       method: RestMethod.post,
@@ -215,4 +236,5 @@ class AppApiService {
       decoder: (json) => ApiUserData.fromJson(json as Map<String, dynamic>),
     );
   }
+  // #endregion
 }

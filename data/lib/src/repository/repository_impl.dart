@@ -279,4 +279,11 @@ class RepositoryImpl implements Repository {
       userId: userId,
     );
   }
+
+  @override
+  Future<List<Dish>> getDishes() async {
+    return _appApiService.getDishes(
+      accessToken: await _appPreferences.accessToken,
+    );
+  }
 }

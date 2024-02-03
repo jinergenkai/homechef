@@ -78,4 +78,7 @@ abstract class Repository {
   //* Address
   Future<void> addAddress(Address address);
   Future<List<Address>?> getAddresses(String userId);
+
+  //* Dish
+  Future<List<Dish>> getDishes();
 }

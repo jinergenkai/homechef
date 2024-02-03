@@ -18,6 +18,7 @@ class CookingOrder with _$CookingOrder {
 @Default(CookingOrder.defaultOption) int option,
 @Default(CookingOrder.defaultDish) List<Dish> dish,
 @Default(CookingOrder.defaultDishType) String dishType,
+@Default(CookingOrder.defaultNote) String note,
 @Default(CookingOrder.defaultIntialTransactionMethod) String intialTransactionMethod,
 @Default(CookingOrder.defaultRejectReason) String rejectReason,
     }) = _User;
@@ -33,6 +34,7 @@ static const defaultQuantity = 0;
 static const defaultOption = 0;
 static const defaultDish = <Dish>[];
 static const defaultDishType = '';
+static const defaultNote = '';
 static const defaultIntialTransactionMethod = '';
 static const defaultRejectReason = '';
 }  

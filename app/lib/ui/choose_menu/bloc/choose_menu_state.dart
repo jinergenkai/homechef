@@ -12,7 +12,8 @@ class ChooseMenuState extends BaseBlocState with _$ChooseMenuState {
   const factory ChooseMenuState({
     @Default('') String id,
     @Default(1) int people,
-    @Default(["", ""]) List<String> menu,
+    @Default([]) List<Dish> menu,
+    @Default([]) List<Dish> dishes,
     @Default(CookingOrder()) CookingOrder cookingOrder,
   }) = _ChooseMenuState;
 }
