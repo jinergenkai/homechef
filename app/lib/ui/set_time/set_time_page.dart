@@ -12,7 +12,9 @@ import 'bloc/set_time.dart';
 
 @RoutePage()
 class SetTimePage extends StatefulWidget {
-  const SetTimePage({super.key});
+  const SetTimePage({super.key, required this.cookingOrder});
+
+  final CookingOrder cookingOrder;
 
   @override
   State<StatefulWidget> createState() {
@@ -24,7 +26,7 @@ class _SetTimePageState extends BasePageState<SetTimePage, SetTimeBloc> {
   @override
   void initState() {
     super.initState();
-    bloc.add(const SetTimePageInitiated());
+    bloc.add(SetTimePageInitiated(order: widget.cookingOrder));
   }
 
   @override
@@ -127,11 +129,10 @@ class _SetTimePageState extends BasePageState<SetTimePage, SetTimeBloc> {
                     BorderAddressItem(
                       onPressed: () {
                         final result = navigator.push(const AppRouteInfo.chooseAddress());
-
                       },
                       title: Text("Thành Phố Thủ Đức"),
                     ),
-                   const SizedBox(height: 10),
+                    const SizedBox(height: 10),
                   ],
                 ),
               ),

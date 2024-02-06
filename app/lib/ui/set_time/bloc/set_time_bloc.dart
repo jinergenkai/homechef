@@ -5,7 +5,7 @@ import 'package:injectable/injectable.dart';
 
 import '../../../app.dart';
 import 'set_time.dart';
-  
+
 @Injectable()
 class SetTimeBloc extends BaseBloc<SetTimeEvent, SetTimeState> {
   SetTimeBloc() : super(const SetTimeState()) {
@@ -15,11 +15,13 @@ class SetTimeBloc extends BaseBloc<SetTimeEvent, SetTimeState> {
     );
   }
 
-
   FutureOr<void> _onSetTimePageInitiated(
     SetTimePageInitiated event,
     Emitter<SetTimeState> emit,
   ) async {
-    
+    emit(state.copyWith(
+      cookingOrder: event.order,
+    ));
+    print(event.order);
   }
 }

@@ -14,7 +14,7 @@ class AppRouteInfoMapper extends BaseRouteInfoMapper {
       onboarding: () => const OnboardingRoute(),
       itemDetail: (user) => ItemDetailRoute(user: user),
       chooseMenu: () => const ChooseMenuRoute(),
-      setTime: () => const SetTimeRoute(),
+      setTime: (order) => SetTimeRoute(cookingOrder: order),
       confirmAndPay: () => const ConfirmAndPayRoute(),
       chooseAddress: () => const ChooseAddressRoute(),
       updateInfo: () => const UpdateInfoRoute(),

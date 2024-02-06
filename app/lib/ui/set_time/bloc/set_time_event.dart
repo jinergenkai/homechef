@@ -1,3 +1,4 @@
+import 'package:domain/domain.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../app.dart';
@@ -10,5 +11,7 @@ abstract class SetTimeEvent extends BaseBlocEvent {
 
 @freezed
 class SetTimePageInitiated extends SetTimeEvent with _$SetTimePageInitiated {
-  const factory SetTimePageInitiated() = _SetTimePageInitiated;
+  const factory SetTimePageInitiated({
+    required CookingOrder order,
+  }) = _SetTimePageInitiated;
 }

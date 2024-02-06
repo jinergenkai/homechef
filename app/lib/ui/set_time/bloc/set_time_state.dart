@@ -1,3 +1,4 @@
+import 'package:domain/domain.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../app.dart';
@@ -10,5 +11,6 @@ class SetTimeState extends BaseBlocState with _$SetTimeState {
 
   const factory SetTimeState({
     @Default('') String id,
+    @Default(CookingOrder()) CookingOrder cookingOrder,
   }) = _SetTimeState;
 }

@@ -141,8 +141,7 @@ class _ChooseMenuPageState extends BasePageState<ChooseMenuPage, ChooseMenuBloc>
                               ListView.builder(
                                 shrinkWrap: true,
                                 physics: const ClampingScrollPhysics(),
-                                itemBuilder: (context, index) =>
-                                    Container(
+                                itemBuilder: (context, index) => Container(
                                   margin: EdgeInsets.only(top: 8),
                                   child: DropdownMenu<Dish>(
                                       width: MediaQuery.of(context).size.width * 0.835,
@@ -287,14 +286,19 @@ class _ChooseMenuPageState extends BasePageState<ChooseMenuPage, ChooseMenuBloc>
           ? null
           : Container(
               margin: EdgeInsets.symmetric(horizontal: Dimens.d20.responsive()),
-              child: CommonEllipseButon(
-                buttonType: ButtonEllipseType.checkout,
-                action: "Tiếp theo",
-                price: 100,
-                quantity: "123",
-                onPressed: () {
-                  // print(colorController.text);
-                  navigator.push(const AppRouteInfo.setTime());
+              child: BlocBuilder<ChooseMenuBloc, ChooseMenuState>(
+                buildWhen: (previous, current) => previous.cookingOrder != current.cookingOrder,
+                builder: (context, state) {
+                  return CommonEllipseButon(
+                    buttonType: ButtonEllipseType.checkout,
+                    action: "Tiếp theo",
+                    price: 100,
+                    quantity: "123",
+                    onPressed: () {
+                      // print(colorController.text);
+                      navigator.push(AppRouteInfo.setTime(state.cookingOrder));
+                    },
+                  );
                 },
               ),
             ),
