@@ -17,17 +17,20 @@ class ApiCookingOrderData with _$ApiCookingOrderData {
 		@JsonKey(name: 'id') String? id,
 		@JsonKey(name: 'chef') ApiChefData? chef,
 		@JsonKey(name: 'customer') ApiCustomerData? customer,
-		@JsonKey(name: 'status') String? status,
+		@JsonKey(name: 'status') int? status,
 		@JsonKey(name: 'transaction') List<ApiTransactionData>? transaction,
 		@JsonKey(name: 'totalPrice') int? totalPrice,
 		@JsonKey(name: 'price') int? price,
 		@JsonKey(name: 'quantity') int? quantity,
 		@JsonKey(name: 'option') int? option,
-		@JsonKey(name: 'dish') List<ApiDishData>? dish,
-		@JsonKey(name: 'dishType') String? dishType,
 		@JsonKey(name: 'note') String? note,
+		@JsonKey(name: 'dish') List<ApiDishData>? dish,
+		@JsonKey(name: 'dishType') int? dishType,
 		@JsonKey(name: 'intialTransactionMethod') String? intialTransactionMethod,
 		@JsonKey(name: 'rejectReason') String? rejectReason,
+		@JsonKey(name: 'cookedTime') String? cookedTime,
+		@JsonKey(name: 'cookedHour') int? cookedHour,
+		@JsonKey(name: 'addressId') String? addressId,
 	}) = _ApiCookingOrderData;
 
 	factory ApiCookingOrderData.fromJson(Map<String, dynamic> json) => _$ApiCookingOrderDataFromJson(json);

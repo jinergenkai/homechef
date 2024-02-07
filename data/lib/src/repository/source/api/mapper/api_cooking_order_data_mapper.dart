@@ -38,6 +38,9 @@ dishType: data?.dishType ?? CookingOrder.defaultDishType,
 note: data?.note ?? CookingOrder.defaultNote,
 intialTransactionMethod: data?.intialTransactionMethod ?? CookingOrder.defaultIntialTransactionMethod,
 rejectReason: data?.rejectReason ?? CookingOrder.defaultRejectReason,
+cookedTime: data?.cookedTime ?? CookingOrder.defaultCookedTime,
+cookedHour: data?.cookedHour ?? CookingOrder.defaultCookedHour,
+addressId: data?.addressId ?? CookingOrder.defaultAddressId,
       );
     }
 }  
