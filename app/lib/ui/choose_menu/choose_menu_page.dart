@@ -292,8 +292,8 @@ class _ChooseMenuPageState extends BasePageState<ChooseMenuPage, ChooseMenuBloc>
                   return CommonEllipseButon(
                     buttonType: ButtonEllipseType.checkout,
                     action: "Tiếp theo",
-                    price: 100,
-                    quantity: "123",
+                    price: state.cookingOrder.price.toDouble(),
+                    quantity: state.cookingOrder.cookedHour.toDouble(),
                     onPressed: () {
                       // print(colorController.text);
                       navigator.push(AppRouteInfo.setTime(state.cookingOrder));

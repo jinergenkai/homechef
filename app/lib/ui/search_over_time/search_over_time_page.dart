@@ -62,7 +62,7 @@ class _SearchOverTimePageState extends BasePageState<SearchOverTimePage, SearchO
                           ),
                           Container(
                               // height: 150,
-                              child: CarouselSliderMutiple()),
+                              child: CarouselSliderMutiple(startDay: DateTime.now())),
                         ],
                       )),
                   const SizedBox(

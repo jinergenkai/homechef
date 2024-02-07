@@ -11,6 +11,7 @@ class SetTimeState extends BaseBlocState with _$SetTimeState {
 
   const factory SetTimeState({
     @Default('') String id,
+    DateTime? time,
     @Default(CookingOrder()) CookingOrder cookingOrder,
   }) = _SetTimeState;
 }

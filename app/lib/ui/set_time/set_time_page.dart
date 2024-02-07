@@ -53,65 +53,103 @@ class _SetTimePageState extends BasePageState<SetTimePage, SetTimeBloc> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     //* Date picker
-                    BorderContainer(
-                        // height: 100,
-                        color: AppColors.current.disabledColor,
-                        padding: EdgeInsets.all(Dimens.d15.responsive()),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text("Ngày", style: AppTextStyles.s16w700(color: AppColors.current.primaryTextColor)),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Container(
-                                // height: 150,
-                                child: CarouselSliderMutiple()),
-                          ],
-                        )),
+                    BlocBuilder<SetTimeBloc, SetTimeState>(
+                      buildWhen: (previous, current) => previous.time != current.time,
+                      builder: (context, state) {
+                        return GestureDetector(
+                          onTap: () {
+                            showDatePicker(
+                              context: context,
+                              initialDate: state.time ?? DateTime.now(),
+                              firstDate: DateTime.now(),
+                              lastDate: DateTime.now().add(Duration(days: 30)),
+                            ).then((date) {
+                              if (date != null) {
+                                bloc.add(ChangedDate(date: date));
+                              }
+                            });
+                          },
+                          child: BorderContainer(
+                              // height: 100,
+                              color: AppColors.current.disabledColor,
+                              padding: EdgeInsets.all(Dimens.d15.responsive()),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text("Ngày", style: AppTextStyles.s16w700(color: AppColors.current.primaryTextColor)),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Container(
+                                      // height: 150,
+                                      child: CarouselSliderMutiple(startDay: state.time ?? DateTime.now())),
+                                ],
+                              )),
+                        );
+                      },
+                    ),
 
                     SizedBox(
                       height: 20,
                     ),
                     //* Time picker
-                    BorderContainer(
-                        padding: EdgeInsets.all(Dimens.d15.responsive()),
-                        child: Row(children: [
-                          Assets.images.clock.image(),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Text("Thời gian", style: AppTextStyles.s16w700(color: AppColors.current.primaryTextColor)),
-                          Expanded(
-                            child: Align(
-                              alignment: Alignment.centerRight,
-                              child: IntrinsicWidth(
-                                child: BorderContainer(
-                                    padding: EdgeInsets.symmetric(horizontal: Dimens.d20.responsive(), vertical: Dimens.d8.responsive()),
-                                    child: Row(
-                                      children: [
-                                        Text("12", style: AppTextStyles.s20w600(color: AppColors.current.primaryTextColor)),
-                                        Container(
-                                          margin: EdgeInsets.symmetric(horizontal: Dimens.d10.responsive()),
-                                          height: Dimens.d20.responsive(),
-                                          width: Dimens.d1.responsive(),
-                                          color: AppColors.current.primaryColor,
-                                        ),
-                                        Text("00", style: AppTextStyles.s20w600(color: AppColors.current.primaryTextColor)),
-                                      ],
-                                    )),
-                              ),
+                    GestureDetector(
+                      onTap: () {
+                        showTimePicker(
+                          context: context,
+                          initialTime: TimeOfDay.now(),
+                          // initialTime: const TimeOfDay(hour: 10, minute: 47),
+                          builder: (BuildContext context, Widget? child) {
+                            return MediaQuery(
+                              data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
+                              child: child!,
+                            );
+                          },
+                        ).then((time) {
+                          if (time != null) {
+                            bloc.add(ChangedTime(time: time));
+                          }
+                        });
+                      },
+                      child: BorderContainer(
+                          padding: EdgeInsets.all(Dimens.d15.responsive()),
+                          child: Row(children: [
+                            Assets.images.clock.image(),
+                            SizedBox(
+                              width: 10,
                             ),
-                          )
-                        ])),
+                            Text("Thời gian", style: AppTextStyles.s16w700(color: AppColors.current.primaryTextColor)),
+                            Expanded(
+                              child: Align(
+                                alignment: Alignment.centerRight,
+                                child: IntrinsicWidth(
+                                  child: BlocBuilder<SetTimeBloc, SetTimeState>(
+                                    buildWhen: (previous, current) => previous.time != current.time,
+                                    builder: (context, state) {
+                                      return BorderContainer(
+                                          padding: EdgeInsets.symmetric(horizontal: Dimens.d20.responsive(), vertical: Dimens.d8.responsive()),
+                                          child: Row(
+                                            children: [
+                                              Text(state.time?.hour.toString() ?? "", style: AppTextStyles.s20w600(color: AppColors.current.primaryTextColor)),
+                                              Container(
+                                                margin: EdgeInsets.symmetric(horizontal: Dimens.d10.responsive()),
+                                                height: Dimens.d20.responsive(),
+                                                width: Dimens.d1.responsive(),
+                                                color: AppColors.current.primaryColor,
+                                              ),
+                                              Text(state.time?.minute.toString() ?? " ", style: AppTextStyles.s20w600(color: AppColors.current.primaryTextColor)),
+                                            ],
+                                          ));
+                                    },
+                                  ),
+                                ),
+                              ),
+                            )
+                          ])),
+                    ),
 
                     const SizedBox(height: 10),
 
-                    //* Estimated arrival time
-                    Container(
-                        padding: EdgeInsets.all(5),
-                        // child: Text("The Chef's estimated arrival time is ${DateTime.now().toStringWithFormat("dd/MM")}", style: AppTextStyles.s16w600(color: AppColors.current.primaryColor))),
-                        child: Text("Thời gian ước tính đầu bếp đến là ${DateTime.now().toStringWithFormat("dd/MM")}", style: AppTextStyles.s16w600(color: AppColors.current.primaryColor))),
 
                     const SizedBox(height: 20),
                     BorderContainer(
@@ -137,7 +175,12 @@ class _SetTimePageState extends BasePageState<SetTimePage, SetTimeBloc> {
                         );
                       },
                     ),
-                    const SizedBox(height: 10),
+                    //* Estimated arrival time
+                    Container(
+                        padding: EdgeInsets.all(5),
+                        // child: Text("The Chef's estimated arrival time is ${DateTime.now().toStringWithFormat("dd/MM")}", style: AppTextStyles.s16w600(color: AppColors.current.primaryColor))),
+                        child: Text("Thời gian ước tính đầu bếp đến địa điểm nấu là ${DateTime.now().toStringWithFormat("hh:mm dd/MM")}", style: AppTextStyles.s16w600(color: AppColors.current.primaryColor))),
+                    const SizedBox(height: 100),
                   ],
                 ),
               ),
@@ -153,7 +196,7 @@ class _SetTimePageState extends BasePageState<SetTimePage, SetTimeBloc> {
             buttonType: ButtonEllipseType.checkout,
             action: "Tiếp theo",
             price: 100,
-            quantity: "123",
+            quantity: 100,
             onPressed: () {
               navigator.push(const AppRouteInfo.confirmAndPay());
             },
@@ -162,11 +205,11 @@ class _SetTimePageState extends BasePageState<SetTimePage, SetTimeBloc> {
   }
 }
 
-List<String> getFutureDateStrings(int numberOfDays, String pattern) {
+List<String> getFutureDateStrings(DateTime currentDay, int numberOfDays, String pattern) {
   List<String> dateStrings = [];
 
   for (int i = 0; i < numberOfDays; i++) {
-    DateTime currentDate = DateTime.now().add(Duration(days: i));
+    DateTime currentDate = currentDay.add(Duration(days: i));
     String formattedDate = DateFormat(pattern).format(currentDate);
     dateStrings.add(formattedDate);
   }
@@ -175,16 +218,22 @@ List<String> getFutureDateStrings(int numberOfDays, String pattern) {
 }
 
 // final List<int> dateList = [10, 20, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
-final List<String> dateList = getFutureDateStrings(20, "dd/MM");
-final int firstDay = DateTime.now().weekday;
-final List<String> weekdays = ["CN", "T2", "T3", "T4", "T5", "T6", "T7"];
 
 class CarouselSliderMutiple extends StatelessWidget {
   // https://stackoverflow.com/questions/64716588/multiple-items-in-one-slide-flutter-dart
+  CarouselSliderMutiple({required this.startDay, super.key});
   final int numPerFrame = 4;
+  final startDay;
+
+  late List<String> dateList;
+  late int firstDay;
+  final List<String> weekdays = ["CN", "T2", "T3", "T4", "T5", "T6", "T7"];
 
   @override
   Widget build(BuildContext context) {
+    dateList = getFutureDateStrings(startDay, 20, "dd/MM");
+    firstDay = startDay.weekday;
+
     final int imageCount = (dateList.length / numPerFrame).round();
     return CarouselSlider.builder(
       options: CarouselOptions(
@@ -217,6 +266,7 @@ class CarouselSliderMutiple extends StatelessWidget {
                       margin: EdgeInsets.symmetric(horizontal: 4),
                       height: 100,
                       // child: Image.network(imgList[idx], fit: BoxFit.cover),
+                      color: idx == 0 ? AppColors.current.primaryColor : null,
                       child: BorderContainer(
                         padding: EdgeInsets.all(Dimens.d1.responsive()),
                         // child: Center(child: Text("${weekdays[(firstDay + idx) % 7 ]}\n\n${dateList[idx].split("/").join("\n")}", textAlign: TextAlign.center)),
@@ -280,7 +330,7 @@ class BorderAddressItem extends StatelessWidget {
                         child: Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
-                            address?.district ?? "",
+                            address?.district ?? "Chọn địa điểm nấu ăn",
                             style: AppTextStyles.s20w600(color: AppColors.current.blackColor),
                             overflow: TextOverflow.ellipsis,
                           ),

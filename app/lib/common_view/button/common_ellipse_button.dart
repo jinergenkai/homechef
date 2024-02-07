@@ -10,7 +10,7 @@ class CommonEllipseButon extends StatefulWidget {
     this.color,
     this.textColor,
     this.buttonType = ButtonEllipseType.primary,
-    this.quantity = "2.5h",
+    this.quantity = 0,
     this.price = 0,
     this.action = "Action",
     this.icon,
@@ -20,7 +20,7 @@ class CommonEllipseButon extends StatefulWidget {
   final Color? color;
   final Color? textColor;
   final ButtonEllipseType buttonType;
-  final String quantity;
+  final double quantity;
   final double price;
   final String action;
   final Widget? icon;
@@ -115,7 +115,7 @@ class _CommonEllipseButonState extends State<CommonEllipseButon> {
                     color: AppColors.current.whiteColor,
                   ),
                   child: Text(
-                    widget.quantity,
+                    widget.quantity.toString() + 'h',
                     style: AppTextStyles.s16w600(color: AppColors.current.primaryTextColor),
                   ),
                 ),
@@ -125,7 +125,7 @@ class _CommonEllipseButonState extends State<CommonEllipseButon> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(widget.price.toString(), style: AppTextStyles.s16w600White()),
+                        Text(widget.price.toInt().toString() + "đ", style: AppTextStyles.s16w600White()),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [

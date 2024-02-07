@@ -18,6 +18,43 @@ class SetTimeBloc extends BaseBloc<SetTimeEvent, SetTimeState> {
       _onChangedAddress,
       transformer: log(),
     );
+    on<ChangedTime>(
+      _onChangedTime,
+      transformer: log(),
+    );
+    on<ChangedDate>(
+      _onChangedDate,
+      transformer: log(),
+    );
+  }
+
+  FutureOr<void> _onChangedTime(
+    ChangedTime event,
+    Emitter<SetTimeState> emit,
+  ) async {
+    var timeSeted = DateTime.now().copyWith(
+      hour: event.time.hour,
+      minute: event.time.minute,
+    );
+
+    emit(state.copyWith(
+      time: timeSeted,
+    ));
+  }
+
+  FutureOr<void> _onChangedDate(
+    ChangedDate event,
+    Emitter<SetTimeState> emit,
+  ) async {
+    var timeSeted = state.time?.copyWith(
+      year: event.date.year,
+      month: event.date.month,
+      day: event.date.day,
+    );
+
+    emit(state.copyWith(
+      time: timeSeted,
+    ));
   }
 
   FutureOr<void> _onSetTimePageInitiated(
@@ -26,6 +63,7 @@ class SetTimeBloc extends BaseBloc<SetTimeEvent, SetTimeState> {
   ) async {
     emit(state.copyWith(
       cookingOrder: event.order,
+      time: DateTime.now(),
     ));
   }
 
@@ -35,9 +73,8 @@ class SetTimeBloc extends BaseBloc<SetTimeEvent, SetTimeState> {
   ) async {
     final result = await navigator.push(const AppRouteInfo.chooseAddress());
     emit(state.copyWith(
-      cookingOrder: state.cookingOrder.copyWith(
-        address: result as Address,
-      )
-    ));
+        cookingOrder: state.cookingOrder.copyWith(
+      address: result as Address,
+    )));
   }
 }

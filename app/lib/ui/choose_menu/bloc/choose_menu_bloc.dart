@@ -65,6 +65,9 @@ class ChooseMenuBloc extends BaseBloc<ChooseMenuEvent, ChooseMenuState> {
     dishes[event.index] = event.dish;
     emit(state.copyWith(
       dishes: dishes,
+      cookingOrder: state.cookingOrder.copyWith(
+        price: state.cookingOrder.price + event.dish.price,
+      )
     ));
   }
 
@@ -76,6 +79,9 @@ class ChooseMenuBloc extends BaseBloc<ChooseMenuEvent, ChooseMenuState> {
     // print(menu);
     emit(state.copyWith(
       dishes: [...state.dishes, state.menu.first],
+      cookingOrder: state.cookingOrder.copyWith(
+        price: state.cookingOrder.price + state.dishes.first.price,
+      )
     ));
   }
 
@@ -106,8 +112,15 @@ class ChooseMenuBloc extends BaseBloc<ChooseMenuEvent, ChooseMenuState> {
     FlavorChanged event,
     Emitter<ChooseMenuState> emit,
   ) {
+    var iFlavor = flavors.indexOf(event.flavor);
     emit(state.copyWith(
-      cookingOrder: state.cookingOrder.copyWith(dishType: event.flavor),
+      cookingOrder: state.cookingOrder.copyWith(dishType: iFlavor),
     ));
   }
+
+  var flavors = [
+    'Bắc',
+    'Trung',
+    'Nam',
+  ];
 }
