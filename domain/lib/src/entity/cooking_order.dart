@@ -21,6 +21,10 @@ class CookingOrder with _$CookingOrder {
 @Default(CookingOrder.defaultNote) String note,
 @Default(CookingOrder.defaultIntialTransactionMethod) String intialTransactionMethod,
 @Default(CookingOrder.defaultRejectReason) String rejectReason,
+  @Default(CookingOrder.defaultAddressId) String addressId,
+  @Default(CookingOrder.defaultAddress) Address address,
+  // @Default(DateTime('')) DateTime cookedTime,
+  @Default(CookingOrder.defaultCookedHour) int cookedHour,
     }) = _User;
   
     static const defaultId = '';
@@ -37,4 +41,8 @@ static const defaultDishType = '';
 static const defaultNote = '';
 static const defaultIntialTransactionMethod = '';
 static const defaultRejectReason = '';
+static const defaultAddressId = '';
+static const defaultAddress = Address();
+// static defaultCookedTime = DateTime.now();
+static const defaultCookedHour = 0;
 }  

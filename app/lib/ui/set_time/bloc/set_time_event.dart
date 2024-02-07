@@ -15,3 +15,8 @@ class SetTimePageInitiated extends SetTimeEvent with _$SetTimePageInitiated {
     required CookingOrder order,
   }) = _SetTimePageInitiated;
 }
+
+@freezed
+class ChangedAddress extends SetTimeEvent with _$ChangedAddress {
+  const factory ChangedAddress() = _ChangedAddress;
+}

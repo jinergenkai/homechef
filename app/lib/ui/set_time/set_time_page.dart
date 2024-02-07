@@ -126,11 +126,16 @@ class _SetTimePageState extends BasePageState<SetTimePage, SetTimeBloc> {
                           ],
                         )),
                     const SizedBox(height: 10),
-                    BorderAddressItem(
-                      onPressed: () {
-                        final result = navigator.push(const AppRouteInfo.chooseAddress());
+                    BlocBuilder<SetTimeBloc, SetTimeState>(
+                      buildWhen: (previous, current) => previous.cookingOrder.address != current.cookingOrder.address,
+                      builder: (context, state) {
+                        return BorderAddressItem(
+                          onPressed: () {
+                            bloc.add(const ChangedAddress());
+                          },
+                          address: state.cookingOrder.address,
+                        );
                       },
-                      title: Text("Thành Phố Thủ Đức"),
                     ),
                     const SizedBox(height: 10),
                   ],
@@ -244,11 +249,11 @@ class BorderAddressItem extends StatelessWidget {
   const BorderAddressItem({
     super.key,
     this.onPressed,
-    this.title,
+    this.address,
   });
 
   final Function? onPressed;
-  final Text? title;
+  final Address? address;
 
   @override
   Widget build(BuildContext context) {
@@ -275,7 +280,7 @@ class BorderAddressItem extends StatelessWidget {
                         child: Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
-                            title?.data ?? "",
+                            address?.district ?? "",
                             style: AppTextStyles.s20w600(color: AppColors.current.blackColor),
                             overflow: TextOverflow.ellipsis,
                           ),
@@ -287,7 +292,7 @@ class BorderAddressItem extends StatelessWidget {
                   ),
                   SizedBox(height: Dimens.d10.responsive()),
                   Text(
-                    "FPT University HCMC, Đường D1, Long Thạnh Mỹ, TP Thủ Đức, Thành Phố Hồ Chí Minh, Việt Nam, Trái Đất.",
+                    address?.street ?? "",
                     style: AppTextStyles.s14w500(color: AppColors.current.primaryTextColor),
                     maxLines: 4,
                     overflow: TextOverflow.ellipsis,
