@@ -97,7 +97,7 @@ class AppPreferences with LogMixin {
   // }
 
   Future<bool> saveCurrentUser(CurrentUser preferenceUserData) {
-    print(preferenceUserData.fullName);
+    // print(preferenceUserData.fullName);
     // create json userdata
     final Map<String, dynamic> data = {
       "id": preferenceUserData.id,
@@ -111,7 +111,7 @@ class AppPreferences with LogMixin {
       "birthday": preferenceUserData.birthday,
       "role": preferenceUserData.role,
     };
-    print(jsonEncode(data));
+    // print(jsonEncode(data));
 
     return _sharedPreference.setString(
       SharedPreferenceKeys.currentUser,

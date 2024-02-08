@@ -52,9 +52,6 @@ class ChooseMenuBloc extends BaseBloc<ChooseMenuEvent, ChooseMenuState> {
       people: changedPeople,
       cookingOrder: state.cookingOrder.copyWith(quantity: changedPeople),
     ));
-    print(state.cookingOrder);
-    // print(state.menu);
-    // print(state.dishes);
   }
 
   void _onChooseMenuDishChanged(

@@ -48,11 +48,11 @@ class AppApiService {
         },
       );
       final apiData = ApiLoginResponseData.fromJson(result.data as Map<String, dynamic>);
-      print('apiData: $apiData');
+      // print('apiData: $apiData');
       // print('accessToken: $accessToken');
       return ApiLoginResponseDataMapper(ApiCurrentUserDataMapper(ApiFeedbackDataMapper())).mapToEntity(apiData);
     } catch (e) {
-      print(e);
+      // print(e);
       throw e;
     }
   }
@@ -112,7 +112,7 @@ class AppApiService {
     required String accessToken,
     required String userId,
   }) async {
-    print(userId + " " + accessToken);
+    // print(userId + " " + accessToken);
     final response = await Dio(BaseOptions(headers: {'Authorization': 'Bearer $accessToken'})).get(
       'https://homechef.kidtalkie.tech/api/v1/address/customers/$userId',
     );

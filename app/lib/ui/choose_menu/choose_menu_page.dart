@@ -321,7 +321,6 @@ class _ChooseMenuPageState extends BasePageState<ChooseMenuPage, ChooseMenuBloc>
                     price: state.cookingOrder.price.toDouble(),
                     quantity: state.cookingOrder.cookedHour.toDouble(),
                     onPressed: () {
-                      // print(colorController.text);
                       navigator.push(AppRouteInfo.setTime(state.cookingOrder));
                     },
                   );

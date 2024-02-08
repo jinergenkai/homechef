@@ -126,7 +126,6 @@ class _LoginPageState extends BasePageState<LoginPage, LoginBloc> {
                       style: AppTextStyles.s16w600(color: AppColors.current.primaryColor),
                       recognizer: TapGestureRecognizer()
                         ..onTap = () {
-                          print(1);
                           navigator.push(const AppRouteInfo.signUp());
                         })
                 ],

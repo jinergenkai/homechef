@@ -29,7 +29,6 @@ class HomeBloc extends BaseBloc<HomeEvent, HomeState> {
     final user = await _getCurrentUserUseCase.execute(GetCurrentUserInput(id: 1));
 
     final chefs = await _getChefsUseCase.execute(GetChefsInput(id: 1));
-    print(chefs);
     emit(state.copyWith(displayName: user.user.fullName.isNotEmpty ? user.user.fullName : user.user.id.substring(0, 10), chefs: chefs.chefs));
   }
 }
