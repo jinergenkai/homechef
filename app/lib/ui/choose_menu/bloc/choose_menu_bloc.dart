@@ -64,11 +64,10 @@ class ChooseMenuBloc extends BaseBloc<ChooseMenuEvent, ChooseMenuState> {
     final List<Dish> dishes = List.from(state.dishes);
     dishes[event.index] = event.dish;
     emit(state.copyWith(
-      dishes: dishes,
-      cookingOrder: state.cookingOrder.copyWith(
-        price: state.cookingOrder.price + event.dish.price,
-      )
-    ));
+        dishes: dishes,
+        cookingOrder: state.cookingOrder.copyWith(
+          price: state.cookingOrder.price + event.dish.price,
+        )));
   }
 
   void _onAddCourse(
@@ -78,11 +77,10 @@ class ChooseMenuBloc extends BaseBloc<ChooseMenuEvent, ChooseMenuState> {
     // state.menu.add("1");
     // print(menu);
     emit(state.copyWith(
-      dishes: [...state.dishes, state.menu.first],
-      cookingOrder: state.cookingOrder.copyWith(
-        price: state.cookingOrder.price + state.dishes.first.price,
-      )
-    ));
+        dishes: [...state.dishes, state.menu.first],
+        cookingOrder: state.cookingOrder.copyWith(
+          price: state.cookingOrder.price + state.menu.first.price,
+        )));
   }
 
   final GetDishesUseCase _getDishesUseCase;

@@ -209,23 +209,49 @@ class _ChooseMenuPageState extends BasePageState<ChooseMenuPage, ChooseMenuBloc>
 
                       //* Prefer Style
                       CommonSmallTitle(text: "Hương vị ưa thích"),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          BorderContainer(
-                              width: MediaQuery.of(context).size.width / 3.5,
-                              padding: EdgeInsets.all(Dimens.d10.responsive()),
-                              child: Center(child: Text("Bắc", style: AppTextStyles.s16w600(color: AppColors.current.primaryColor)))),
-                          BorderContainer(
-                              width: MediaQuery.of(context).size.width / 3.5,
-                              padding: EdgeInsets.all(Dimens.d10.responsive()),
-                              child: Center(child: Text("Trung", style: AppTextStyles.s16w600(color: AppColors.current.primaryColor)))),
-                          BorderContainer(
-                              width: MediaQuery.of(context).size.width / 3.5,
-                              padding: EdgeInsets.all(Dimens.d10.responsive()),
-                              child: Center(child: Text("Nam", style: AppTextStyles.s16w600(color: AppColors.current.primaryColor)))),
-                        ],
+                      BlocBuilder<ChooseMenuBloc, ChooseMenuState>(
+                        buildWhen: (previous, current) => previous.cookingOrder.dishType != current.cookingOrder.dishType,
+                        builder: (context, state) {
+                          return Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              GestureDetector(
+                                onTap: () => bloc.add(FlavorChanged(flavor: "Bắc")),
+                                child: Container(
+                                  color: state.cookingOrder.dishType == 0 ? AppColors.current.primaryColor : AppColors.current.whiteColor,
+                                  child: BorderContainer(
+                                      width: MediaQuery.of(context).size.width / 3.5,
+                                      padding: EdgeInsets.all(Dimens.d10.responsive()),
+                                      child: Center(
+                                          child: Text("Bắc", style: AppTextStyles.s16w600(color: state.cookingOrder.dishType != 0 ? AppColors.current.primaryColor : AppColors.current.whiteColor)))),
+                                ),
+                              ),
+                              GestureDetector(
+                                onTap: () => bloc.add(FlavorChanged(flavor: "Trung")),
+                                child: Container(
+                                  color: state.cookingOrder.dishType == 1 ? AppColors.current.primaryColor : AppColors.current.whiteColor,
+                                  child: BorderContainer(
+                                      width: MediaQuery.of(context).size.width / 3.5,
+                                      padding: EdgeInsets.all(Dimens.d10.responsive()),
+                                      child: Center(
+                                          child: Text("Trung", style: AppTextStyles.s16w600(color: state.cookingOrder.dishType != 1 ? AppColors.current.primaryColor : AppColors.current.whiteColor)))),
+                                ),
+                              ),
+                              GestureDetector(
+                                onTap: () => bloc.add(FlavorChanged(flavor: "Nam")),
+                                child: Container(
+                                  color: state.cookingOrder.dishType == 2 ? AppColors.current.primaryColor : AppColors.current.whiteColor,
+                                  child: BorderContainer(
+                                      width: MediaQuery.of(context).size.width / 3.5,
+                                      padding: EdgeInsets.all(Dimens.d10.responsive()),
+                                      child: Center(
+                                          child: Text("Nam", style: AppTextStyles.s16w600(color: state.cookingOrder.dishType != 2 ? AppColors.current.primaryColor : AppColors.current.whiteColor)))),
+                                ),
+                              ),
+                            ],
+                          );
+                        },
                       ),
                       SizedBox(height: 20),
 
@@ -373,4 +399,10 @@ final List<String> MonAn = [
   'Rau muống xào tỏi',
   'Rau cải luộc',
   'Bò xào hành tây',
+];
+
+var flavors = [
+  'Bắc',
+  'Trung',
+  'Nam',
 ];

@@ -25,7 +25,7 @@ class ChefHomeBloc extends BaseBloc<ChefHomeEvent, ChefHomeState> {
     Emitter<ChefHomeState> emit,
   ) async {
     final user = await _getCurrentUserUseCase.execute(GetCurrentUserInput(id: 1));
-    print(user);
+    // print(user);
     emit(state.copyWith(user: user.user));
   }
 }
