@@ -265,6 +265,9 @@ class _ChooseMenuPageState extends BasePageState<ChooseMenuPage, ChooseMenuBloc>
                               Text("Trái cây", style: AppTextStyles.s16w600(color: AppColors.current.primaryColor)),
                               StyledSwitch(
                                 enabledColor: AppColors.current.primaryColor,
+                                onToggled: (value) {
+                                  bloc.add(OptionChanged(isSelected: value, option: OptionMenu.fruit));
+                                },
                               ),
                             ],
                           )),
@@ -277,6 +280,10 @@ class _ChooseMenuPageState extends BasePageState<ChooseMenuPage, ChooseMenuBloc>
                               Text("Kèm đi chợ", style: AppTextStyles.s16w600(color: AppColors.current.primaryColor)),
                               StyledSwitch(
                                 enabledColor: AppColors.current.primaryColor,
+                                onToggled: (value) {
+                                  bloc.add(OptionChanged(isSelected: value, option: OptionMenu.shopping));
+                                },
+
                               ),
                             ],
                           )),
@@ -289,6 +296,9 @@ class _ChooseMenuPageState extends BasePageState<ChooseMenuPage, ChooseMenuBloc>
                               Text("Cung cấp bàn ghế\n(dựa trên người ăn)", style: AppTextStyles.s16w600(color: AppColors.current.primaryColor)),
                               StyledSwitch(
                                 enabledColor: AppColors.current.primaryColor,
+                                onToggled: (value) {
+                                  bloc.add(OptionChanged(isSelected: value, option: OptionMenu.chairSupply));
+                                },
                               ),
                             ],
                           )),

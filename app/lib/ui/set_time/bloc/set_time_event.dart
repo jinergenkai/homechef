@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../app.dart';
-  
+
 part 'set_time_event.freezed.dart';
 
 abstract class SetTimeEvent extends BaseBlocEvent {
@@ -34,4 +34,12 @@ class ChangedTime extends SetTimeEvent with _$ChangedTime {
   const factory ChangedTime({
     required TimeOfDay time,
   }) = _ChangedTime;
+}
+
+@freezed
+class OptionChanged extends SetTimeEvent with _$OptionChanged {
+  const factory OptionChanged({
+    required OptionMenu option,
+    required bool isSelected,
+  }) = _OptionChanged;
 }

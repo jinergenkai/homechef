@@ -41,6 +41,25 @@ class ChooseMenuBloc extends BaseBloc<ChooseMenuEvent, ChooseMenuState> {
       _onFlavorChanged,
       transformer: log(),
     );
+
+    on<OptionChanged>(
+      _onOptionChanged,
+      transformer: log(),
+    );
+  }
+
+  void _onOptionChanged(
+    OptionChanged event,
+    Emitter<ChooseMenuState> emit,
+  ) {
+    emit(state.copyWith(
+      cookingOrder: state.cookingOrder.copyWith(
+          option: setOptionMenu(
+        state.cookingOrder.option,
+        event.option,
+        event.isSelected,
+      )),
+    ));
   }
 
   void _onPeopleChanged(

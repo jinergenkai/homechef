@@ -150,7 +150,6 @@ class _SetTimePageState extends BasePageState<SetTimePage, SetTimeBloc> {
 
                     const SizedBox(height: 10),
 
-
                     const SizedBox(height: 20),
                     BorderContainer(
                         padding: EdgeInsets.all(Dimens.d15.responsive()),
@@ -160,6 +159,9 @@ class _SetTimePageState extends BasePageState<SetTimePage, SetTimeBloc> {
                             Text("Nấu sẵn mang đến nhà", style: AppTextStyles.s16w600(color: AppColors.current.primaryColor)),
                             StyledSwitch(
                               enabledColor: AppColors.current.primaryColor,
+                              onToggled: (value) {
+                                bloc.add(OptionChanged(option: OptionMenu.cookAndDelivery, isSelected: value));
+                              },
                             ),
                           ],
                         )),
@@ -179,7 +181,8 @@ class _SetTimePageState extends BasePageState<SetTimePage, SetTimeBloc> {
                     Container(
                         padding: EdgeInsets.all(5),
                         // child: Text("The Chef's estimated arrival time is ${DateTime.now().toStringWithFormat("dd/MM")}", style: AppTextStyles.s16w600(color: AppColors.current.primaryColor))),
-                        child: Text("Thời gian ước tính đầu bếp đến địa điểm nấu là ${DateTime.now().toStringWithFormat("hh:mm dd/MM")}", style: AppTextStyles.s16w600(color: AppColors.current.primaryColor))),
+                        child: Text("Thời gian ước tính đầu bếp đến địa điểm nấu là ${DateTime.now().toStringWithFormat("hh:mm dd/MM")}",
+                            style: AppTextStyles.s16w600(color: AppColors.current.primaryColor))),
                     const SizedBox(height: 100),
                   ],
                 ),
@@ -192,13 +195,18 @@ class _SetTimePageState extends BasePageState<SetTimePage, SetTimeBloc> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: Container(
           margin: EdgeInsets.symmetric(horizontal: Dimens.d15.responsive()),
-          child: CommonEllipseButon(
-            buttonType: ButtonEllipseType.checkout,
-            action: "Tiếp theo",
-            price: 100,
-            quantity: 100,
-            onPressed: () {
-              navigator.push(const AppRouteInfo.confirmAndPay());
+          child: BlocBuilder<SetTimeBloc, SetTimeState>(
+            buildWhen: (previous, current) => previous != current,
+            builder: (context, state) {
+              return CommonEllipseButon(
+                buttonType: ButtonEllipseType.checkout,
+                action: "Tiếp theo",
+                price: state.cookingOrder.price.toDouble(),
+                quantity: state.cookingOrder.cookedHour.toDouble(),
+                onPressed: () {
+                  navigator.push(const AppRouteInfo.confirmAndPay());
+                },
+              );
             },
           )),
     );

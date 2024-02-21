@@ -26,6 +26,25 @@ class SetTimeBloc extends BaseBloc<SetTimeEvent, SetTimeState> {
       _onChangedDate,
       transformer: log(),
     );
+
+    on<OptionChanged>(
+      _onOptionChanged,
+      transformer: log(),
+    );
+  }
+
+  void _onOptionChanged(
+    OptionChanged event,
+    Emitter<SetTimeState> emit,
+  ) {
+    emit(state.copyWith(
+      cookingOrder: state.cookingOrder.copyWith(
+          option: setOptionMenu(
+        state.cookingOrder.option,
+        event.option,
+        event.isSelected,
+      )),
+    ));
   }
 
   FutureOr<void> _onChangedTime(

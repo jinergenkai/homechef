@@ -47,3 +47,11 @@ class FlavorChanged extends ChooseMenuEvent with _$FlavorChanged {
     required String flavor,
   }) = _FlavorChanged;
 }
+
+@freezed
+class OptionChanged extends ChooseMenuEvent with _$OptionChanged {
+  const factory OptionChanged({
+    required OptionMenu option,
+    required bool isSelected,
+  }) = _OptionChanged;
+}

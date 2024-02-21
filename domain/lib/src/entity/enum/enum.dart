@@ -8,6 +8,29 @@ enum InitialAppRoute {
   chefMain,
 }
 
+enum OptionMenu {
+  fruit,
+  shopping,
+  chairSupply,
+  cookAndDelivery,
+  maxOptionMenu,
+}
+
+bool getOptionMenu(int options, OptionMenu optionMenu) {
+  return ((options >> optionMenu.index) & 1) == 1;
+}
+
+int setOptionMenu(int options, OptionMenu optionMenu, bool value) {
+  // print("bool value: $value");
+  if (value) {
+    options |= 1 << optionMenu.index;
+  } else {
+    options &= ~(1 << optionMenu.index);
+  }
+  print(options);
+  return options;
+}
+
 enum Gender {
   male(ServerRequestResponseConstants.male),
   female(ServerRequestResponseConstants.female),
@@ -52,8 +75,8 @@ enum BottomTab {
   home(icon: Icon(Icons.home), activeIcon: Icon(Icons.home)),
   message(icon: Icon(Icons.chat), activeIcon: Icon(Icons.chat)),
   orderList(icon: Icon(Icons.list), activeIcon: Icon(Icons.list)),
-  myPage(icon: Icon(Icons.people), activeIcon: Icon(Icons.people)),;
-
+  myPage(icon: Icon(Icons.people), activeIcon: Icon(Icons.people)),
+  ;
 
   const BottomTab({
     required this.icon,
