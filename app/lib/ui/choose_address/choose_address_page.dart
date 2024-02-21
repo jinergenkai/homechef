@@ -62,7 +62,7 @@ class _ChooseAddressPageState extends BasePageState<ChooseAddressPage, ChooseAdd
                       onPressed: () {
                         navigator.pop(result: state.addresses[index]);
                       },
-                      title: Text("${state.addresses[index].district}"),
+                      // title: Text("${state.addresses[index].district}"),
                       address: state.addresses[index],
                     ),
                   );
@@ -94,12 +94,12 @@ class AddressItem extends StatelessWidget {
   const AddressItem({
     super.key,
     this.onPressed,
-    this.title,
+    // this.title,
     this.address,
   });
 
   final Function? onPressed;
-  final Text? title;
+  // final Text? title;
   final Address? address;
 
   @override
@@ -149,7 +149,7 @@ class AddressItem extends StatelessWidget {
                         child: Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
-                            title?.data ?? "",
+                            address?.district ?? "Quận 9, TP.HCM",
                             style: AppTextStyles.s20w600(color: AppColors.current.blackColor),
                             overflow: TextOverflow.ellipsis,
                           ),

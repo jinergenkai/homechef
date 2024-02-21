@@ -10,7 +10,9 @@ import 'bloc/confirm_and_pay.dart';
 
 @RoutePage()
 class ConfirmAndPayPage extends StatefulWidget {
-  const ConfirmAndPayPage({super.key});
+  const ConfirmAndPayPage({super.key, required this.cookingOrder});
+
+  final CookingOrder cookingOrder;
 
   @override
   State<StatefulWidget> createState() {
@@ -22,7 +24,7 @@ class _ConfirmAndPayPageState extends BasePageState<ConfirmAndPayPage, ConfirmAn
   @override
   void initState() {
     super.initState();
-    bloc.add(const ConfirmAndPayPageInitiated());
+    bloc.add(ConfirmAndPayPageInitiated(cookingOrder: widget.cookingOrder));
   }
 
   @override
@@ -55,7 +57,7 @@ class _ConfirmAndPayPageState extends BasePageState<ConfirmAndPayPage, ConfirmAn
                           onPressed: () {
                             navigator.push(const AppRouteInfo.chooseAddress());
                           },
-                          title: Text("Thành Phố Thủ Đức"),
+                          // title: state.cookingOrder.address,
                         ),
                         SizedBox(height: 20),
                         //* Cooking order picked
@@ -71,19 +73,37 @@ class _ConfirmAndPayPageState extends BasePageState<ConfirmAndPayPage, ConfirmAn
                                 Expanded(child: Text("Thời gian", style: AppTextStyles.s16w600(color: AppColors.current.primaryTextColor))),
                                 IconButton(onPressed: () => navigator.push(const AppRouteInfo.chooseAddress()), icon: Icon(Icons.edit))
                               ]),
-                              Row(children: [Expanded(child: Text("Ngày", style: AppTextStyles.s14w500(color: AppColors.current.primaryTextColor))), Text("Monday, 30/10/2023 - 11:30")]),
-                              Row(children: [Expanded(child: Text("Trong khoảng", style: AppTextStyles.s14w500(color: AppColors.current.primaryTextColor))), Text("2 hours, from 09:30 - 11:30")]),
+                              Row(children: [
+                                Expanded(child: Text("Ngày", style: AppTextStyles.s14w500(color: AppColors.current.primaryTextColor))),
+                                Text(state.cookingOrder.cookedTime),
+                              ]),
+                              Row(children: [
+                                Expanded(child: Text("Trong khoảng", style: AppTextStyles.s14w500(color: AppColors.current.primaryTextColor))),
+                                Text(state.cookingOrder.cookedHour.toString()),
+                              ]),
 
                               //* Task Detail
                               Row(children: [
                                 Expanded(child: Text("Chi tiết món", style: AppTextStyles.s16w600(color: AppColors.current.primaryTextColor))),
                                 IconButton(onPressed: () => navigator.push(const AppRouteInfo.chooseAddress()), icon: Icon(Icons.edit))
                               ]),
-                              Text("Số lượng người ăn    7", style: AppTextStyles.s14w500(color: AppColors.current.primaryTextColor)),
-                              Text("Rau muống nhồi thịt", style: AppTextStyles.s14w500(color: AppColors.current.primaryTextColor)),
-                              Text("Ốc hương om chuối", style: AppTextStyles.s14w500(color: AppColors.current.primaryTextColor)),
-                              Text("Ba ba xào tỏi", style: AppTextStyles.s14w500(color: AppColors.current.primaryTextColor)),
-                              Text("Huowng vị ưa thích: miền bắc", style: AppTextStyles.s14w500(color: AppColors.current.primaryTextColor)),
+                              Row(
+                                children: [
+                                  Expanded(child: Text("Số lượng người ăn", style: AppTextStyles.s14w500(color: AppColors.current.primaryTextColor))),
+                                  Text(state.cookingOrder.quantity.toString(), style: AppTextStyles.s14w500(color: AppColors.current.primaryTextColor)),
+                                ],
+                              ),
+                              const SizedBox(height: 5),
+                              ListView.builder(
+                                shrinkWrap: true,
+                                itemBuilder: (context, index) => Text(
+                                  "● " + "Rau muống nhồi thịt",
+                                  style: AppTextStyles.s14w500(color: AppColors.current.primaryTextColor),
+                                ),
+                                itemCount: state.cookingOrder.dish.length == 0 ? 5 : state.cookingOrder.dish.length,
+                              ),
+                              const SizedBox(height: 5),
+                              Text("Hương vị ưa thích: miền ${flavors[state.cookingOrder.dishType]}", style: AppTextStyles.s14w500(color: AppColors.current.primaryTextColor)),
                             ],
                           ),
                         ),
@@ -175,7 +195,7 @@ class _ConfirmAndPayPageState extends BasePageState<ConfirmAndPayPage, ConfirmAn
         child: CommonEllipseButon(
           onPressed: () async {
             // await showDialog(context: context, builder: (context) => AlertDialog(title: Text("Booked")));
-            // bloc.add(const BookButtonPressed());
+            bloc.add(const BookButtonPressed());
             await navigator.showDialog(
               AppPopupInfo.confirmDialog(
                   message: "Đặt đơn thành công",

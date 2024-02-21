@@ -43,7 +43,7 @@ static const defaultDishType = 0;
 static const defaultIntialTransactionMethod = '';
 static const defaultRejectReason = '';
 static const defaultCookedTime = '';
-static const defaultCookedHour = 0;
+static const defaultCookedHour = 2;
 static const defaultAddressId = '';
 static const defaultAddress = Address();
 

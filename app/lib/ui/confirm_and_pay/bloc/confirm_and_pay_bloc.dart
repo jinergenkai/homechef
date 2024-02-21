@@ -25,15 +25,18 @@ class ConfirmAndPayBloc extends BaseBloc<ConfirmAndPayEvent, ConfirmAndPayState>
     BookButtonPressed event,
     Emitter<ConfirmAndPayState> emit,
   ) async {
-    emit(
-      state.copyWith(
-        booked: true,
-      ),
-    );
+    print(state.cookingOrder);
+    // emit(
+    //   state.copyWith(
+    //     booked: true,
+    //   ),
+    // );
   }
 
   FutureOr<void> _onConfirmAndPayPageInitiated(
     ConfirmAndPayPageInitiated event,
     Emitter<ConfirmAndPayState> emit,
-  ) async {}
+  ) async {
+    emit(state.copyWith(cookingOrder: event.cookingOrder));
+  }
 }

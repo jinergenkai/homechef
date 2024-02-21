@@ -1,3 +1,4 @@
+import 'package:domain/domain.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../app.dart';
@@ -11,5 +12,6 @@ class ConfirmAndPayState extends BaseBlocState with _$ConfirmAndPayState {
   const factory ConfirmAndPayState({
     @Default('') String id,
     @Default(false) bool booked,
+    @Default(CookingOrder()) CookingOrder cookingOrder,
   }) = _ConfirmAndPayState;
 }

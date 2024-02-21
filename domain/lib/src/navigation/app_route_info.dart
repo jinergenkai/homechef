@@ -19,7 +19,7 @@ class AppRouteInfo with _$AppRouteInfo {
   const factory AppRouteInfo.createAddress() = _CreateAddress;
   const factory AppRouteInfo.chooseMenu() = _chooseMenu;
   const factory AppRouteInfo.setTime(CookingOrder order) = _setTime;
-  const factory AppRouteInfo.confirmAndPay() = _confirmAndPay;
+  const factory AppRouteInfo.confirmAndPay(CookingOrder order) = _confirmAndPay;
 
   const factory AppRouteInfo.searchOverTime() = _searchOverTime;
   const factory AppRouteInfo.chefProfile() = _chefProfile;

@@ -204,7 +204,7 @@ class _SetTimePageState extends BasePageState<SetTimePage, SetTimeBloc> {
                 price: state.cookingOrder.price.toDouble(),
                 quantity: state.cookingOrder.cookedHour.toDouble(),
                 onPressed: () {
-                  navigator.push(const AppRouteInfo.confirmAndPay());
+                  navigator.push(AppRouteInfo.confirmAndPay(state.cookingOrder));
                 },
               );
             },

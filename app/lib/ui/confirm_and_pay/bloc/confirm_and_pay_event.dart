@@ -1,3 +1,4 @@
+import 'package:domain/domain.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../app.dart';
@@ -10,7 +11,9 @@ abstract class ConfirmAndPayEvent extends BaseBlocEvent {
 
 @freezed
 class ConfirmAndPayPageInitiated extends ConfirmAndPayEvent with _$ConfirmAndPayPageInitiated {
-  const factory ConfirmAndPayPageInitiated() = _ConfirmAndPayPageInitiated;
+  const factory ConfirmAndPayPageInitiated({
+    required CookingOrder cookingOrder,
+  }) = _ConfirmAndPayPageInitiated;
 }
 
 @freezed

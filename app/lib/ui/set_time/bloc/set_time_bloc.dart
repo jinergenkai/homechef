@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:domain/domain.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
+import 'package:shared/shared.dart';
 
 import '../../../app.dart';
 import 'set_time.dart';
@@ -51,13 +52,16 @@ class SetTimeBloc extends BaseBloc<SetTimeEvent, SetTimeState> {
     ChangedTime event,
     Emitter<SetTimeState> emit,
   ) async {
-    var timeSeted = DateTime.now().copyWith(
+    var timeSeted = (state.time ?? DateTime.now()).copyWith(
       hour: event.time.hour,
       minute: event.time.minute,
     );
 
     emit(state.copyWith(
       time: timeSeted,
+      cookingOrder: state.cookingOrder.copyWith(
+        cookedTime: timeSeted.toStringWithFormat("yyyy-MM-dd HH:mm"),
+      )
     ));
   }
 
@@ -65,7 +69,7 @@ class SetTimeBloc extends BaseBloc<SetTimeEvent, SetTimeState> {
     ChangedDate event,
     Emitter<SetTimeState> emit,
   ) async {
-    var timeSeted = state.time?.copyWith(
+    var timeSeted = (state.time??DateTime.now()).copyWith(
       year: event.date.year,
       month: event.date.month,
       day: event.date.day,
@@ -73,6 +77,9 @@ class SetTimeBloc extends BaseBloc<SetTimeEvent, SetTimeState> {
 
     emit(state.copyWith(
       time: timeSeted,
+      cookingOrder: state.cookingOrder.copyWith(
+        cookedTime: timeSeted.toStringWithFormat("yyyy-MM-dd HH:mm"),
+      )
     ));
   }
 
@@ -81,7 +88,9 @@ class SetTimeBloc extends BaseBloc<SetTimeEvent, SetTimeState> {
     Emitter<SetTimeState> emit,
   ) async {
     emit(state.copyWith(
-      cookingOrder: event.order,
+      cookingOrder: event.order.copyWith(
+        cookedTime: DateTime.now().toStringWithFormat("yyyy-MM-dd HH:mm"),
+      ),
       time: DateTime.now(),
     ));
   }
