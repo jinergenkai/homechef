@@ -216,18 +216,6 @@ class _ConfirmAndPayPageState extends BasePageState<ConfirmAndPayPage, ConfirmAn
           onPressed: () async {
             // await showDialog(context: context, builder: (context) => AlertDialog(title: Text("Booked")));
             bloc.add(const BookButtonPressed());
-            await navigator.showDialog(
-              AppPopupInfo.confirmDialog(
-                  message: "Đặt đơn thành công",
-                  onPressed: Func0(() async {
-                    // navigator.popUntilRoot();
-                    // navigator.push(const AppRouteInfo.main());
-                    // navigator.replace(const AppRouteInfo.main());
-                    navigator.popUntilRouteName("MainRoute");
-                    await navigator.replace(const AppRouteInfo.main());
-                  })),
-            );
-            // navigator.push(const AppRouteInfo.createAddress());
           },
           text: "Đặt",
         ),

@@ -81,4 +81,8 @@ abstract class Repository {
 
   //* Dish
   Future<List<Dish>> getDishes();
+
+  //* CookingOrder
+  Future<void> addCookingOrder(CookingOrder cookingOrder);
+  Future<List<CookingOrder>> getCookingOrders();
 }

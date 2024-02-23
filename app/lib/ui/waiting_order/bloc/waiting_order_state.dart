@@ -1,3 +1,4 @@
+import 'package:domain/domain.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../app.dart';
@@ -10,5 +11,6 @@ class WaitingOrderState extends BaseBlocState with _$WaitingOrderState {
 
   const factory WaitingOrderState({
     @Default('') String id,
+    @Default([]) List<CookingOrder> waitingOrders,
   }) = _WaitingOrderState;
 }

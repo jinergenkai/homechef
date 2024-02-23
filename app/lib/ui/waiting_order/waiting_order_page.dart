@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:domain/domain.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared/shared.dart';
 
 import '../../app.dart';
 import 'bloc/waiting_order.dart';
@@ -31,13 +32,15 @@ class _WaitingOrderPageState extends BasePageState<WaitingOrderPage, WaitingOrde
           buildWhen: (previous, current) => previous != current,
           builder: (context, state) {
             return ListView.builder(
-              itemCount: 10,
+              itemCount: state.waitingOrders.length,
               itemBuilder: (context, index) {
                 return GenericOrderItem(
-                    onPressed: () {
-                      navigator.push(const AppRouteInfo.main());
-                    },
-                    title: Text("message $index"));
+                  onPressed: () {
+                    navigator.push(const AppRouteInfo.main());
+                  },
+                  cookingOrder: state.waitingOrders[index],
+                  index: index,
+                );
               },
             );
           },
@@ -51,105 +54,117 @@ class GenericOrderItem extends StatelessWidget {
   const GenericOrderItem({
     super.key,
     this.onPressed,
-    this.title,
+    this.cookingOrder,
+    this.index = 0,
   });
 
   final Function? onPressed;
-  final Text? title;
+  final CookingOrder? cookingOrder;
+  final int index;
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        onPressed?.call();
-      },
-      child: Container(
-          // height: Dimens.d100.responsive(),
-          // width: Dimens.d150.responsive(),
-          decoration: BoxDecoration(
-            color: AppColors.current.whiteColor,
-            borderRadius: BorderRadius.circular(Dimens.d12.responsive()),
-            boxShadow: [
-              BoxShadow(
-                color: AppColors.current.blackColor.withOpacity(0.03),
-                spreadRadius: 2,
-                blurRadius: 5,
-                // offset: Offset(0, 1), // changes position of shadow
-              ),
-            ],
-          ),
-          margin: EdgeInsets.symmetric(
-            horizontal: Dimens.d12.responsive(),
-            vertical: Dimens.d6.responsive(),
-          ),
-          padding: EdgeInsets.symmetric(
-            horizontal: Dimens.d10.responsive(),
-            vertical: Dimens.d10.responsive(),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // *** Title
-              Text("Cooking orders post #03", style: AppTextStyles.s20w600(color: AppColors.current.blackColor)),
-              const Text("Posted 1 hour ago"),
-              const Divider(),
-              // *** Overview
-              Table(
-                  columnWidths: const {
-                    0: FlexColumnWidth(0.1),
-                    1: FlexColumnWidth(0.9),
-                  },
-                  defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-                  children: [
-                    TableRow(children: [
-                      Assets.images.timer.image(color: AppColors.current.primaryColor),
-                      const Text("Monday 1/1/2020"),
-                    ]),
-                    TableRow(children: [
-                      Assets.images.checkList.image(color: AppColors.current.primaryColor),
-                      const Text("Oc xao toi"),
-                    ]),
-                    TableRow(children: [
-                      Assets.images.dollar.image(color: AppColors.current.primaryColor),
-                      const Text("300.000 VND"),
-                    ]),
-                    TableRow(children: [
-                      Assets.images.location.image(color: AppColors.current.primaryColor),
-                      const Text("Duong 1D, Khu Do Thi Sala, Quan 2, TP.HCM"),
-                    ]),
-                  ]),
-              // *** Action
-              const SizedBox(
-                height: 5,
-              ),
-              Align(alignment: Alignment.center, child: CommonSmallButton(onpressed: () {}, text: "More detail")),
-              const Divider(),
-              //               Row(
-              //   children: [
-              //     Assets.images.user.image(),
-              //     Text(" Waiting for chef to accept...", style: AppTextStyles.s16w500(color: AppColors.current.primaryColor), overflow: TextOverflow.ellipsis),
-              //   ],
-              // ),
-              Container(
-                alignment: Alignment.center,
-                child: RichText(
-                  textAlign: TextAlign.center,
-                  text: TextSpan(
-                    children: [
-                      // WidgetSpan(child: Assets.images.user.image(color: AppColors.current.primaryColor)),
-                      // WidgetSpan(child: Icon(Icons.search_rounded, size: 20, color: AppColors.current.primaryColor)),
-                      TextSpan(
-                        text: "  Chờ đầu bếp chấp nhận...",
-                        style: AppTextStyles.s16w500(color: AppColors.current.primaryColor),
-                      ),
-                    ],
-                  ),
-                  overflow: TextOverflow.ellipsis,
+    return
+        // InkWell(
+        //   onTap: () {
+        //     onPressed?.call();
+        //   },
+        // child:
+        Container(
+            decoration: BoxDecoration(
+              color: AppColors.current.whiteColor,
+              borderRadius: BorderRadius.circular(Dimens.d12.responsive()),
+              boxShadow: [
+                BoxShadow(
+                  color: AppColors.current.blackColor.withOpacity(0.03),
+                  spreadRadius: 2,
+                  blurRadius: 5,
+                  // offset: Offset(0, 1), // changes position of shadow
                 ),
-              ),
-            ],
-          )),
-    );
+              ],
+            ),
+            margin: EdgeInsets.symmetric(
+              horizontal: Dimens.d12.responsive(),
+              vertical: Dimens.d6.responsive(),
+            ),
+            padding: EdgeInsets.symmetric(
+              horizontal: Dimens.d10.responsive(),
+              vertical: Dimens.d10.responsive(),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // *** Title
+                Text("#" + "${index + 1} ".padLeft(3, "0") + (cookingOrder?.customer.fullName ?? "Cooking Orders Post"), style: AppTextStyles.s20w600(color: AppColors.current.blackColor)),
+                // Text(cookingOrder?.cookedTime ?? "Now"),
+                const Divider(),
+                // *** Overview
+                Table(
+                    columnWidths: const {
+                      0: FlexColumnWidth(0.1),
+                      1: FlexColumnWidth(0.9),
+                    },
+                    defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+                    children: [
+                      TableRow(children: [
+                        Assets.images.timer.image(color: AppColors.current.primaryColor),
+                        const Text("Monday 1/1/2020"),
+                      ]),
+                      TableRow(children: [
+                        Assets.images.checkList.image(color: AppColors.current.primaryColor),
+                        ListView.builder(
+                          shrinkWrap: true,
+                          itemBuilder: (context, index) => Text(
+                            "● " + (cookingOrder?.dish[index].name ?? ""),
+                            style: AppTextStyles.s14w500(color: AppColors.current.primaryTextColor),
+                          ),
+                          itemCount: cookingOrder?.dish.length,
+                        ),
+                      ]),
+                      TableRow(children: [
+                        Assets.images.dollar.image(color: AppColors.current.primaryColor),
+                        Text(NumberFormatUtils.formatNumber(cookingOrder?.price ?? 0) + " VND"),
+                      ]),
+                      TableRow(children: [
+                        Assets.images.location.image(color: AppColors.current.primaryColor),
+                        const Text("Duong 1D, Khu Do Thi Sala, Quan 2, TP.HCM"),
+                      ]),
+                    ]),
+
+                Text(cookingOrder?.note ?? ""),
+                // *** Action
+                const SizedBox(
+                  height: 5,
+                ),
+                Align(alignment: Alignment.center, child: CommonSmallButton(onpressed: () {}, text: "More detail")),
+                const Divider(),
+                //               Row(
+                //   children: [
+                //     Assets.images.user.image(),
+                //     Text(" Waiting for chef to accept...", style: AppTextStyles.s16w500(color: AppColors.current.primaryColor), overflow: TextOverflow.ellipsis),
+                //   ],
+                // ),
+                Container(
+                  alignment: Alignment.center,
+                  child: RichText(
+                    textAlign: TextAlign.center,
+                    text: TextSpan(
+                      children: [
+                        // WidgetSpan(child: Assets.images.user.image(color: AppColors.current.primaryColor)),
+                        // WidgetSpan(child: Icon(Icons.search_rounded, size: 20, color: AppColors.current.primaryColor)),
+                        TextSpan(
+                          text: "  Chờ đầu bếp chấp nhận...",
+                          style: AppTextStyles.s16w500(color: AppColors.current.primaryColor),
+                        ),
+                      ],
+                    ),
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+              ],
+            )
+            // ),
+            );
   }
 }
 

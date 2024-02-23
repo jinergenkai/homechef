@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared/shared.dart';
 
 import '../../app.dart';
 
@@ -125,7 +126,7 @@ class _CommonEllipseButonState extends State<CommonEllipseButon> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(widget.price.toInt().toString() + "đ", style: AppTextStyles.s16w600White()),
+                        Text(NumberFormatUtils.formatNumber(widget.price.toInt()) + " đ", style: AppTextStyles.s16w600White()),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [

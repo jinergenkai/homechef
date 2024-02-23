@@ -154,8 +154,70 @@ class AppApiService {
     }
     return ApiDishDataMapper().mapToListEntity(converter);
   }
-
   // #endregion
+
+  //* order addCookingOrder
+  Future<void> addCookingOrder({
+    required String accessToken,
+    required CookingOrder cookingOrder,
+  }) async {
+    try {
+      final data = {
+        "addressId": cookingOrder.address.id,
+        "dishType": cookingOrder.dishType,
+        "dishIds": cookingOrder.dish.map((e) => e.id).toList(),
+        "note": cookingOrder.note,
+        "quantity": cookingOrder.quantity,
+        "price": cookingOrder.price,
+        "option": cookingOrder.option,
+        "transactionMethod": 0,
+        // "cookedTime": cookingOrder.cookedTime,
+        "cookedTime": "2024-02-23T07:29:41.449Z",
+        "cookedHour": cookingOrder.cookedHour,
+        "voucherIds": List<String>.empty(),
+      };
+      print(data);
+      final response = await Dio(BaseOptions(headers: {'Authorization': 'Bearer $accessToken'})).post(
+        'https://homechef.kidtalkie.tech/api/v1/order',
+        data: {
+          "addressId": cookingOrder.address.id,
+          "dishType": cookingOrder.dishType,
+          "dishIds": cookingOrder.dish.map((e) => e.id).toList(),
+          "note": cookingOrder.note,
+          "quantity": cookingOrder.quantity,
+          "price": cookingOrder.price,
+          "option": cookingOrder.option,
+          "transactionMethod": 0,
+          // "cookedTime": cookingOrder.cookedTime,
+          "cookedTime": "2024-02-23T07:29:41.449Z",
+          "cookedHour": cookingOrder.cookedHour,
+          "voucherIds": List<String>.empty(),
+        },
+      ).then((value) => print("addCookingOrder:" + value.data));
+    } catch (e) {
+      print("EEEEEEEEEEERRRRRRRRRRRRRRROOOOOOOORRRRRR");
+      print(e);
+      throw e;
+    }
+  }
+
+  Future<List<CookingOrder>> getCookingOrders() async {
+    final response = await Dio().get(
+      'https://homechef.kidtalkie.tech/api/v1/order',
+    );
+    final dataList = response.data as List<dynamic>;
+    final converter = <ApiCookingOrderData>[];
+
+    for (var data in dataList) {
+      converter.add(ApiCookingOrderData.fromJson(data as Map<String, dynamic>));
+    }
+    return ApiCookingOrderDataMapper(
+      ApiChefDataMapper(ApiFeedbackDataMapper()),
+      ApiCustomerDataMapper(ApiFeedbackDataMapper()),
+      ApiTransactionDataMapper(),
+      ApiDishDataMapper(),
+    ).mapToListEntity(converter);
+  }
 
   // #region Auth, current user - old
   Future<void> logout() async {

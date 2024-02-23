@@ -286,4 +286,17 @@ class RepositoryImpl implements Repository {
       accessToken: await _appPreferences.accessToken,
     );
   }
+
+  @override
+  Future<void> addCookingOrder(CookingOrder cookingOrder) async {
+    return _appApiService.addCookingOrder(
+      accessToken: await _appPreferences.accessToken,
+      cookingOrder: cookingOrder,
+    );
+  }
+
+  @override
+  Future<List<CookingOrder>> getCookingOrders() async {
+    return _appApiService.getCookingOrders();
+  }
 }
