@@ -12,5 +12,6 @@ class ChefHomeState extends BaseBlocState with _$ChefHomeState {
   const factory ChefHomeState({
     @Default('') String id,
     @Default(CurrentUser()) CurrentUser user,
+    @Default([]) List<CookingOrder> cookingOrders,
   }) = _ChefHomeState;
 }

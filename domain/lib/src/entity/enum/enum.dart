@@ -38,6 +38,20 @@ int setOptionMenu(int options, OptionMenu optionMenu, bool value) {
   return options;
 }
 
+enum OrderStatus
+{
+    PENDING, //* 0
+    ORDERED,
+    CANCELED,
+    REJECTED,
+    PROCESSING, //* 4
+    COMPLETED, //* 5
+    RECEIVED,
+    DECLINED,
+    EXPIRED
+}
+
+
 enum Gender {
   male(ServerRequestResponseConstants.male),
   female(ServerRequestResponseConstants.female),

@@ -11,12 +11,14 @@ class ApiCookingOrderDataMapper extends BaseDataMapper<ApiCookingOrderData, Cook
     this._apiCustomerDataMapper,
     this._apiTransactionDataMapper,
     this._apiDishDataMapper,
+    this._apiAddressDataMapper,
   );
 
   ApiChefDataMapper _apiChefDataMapper;
   ApiCustomerDataMapper _apiCustomerDataMapper;
   ApiTransactionDataMapper _apiTransactionDataMapper;
   ApiDishDataMapper _apiDishDataMapper;
+  ApiAddressDataMapper _apiAddressDataMapper;
 
 
     @override
@@ -41,6 +43,7 @@ rejectReason: data?.rejectReason ?? CookingOrder.defaultRejectReason,
 cookedTime: data?.cookedTime ?? CookingOrder.defaultCookedTime,
 cookedHour: data?.cookedHour ?? CookingOrder.defaultCookedHour,
 addressId: data?.addressId ?? CookingOrder.defaultAddressId,
+address: _apiAddressDataMapper.mapToEntity(data?.address),
       );
     }
 }  

@@ -36,7 +36,8 @@ class _WaitingOrderPageState extends BasePageState<WaitingOrderPage, WaitingOrde
               itemBuilder: (context, index) {
                 return GenericOrderItem(
                   onPressed: () {
-                    navigator.push(const AppRouteInfo.main());
+                    // navigator.push(const AppRouteInfo.main())() async{
+                    navigator.push(AppRouteInfo.detailWaitingOrder(state.waitingOrders[index]));
                   },
                   cookingOrder: state.waitingOrders[index],
                   index: index,
@@ -95,8 +96,8 @@ class GenericOrderItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 // *** Title
-                Text("#" + "${index + 1} ".padLeft(3, "0") + (cookingOrder?.customer.fullName ?? "Cooking Orders Post"), style: AppTextStyles.s20w600(color: AppColors.current.blackColor)),
-                // Text(cookingOrder?.cookedTime ?? "Now"),
+                Text("#" + "${index + 1} ".padLeft(3, "0") + (cookingOrder?.customer.fullName ?? "Ẩn Danh" + " - " + (cookingOrder?.address.district ?? "Vô Định")),
+                    style: AppTextStyles.s20w600(color: AppColors.current.blackColor)),
                 const Divider(),
                 // *** Overview
                 Table(
@@ -108,17 +109,23 @@ class GenericOrderItem extends StatelessWidget {
                     children: [
                       TableRow(children: [
                         Assets.images.timer.image(color: AppColors.current.primaryColor),
-                        const Text("Monday 1/1/2020"),
+                        Text(modifyTimeFormat(cookingOrder?.cookedTime ?? "Now")),
                       ]),
                       TableRow(children: [
                         Assets.images.checkList.image(color: AppColors.current.primaryColor),
                         ListView.builder(
                           shrinkWrap: true,
-                          itemBuilder: (context, index) => Text(
-                            "● " + (cookingOrder?.dish[index].name ?? ""),
-                            style: AppTextStyles.s14w500(color: AppColors.current.primaryTextColor),
-                          ),
-                          itemCount: cookingOrder?.dish.length,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemBuilder: (context, index) => index == 0
+                              ? Text(
+                                  "Món ăn",
+                                  style: AppTextStyles.s14w500(color: AppColors.current.primaryTextColor),
+                                )
+                              : Text(
+                                  "● " + (cookingOrder?.dish[index - 1].name ?? ""),
+                                  style: AppTextStyles.s14w500(color: AppColors.current.primaryTextColor),
+                                ),
+                          itemCount: (cookingOrder?.dish.length ?? 0) + 1,
                         ),
                       ]),
                       TableRow(children: [
@@ -127,16 +134,24 @@ class GenericOrderItem extends StatelessWidget {
                       ]),
                       TableRow(children: [
                         Assets.images.location.image(color: AppColors.current.primaryColor),
-                        const Text("Duong 1D, Khu Do Thi Sala, Quan 2, TP.HCM"),
+                        Text((cookingOrder?.address.street ?? "Vô định") + ", " + (cookingOrder?.address.district ?? "Vô Định")),
+                      ]),
+                      TableRow(children: [
+                        // Assets.images.location.image(color: AppColors.current.primaryColor),
+                        Icon(
+                          Icons.note,
+                          size: 18,
+                          color: AppColors.current.primaryColor,
+                        ),
+                        Text(cookingOrder?.note ?? ""),
                       ]),
                     ]),
 
-                Text(cookingOrder?.note ?? ""),
                 // *** Action
                 const SizedBox(
                   height: 5,
                 ),
-                Align(alignment: Alignment.center, child: CommonSmallButton(onpressed: () {}, text: "More detail")),
+                Align(alignment: Alignment.center, child: CommonSmallButton(onpressed: onPressed, text: "Chi Tiết")),
                 const Divider(),
                 //               Row(
                 //   children: [
@@ -153,7 +168,7 @@ class GenericOrderItem extends StatelessWidget {
                         // WidgetSpan(child: Assets.images.user.image(color: AppColors.current.primaryColor)),
                         // WidgetSpan(child: Icon(Icons.search_rounded, size: 20, color: AppColors.current.primaryColor)),
                         TextSpan(
-                          text: "  Chờ đầu bếp chấp nhận...",
+                          text: "  Chờ đầu bếp chấp nhận...${cookingOrder?.cookedHour}",
                           style: AppTextStyles.s16w500(color: AppColors.current.primaryColor),
                         ),
                       ],
@@ -193,4 +208,26 @@ class CommonSmallButton extends StatelessWidget {
         onPressed: onpressed as void Function()?,
         child: Text(text ?? "Button", style: AppTextStyles.s14w500(color: textColor ?? AppColors.current.whiteColor)));
   }
+}
+
+String modifyTimeFormat(String originalTime) {
+  RegExp regex = RegExp(r'^(\d{4}-\d{2}-\d{2})T(\d{2}:\d{2}).*');
+  RegExpMatch? match = regex.firstMatch(originalTime);
+  if (match != null) {
+    String datePart = match.group(1) ?? "0000";
+    String timePart = match.group(2) ?? "00:00";
+    return '$datePart $timePart';
+  }
+  return originalTime;
+}
+
+String revertModifyTimeFormat(String originalTime) {
+  RegExp regex = RegExp(r'^(\d{4}-\d{2}-\d{2}) (\d{2}:\d{2})$');
+  RegExpMatch? match = regex.firstMatch(originalTime);
+  if (match != null) {
+    String datePart = match.group(1) ?? "0000";
+    String timePart = match.group(2) ?? "00:00";
+    return '${datePart}T${timePart}:00.000Z';
+  }
+  return originalTime;
 }

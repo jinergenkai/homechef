@@ -23,10 +23,11 @@ class WaitingOrderBloc extends BaseBloc<WaitingOrderEvent, WaitingOrderState> {
     Emitter<WaitingOrderState> emit,
   ) async {
     return runBlocCatching(action: () async {
-      final response = await _getCookingOrderUseCase.execute(const GetCookingOrdersInput());
+      final response = (await _getCookingOrderUseCase.execute(const GetCookingOrdersInput()))
+                          .cookingOrders.where((element) => element.cookedHour == 1).toList();
       emit(
         state.copyWith(
-          waitingOrders: response.cookingOrders,
+          waitingOrders: response,
         ),
       );
     });

@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import '../../../../../data.dart';
 import 'api_chef_data.dart';
 import 'api_customer_data.dart';
 import 'api_dish_data.dart';
@@ -31,6 +32,7 @@ class ApiCookingOrderData with _$ApiCookingOrderData {
 		@JsonKey(name: 'cookedTime') String? cookedTime,
 		@JsonKey(name: 'cookedHour') int? cookedHour,
 		@JsonKey(name: 'addressId') String? addressId,
+		@JsonKey(name: 'address') ApiAddressData? address,
 	}) = _ApiCookingOrderData;
 
 	factory ApiCookingOrderData.fromJson(Map<String, dynamic> json) => _$ApiCookingOrderDataFromJson(json);

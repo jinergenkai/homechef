@@ -66,10 +66,14 @@ class ChooseMenuBloc extends BaseBloc<ChooseMenuEvent, ChooseMenuState> {
     PeopleChanged event,
     Emitter<ChooseMenuState> emit,
   ) {
-    final changedPeople = (state.people + event.amount >= 0) ? state.people + event.amount : state.people;
+    if (state.people + event.amount < 1) return;
+    final changedPeople = state.people + event.amount;
     emit(state.copyWith(
       people: changedPeople,
-      cookingOrder: state.cookingOrder.copyWith(quantity: changedPeople),
+      cookingOrder: state.cookingOrder.copyWith(
+        quantity: changedPeople,
+        price: state.cookingOrder.price + event.amount * 20000,
+      ),
     ));
   }
 

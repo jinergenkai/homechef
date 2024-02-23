@@ -169,6 +169,15 @@ class _SetTimePageState extends BasePageState<SetTimePage, SetTimeBloc> {
                     BlocBuilder<SetTimeBloc, SetTimeState>(
                       buildWhen: (previous, current) => previous.cookingOrder.address != current.cookingOrder.address,
                       builder: (context, state) {
+                        if (state.cookingOrder.address == Address()) {
+                          return BorderAddressItem(
+                            onPressed: () {
+                              bloc.add(const ChangedAddress());
+                            },
+                            // address: state.cookingOrder.address,
+                            address: Address(district: "Chọn địa điểm nấu ăn", street: ""),
+                          );
+                        }
                         return BorderAddressItem(
                           onPressed: () {
                             bloc.add(const ChangedAddress());
@@ -181,7 +190,7 @@ class _SetTimePageState extends BasePageState<SetTimePage, SetTimeBloc> {
                     Container(
                         padding: EdgeInsets.all(5),
                         // child: Text("The Chef's estimated arrival time is ${DateTime.now().toStringWithFormat("dd/MM")}", style: AppTextStyles.s16w600(color: AppColors.current.primaryColor))),
-                        child: Text("Thời gian ước tính đầu bếp đến địa điểm nấu là ${DateTime.now().toStringWithFormat("hh:mm dd/MM")}",
+                        child: Text("Thời gian ước tính đầu bếp đến địa điểm nấu là ${state.time?.subtract(const Duration(hours: 1)).toStringWithFormat("dd/MM HH:mm")}",
                             style: AppTextStyles.s16w600(color: AppColors.current.primaryColor))),
                     const SizedBox(height: 100),
                   ],

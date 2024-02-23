@@ -84,8 +84,8 @@ class _ChefOrderListPageState extends BasePageState<ChefOrderListPage, ChefOrder
                   controller: _tabController,
                   children: const [
                     WaitingOrderPage(),
-                    WaitingOrderPage(),
-                    WaitingOrderPage(),
+                    InProcessingOrderPage(),
+                    DoneOrderPage(),
                     // InProcessingOrderPage(),
                     // DoneOrderPage(),
                   ],
