@@ -83,6 +83,7 @@ class ChooseMenuBloc extends BaseBloc<ChooseMenuEvent, ChooseMenuState> {
         dishes: dishes,
         cookingOrder: state.cookingOrder.copyWith(
           price: state.cookingOrder.price + event.dish.price,
+          dish: dishes,
         )));
   }
 
@@ -96,6 +97,7 @@ class ChooseMenuBloc extends BaseBloc<ChooseMenuEvent, ChooseMenuState> {
         dishes: [...state.dishes, state.menu.first],
         cookingOrder: state.cookingOrder.copyWith(
           price: state.cookingOrder.price + state.menu.first.price,
+          dish: [...state.dishes, state.menu.first],
         )));
   }
 

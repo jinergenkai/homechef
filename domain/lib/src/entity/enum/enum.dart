@@ -16,6 +16,13 @@ enum OptionMenu {
   maxOptionMenu,
 }
 
+final OptionMenuName = {
+  OptionMenu.fruit: "Trái cây",
+  OptionMenu.shopping: "Đi chợ",
+  OptionMenu.chairSupply: "Cung cấp ghế",
+  OptionMenu.cookAndDelivery: "Nấu ăn và giao hàng",
+};
+
 bool getOptionMenu(int options, OptionMenu optionMenu) {
   return ((options >> optionMenu.index) & 1) == 1;
 }

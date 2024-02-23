@@ -49,7 +49,7 @@ class AppApiService {
       );
       final apiData = ApiLoginResponseData.fromJson(result.data as Map<String, dynamic>);
       // print('apiData: $apiData');
-      // print('accessToken: $accessToken');
+      print(apiData);
       return ApiLoginResponseDataMapper(ApiCurrentUserDataMapper(ApiFeedbackDataMapper())).mapToEntity(apiData);
     } catch (e) {
       // print(e);
