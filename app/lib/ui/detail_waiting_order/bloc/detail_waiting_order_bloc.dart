@@ -84,7 +84,7 @@ class DetailWaitingOrderBloc extends BaseBloc<DetailWaitingOrderEvent, DetailWai
         ),
       );
       // final
-      await navigator.push(const AppRouteInfo.chefMain());
+      navigator.push(const AppRouteInfo.main());
     });
   }
 
@@ -101,7 +101,7 @@ class DetailWaitingOrderBloc extends BaseBloc<DetailWaitingOrderEvent, DetailWai
         ),
       );
       // final
-      await navigator.push(const AppRouteInfo.chefMain());
+      navigator.push(const AppRouteInfo.main());
     });
   }
 }

@@ -1,8 +1,11 @@
+import 'dart:io';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:domain/domain.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared/shared.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../app.dart';
 import 'bloc/detail_waiting_order.dart';
@@ -84,6 +87,19 @@ class _DetailWaitingOrderPageState extends BasePageState<DetailWaitingOrderPage,
                             ],
                           ),
                         ),
+                        SizedBox(height: 10),
+                        (state.cookingOrder.status == OrderStatus.PROCESSING.index || state.cookingOrder.status == OrderStatus.COMPLETED.index)
+                            ? Column(
+                                children: [
+                                  CardChefProfile(
+                                    // onPressed: () => navigator.push(const AppRouteInfo.chefProfile()),
+                                    fullName: (state.cookingOrder?.chef.fullName.isEmpty ?? true) ? "ChefName" : state.cookingOrder?.chef.fullName,
+                                    // biography: cookingOrder?.chef.biography,
+                                    image: Image.network("https://i.pravatar.cc/300?img=${20}").image,
+                                  ),
+                                ],
+                              )
+                            : SizedBox(),
 
                         SizedBox(
                           height: Dimens.d60.responsive(),
@@ -110,7 +126,78 @@ class _DetailWaitingOrderPageState extends BasePageState<DetailWaitingOrderPage,
                       margin: EdgeInsets.symmetric(horizontal: Dimens.d30.responsive()),
                       child: CommonEllipseButon(
                         onPressed: () async {
-                          await showDialog(context: context, builder: (context) => AlertDialog(title: Assets.images.qrcode.image()));
+                          await showDialog(
+                              context: context,
+                              builder: (context) {
+                                File? _image;
+
+                                Future getImage() async {}
+
+                                return StatefulBuilder(builder: (context, setState) {
+                                  return AlertDialog(
+                                    title: Text("Thanh Toán: ${NumberFormatUtils.formatNumber(state.cookingOrder.price)} đ", style: AppTextStyles.s20w600(color: AppColors.current.blackColor)),
+                                    content: Column(
+                                      children: [
+                                        //Quý khách vui quét mã QR, chuyển số tiền trên với cú pháp: ***${state.cookingOrder.id.substring(0,4)} <email đăng ký> <số tiền thanh toán> và đăng hình ảnh để Homechef xác nhận nhé
+                                        RichText(
+                                          text: TextSpan(
+                                            text: "Quý khách vui quét mã QR\nTheo cú pháp: \n",
+                                            style: AppTextStyles.s20w600(color: AppColors.current.primaryTextColor),
+                                            children: [
+                                              TextSpan(
+                                                text: "${state.cookingOrder.id.substring(0, 4)} <email> <số tiền>",
+                                                style: TextStyle(fontSize: 20, color: Colors.orange, fontStyle: FontStyle.italic),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        SizedBox(height: 10),
+                                        Assets.images.qrcode.image(),
+                                        SizedBox(height: 10),
+                                        RichText(
+                                          text: TextSpan(
+                                            text: "Upload hình ảnh giao dịch\nđể Homechef xác nhận nhé",
+                                            style: AppTextStyles.s20w600(color: AppColors.current.primaryTextColor),
+                                          ),
+                                        ),
+                                        //upload image
+                                        Row(
+                                          children: [
+                                            CommonSmallButton(
+                                              onpressed: () async {
+                                                _image = null;
+                                                final picker = ImagePicker();
+                                                final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+
+                                                setState(() {
+                                                  if (pickedFile != null) {
+                                                    _image = File(pickedFile.path);
+                                                  } else {
+                                                    print('No image selected.');
+                                                  }
+                                                });
+                                              },
+                                              text: "Upload",
+                                            ),
+                                            SizedBox(width: 20),
+                                            Text(_image == null ? "" : "verify.png"),
+                                          ],
+                                        ),
+                                        Expanded(child: SizedBox(height: 30)),
+                                        Align(
+                                          alignment: Alignment.bottomCenter,
+                                          child: CommonEllipseButon(
+                                            onPressed: () async {
+                                              bloc.add(const CompleteButtonPressed());
+                                            },
+                                            text: "Duyệt",
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                });
+                              });
                           // bloc.add(const AcceptButtonPressed());
                         },
                         text: "Hoàn Thành",
