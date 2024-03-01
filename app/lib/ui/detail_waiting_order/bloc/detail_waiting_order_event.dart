@@ -20,3 +20,13 @@ class DetailWaitingOrderPageInitiated extends DetailWaitingOrderEvent with _$Det
 class AcceptButtonPressed extends DetailWaitingOrderEvent with _$AcceptButtonPressed {
   const factory AcceptButtonPressed() = _AcceptButtonPressed;
 }
+
+@freezed
+class CancelButtonPressed extends DetailWaitingOrderEvent with _$CancelButtonPressed {
+  const factory CancelButtonPressed() = _CancelButtonPressed;
+}
+
+@freezed
+class CompleteButtonPressed extends DetailWaitingOrderEvent with _$CompleteButtonPressed {
+  const factory CompleteButtonPressed() = _CompleteButtonPressed;
+}

@@ -49,7 +49,7 @@ class _ChefMyPagePageState extends BasePageState<ChefMyPagePage, ChefMyPageBloc>
                               shape: BoxShape.circle,
                               image: DecorationImage(
                                 // image: Assets.images.avatarChef.image().image,
-                                image: Image.network("https://i.pravatar.cc/300?img=${15}").image,
+                                image: Image.network("https://i.pravatar.cc/300?img=${20}").image,
                                 fit: BoxFit.cover,
                               ))),
                       Column(

@@ -28,14 +28,11 @@ class WaitingOrderBloc extends BaseBloc<WaitingOrderEvent, WaitingOrderState> {
       final user = await _getCurrentUserUseCase.execute(const GetCurrentUserInput(id: 1));
 
       var response;
-      if (event.role == 1) {
-        response = (await _getCookingOrderUseCase.execute(const GetCookingOrdersInput()))
-                            .cookingOrders.where((element) => element.cookedHour == event.status && element.chef.id == user.user.id).toList();
-      } else {
-        response = (await _getCookingOrderUseCase.execute(const GetCookingOrdersInput()))
-                            // .cookingOrders.where((element) => element.cookedHour == event.status && element.customer.id == user.user.id).toList();
-                            .cookingOrders.where((element) => element.cookedHour == event.status ).toList();
-      }
+
+      //* role chef
+      response = (await _getCookingOrderUseCase.execute(const GetCookingOrdersInput())).cookingOrders.where((element) {
+        return element.status == event.status.index && (event.role == 1 ? element.chef.id : element.customer.id) == user.user.id;
+      }).toList();
       emit(
         state.copyWith(
           waitingOrders: response,

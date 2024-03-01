@@ -12,3 +12,8 @@ abstract class SearchOverTimeEvent extends BaseBlocEvent {
 class SearchOverTimePageInitiated extends SearchOverTimeEvent with _$SearchOverTimePageInitiated {
   const factory SearchOverTimePageInitiated() = _SearchOverTimePageInitiated;
 }
+
+@freezed
+class PressSearchButton extends SearchOverTimeEvent with _$PressSearchButton {
+  const factory PressSearchButton() = _PressSearchButton;
+}

@@ -1,3 +1,4 @@
+import 'package:domain/domain.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../app.dart';
@@ -12,6 +13,6 @@ abstract class WaitingOrderEvent extends BaseBlocEvent {
 class WaitingOrderPageInitiated extends WaitingOrderEvent with _$WaitingOrderPageInitiated {
   const factory WaitingOrderPageInitiated(
     int role,
-    int status,
+    OrderStatus status,
   ) = _WaitingOrderPageInitiated;
 }

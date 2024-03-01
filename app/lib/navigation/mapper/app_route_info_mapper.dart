@@ -20,7 +20,7 @@ class AppRouteInfoMapper extends BaseRouteInfoMapper {
       chooseAddress: () => const ChooseAddressRoute(),
       updateInfo: () => const UpdateInfoRoute(),
       uploadProfile: () => const UploadProfileRoute(),
-      chefProfile: () => const ChefProfileRoute(),
+      chefProfile: (chef) => ChefProfileRoute(chef: chef),
       createAddress: () => const CreateAddressRoute(),
       searchOverTime: () => const SearchOverTimeRoute(),
       chefMain: () => const ChefMainRoute(),

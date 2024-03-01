@@ -21,6 +21,16 @@ class DetailWaitingOrderBloc extends BaseBloc<DetailWaitingOrderEvent, DetailWai
       _onAcceptButtonPressed,
       transformer: log(),
     );
+
+    on<CancelButtonPressed>(
+      _onCancelButtonPressed,
+      transformer: log(),
+    );
+
+    on<CompleteButtonPressed>(
+      _onCompleteButtonPressed,
+      transformer: log(),
+    );
   }
 
   final GetCurrentUserUseCase _currentUserUseCase;
@@ -37,6 +47,7 @@ class DetailWaitingOrderBloc extends BaseBloc<DetailWaitingOrderEvent, DetailWai
     );
   }
 
+  //* Accept button pressed
   FutureOr<void> _onAcceptButtonPressed(
     AcceptButtonPressed event,
     Emitter<DetailWaitingOrderState> emit,
@@ -46,16 +57,47 @@ class DetailWaitingOrderBloc extends BaseBloc<DetailWaitingOrderEvent, DetailWai
       if (userResponse.user.role != "CHEF") {
         return;
       }
-      // print(userResponse.user);
-      // print(state.cookingOrder);
       await _changeCookingOrderUseCase.execute(
         ChangeCookingOrderInput(
           cookingOrder: state.cookingOrder.copyWith(
               chef: state.cookingOrder.chef.copyWith(
             id: userResponse.user.id,
           )),
-          orderStatus: 2,
-          // orderStatus: OrderStatus.PROCESSING.index,
+          orderStatus: OrderStatus.PROCESSING.index,
+        ),
+      );
+      // final
+      await navigator.push(const AppRouteInfo.chefMain());
+    });
+  }
+
+  //* Cancel button pressed
+  FutureOr<void> _onCancelButtonPressed(
+    CancelButtonPressed event,
+    Emitter<DetailWaitingOrderState> emit,
+  ) async {
+    return runBlocCatching(action: () async {
+      await _changeCookingOrderUseCase.execute(
+        ChangeCookingOrderInput(
+          cookingOrder: state.cookingOrder,
+          orderStatus: OrderStatus.CANCELED.index,
+        ),
+      );
+      // final
+      await navigator.push(const AppRouteInfo.chefMain());
+    });
+  }
+
+  //* Complete button pressed
+  FutureOr<void> _onCompleteButtonPressed(
+    CompleteButtonPressed event,
+    Emitter<DetailWaitingOrderState> emit,
+  ) async {
+    return runBlocCatching(action: () async {
+      await _changeCookingOrderUseCase.execute(
+        ChangeCookingOrderInput(
+          cookingOrder: state.cookingOrder,
+          orderStatus: OrderStatus.COMPLETED.index,
         ),
       );
       // final

@@ -99,36 +99,88 @@ class _DetailWaitingOrderPageState extends BasePageState<DetailWaitingOrderPage,
       floatingActionButton: BlocBuilder<AppBloc, AppState>(
         buildWhen: (previous, current) => previous != current,
         builder: (context, state) {
+          //* user role
           if (!state.isDarkTheme) {
             return BlocBuilder<DetailWaitingOrderBloc, DetailWaitingOrderState>(
-              buildWhen: (previous, current) => previous != current,
-              builder: (context, state) {
+                buildWhen: (previous, current) => previous != current,
+                builder: (context, state) {
+                  //* processing
+                  if (state.cookingOrder.status == OrderStatus.PROCESSING) {
+                    return Container(
+                      margin: EdgeInsets.symmetric(horizontal: Dimens.d30.responsive()),
+                      child: CommonEllipseButon(
+                        onPressed: () async {
+                          await showDialog(context: context, builder: (context) => AlertDialog(title: Assets.images.qrcode.image()));
+                          // bloc.add(const AcceptButtonPressed());
+                        },
+                        text: "Hoàn Thành",
+                      ),
+                    );
+                  }
+                  //* completed
+                  else if (state.cookingOrder.status == OrderStatus.COMPLETED) {
+                    return Container(
+                      margin: EdgeInsets.symmetric(horizontal: Dimens.d30.responsive()),
+                      child: CommonEllipseButon(
+                        onPressed: () async {
+                          // await showDialog(context: context, builder: (context) => AlertDialog(title: Text("Booked")));
+                          // bloc.add(const AcceptButtonPressed());
+                        },
+                        text: "Đánh giá",
+                      ),
+                    );
+                  }
+                  //* pending
+                  else {
+                    return Container(
+                      margin: EdgeInsets.symmetric(horizontal: Dimens.d30.responsive()),
+                      child: CommonEllipseButon(
+                        onPressed: () async {
+                          await showDialog(
+                              context: context,
+                              builder: (context) => AlertDialog(
+                                    title: Text("Are you sure to cancel this order?"),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                        child: Text("Cancel"),
+                                      ),
+                                      TextButton(
+                                        onPressed: () {
+                                          bloc.add(const CancelButtonPressed());
+                                          Navigator.pop(context);
+                                        },
+                                        child: Text("Yes"),
+                                      )
+                                    ],
+                                  ));
+                        },
+                        text: "Hủy Đơn",
+                        color: AppColors.current.redColor.withOpacity(0.8),
+                      ),
+                    );
+                  }
+                });
+          }
+          //* chef role
+          return BlocBuilder<DetailWaitingOrderBloc, DetailWaitingOrderState>(
+            buildWhen: (previous, current) => previous != current,
+            builder: (context, state) {
+              if (state.cookingOrder.status == OrderStatus.PENDING.index) {
                 return Container(
                   margin: EdgeInsets.symmetric(horizontal: Dimens.d30.responsive()),
                   child: CommonEllipseButon(
                     onPressed: () async {
-                      await showDialog(context: context, builder: (context) => AlertDialog(title: Assets.images.qrcode.image()));
+                      // await showDialog(context: context, builder: (context) => AlertDialog(title: Text("Booked")));
                       bloc.add(const AcceptButtonPressed());
                     },
-                    text: "Hoàn Thành",
+                    text: "Nhận Việc",
                   ),
                 );
-              },
-            );
-          }
-          return BlocBuilder<DetailWaitingOrderBloc, DetailWaitingOrderState>(
-            buildWhen: (previous, current) => previous != current,
-            builder: (context, state) {
-              return Container(
-                margin: EdgeInsets.symmetric(horizontal: Dimens.d30.responsive()),
-                child: CommonEllipseButon(
-                  onPressed: () async {
-                    // await showDialog(context: context, builder: (context) => AlertDialog(title: Text("Booked")));
-                    bloc.add(const AcceptButtonPressed());
-                  },
-                  text: "Nhận Việc",
-                ),
-              );
+              }
+              return Container();
             },
           );
         },

@@ -9,7 +9,10 @@ import 'bloc/chef_profile.dart';
 
 @RoutePage()
 class ChefProfilePage extends StatefulWidget {
-  const ChefProfilePage({super.key});
+  const ChefProfilePage({super.key,
+    required this.chef,});
+
+  final CurrentUser chef;
 
   @override
   State<StatefulWidget> createState() {
@@ -21,7 +24,7 @@ class _ChefProfilePageState extends BasePageState<ChefProfilePage, ChefProfileBl
   @override
   void initState() {
     super.initState();
-    bloc.add(const ChefProfilePageInitiated());
+    bloc.add(ChefProfilePageInitiated(chef: widget.chef));
   }
 
   @override
@@ -55,7 +58,8 @@ class _ChefProfilePageState extends BasePageState<ChefProfilePage, ChefProfileBl
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             image: DecorationImage(
-                              image: Assets.images.avatarChef.image().image,
+                              // image: Assets.images.avatarChef.image().image,
+                              image: !state.chef.avatarUrl.isEmpty ? NetworkImage(state.chef.avatarUrl):  Assets.images.avatarChef.image().image,
                               fit: BoxFit.cover,
                             ),
                           ),
@@ -63,7 +67,7 @@ class _ChefProfilePageState extends BasePageState<ChefProfilePage, ChefProfileBl
                         SizedBox(height: Dimens.d10.responsive()),
                         //* Name
                         Text(
-                          "Tommy Phạm",
+                          state.chef.fullName??"Tommy Phạm",
                           style: AppTextStyles.s20w600(color: AppColors.current.blackColor),
                         ),
                         SizedBox(height: Dimens.d5.responsive()),
@@ -71,7 +75,7 @@ class _ChefProfilePageState extends BasePageState<ChefProfilePage, ChefProfileBl
                         Container(
                           padding: EdgeInsets.symmetric(horizontal: Dimens.d30.responsive()),
                           child: Text(
-                            "Tôi tin rằng quan niệm công việc nội trợ là dành cho phụ nữ nên thay đổi.",
+                            state.chef.biography ?? "Tôi tin rằng quan niệm công việc nội trợ là dành cho phụ nữ nên thay đổi.",
                             style: AppTextStyles.s14w500(color: AppColors.current.primaryTextColor.withOpacity(.75)),
                             textAlign: TextAlign.center,
                           ),
@@ -151,73 +155,83 @@ class TableChefSchedule extends StatelessWidget {
   const TableChefSchedule({
     super.key,
   });
+  Function? onPressed() {
+    return null;
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Table(
-      // border: TableBorder.all(),
-      columnWidths: const <int, TableColumnWidth>{
-        0: FixedColumnWidth(50),
-        // 1: FixedColumnWidth(Dimens.d50),
-        // 2: FixedColumnWidth(Dimens.d50),
-        // 3: FixedColumnWidth(Dimens.d50),
-      },
-
+    return Column(
       children: [
-        TableRow(
+        //* title
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            TableCell(child: TitleTable(title: 'T2')),
-            TableCell(child: CellTable(text: 'Sáng', onPressed: () {})),
-            TableCell(child: CellTable(text: 'Trưa')),
-            TableCell(child: CellTable(text: 'Chiều')),
+            TitleTable(title: 'T2'),
+            SizedBox(width: Dimens.d20.responsive()),
+            CellTable(text: 'Sáng'),
+            CellTable(text: 'Trưa', setActive: true),
+            CellTable(text: 'Chiều'),
           ],
         ),
-        TableRow(
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            TableCell(child: TitleTable(title: 'T3')),
-            TableCell(child: CellTable(text: 'Sáng')),
-            TableCell(child: CellTable(text: 'Trưa')),
-            TableCell(child: CellTable(text: 'Chiều', onPressed: () {})),
+            TitleTable(title: 'T3'),
+            SizedBox(width: Dimens.d20.responsive()),
+            CellTable(text: 'Sáng'),
+            CellTable(text: 'Trưa', setActive: true),
+            CellTable(text: 'Chiều'),
           ],
         ),
-        TableRow(
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            TableCell(child: TitleTable(title: 'T4')),
-            TableCell(child: CellTable(text: 'Sáng', onPressed: () {})),
-            TableCell(child: CellTable(text: 'Trưa')),
-            TableCell(child: CellTable(text: 'Chiều')),
+            TitleTable(title: 'T4'),
+            SizedBox(width: Dimens.d20.responsive()),
+            CellTable(text: 'Sáng'),
+            CellTable(text: 'Trưa'),
+            CellTable(text: 'Chiều'),
           ],
         ),
-        TableRow(
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            TableCell(child: TitleTable(title: 'T5')),
-            TableCell(child: CellTable(text: 'Sáng')),
-            TableCell(child: CellTable(text: 'Trưa')),
-            TableCell(child: CellTable(text: 'Chiều', onPressed: () {})),
+            TitleTable(title: 'T5'),
+            SizedBox(width: Dimens.d20.responsive()),
+            CellTable(text: 'Sáng'),
+            CellTable(text: 'Trưa', setActive: true),
+            CellTable(text: 'Chiều'),
           ],
         ),
-        TableRow(
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            TableCell(child: TitleTable(title: 'T6')),
-            TableCell(child: CellTable(text: 'Sáng')),
-            TableCell(child: CellTable(text: 'Trưa')),
-            TableCell(child: CellTable(text: 'Chiều', onPressed: () {})),
+            TitleTable(title: 'T6'),
+            SizedBox(width: Dimens.d20.responsive()),
+            CellTable(text: 'Sáng'),
+            CellTable(text: 'Trưa', setActive: true),
+            CellTable(text: 'Chiều'),
           ],
         ),
-        TableRow(
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            TableCell(child: TitleTable(title: 'T7')),
-            TableCell(child: CellTable(text: 'Sáng')),
-            TableCell(child: CellTable(text: 'Trưa')),
-            TableCell(child: CellTable(text: 'Chiều', onPressed: () {})),
+            TitleTable(title: 'T7'),
+            SizedBox(width: Dimens.d20.responsive()),
+            CellTable(text: 'Sáng'),
+            CellTable(text: 'Trưa', setActive: true),
+            CellTable(text: 'Chiều'),
           ],
         ),
-        TableRow(
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            TableCell(child: TitleTable(title: 'CN')),
-            TableCell(child: CellTable(text: 'Sáng')),
-            TableCell(child: CellTable(text: 'Trưa')),
-            TableCell(child: CellTable(text: 'Chiều', onPressed: () {})),
+            TitleTable(title: 'CN'),
+            SizedBox(width: Dimens.d20.responsive()),
+            CellTable(text: 'Sáng'),
+            CellTable(text: 'Trưa'),
+            CellTable(text: 'Chiều'),
           ],
         ),
       ],
@@ -225,25 +239,42 @@ class TableChefSchedule extends StatelessWidget {
   }
 }
 
-class CellTable extends StatelessWidget {
+class CellTable extends StatefulWidget {
   const CellTable({
     super.key,
     required this.text,
     this.onPressed,
+    this.setActive = false,
   });
 
   final String text;
   final Function? onPressed;
+  final bool setActive;
+
+  @override
+  State<CellTable> createState() => _CellTableState();
+}
+
+class _CellTableState extends State<CellTable> {
+  bool isActive = false;
+
+  @override
+  void initState() {
+    super.initState();
+    isActive = widget.setActive;
+  }
 
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: Dimens.d2.responsive()),
       child: CommonSmallButton(
-        onpressed: onPressed,
-        text: text,
-        color: AppColors.current.chefPrimaryColor,
-        textColor: onPressed != null ? AppColors.current.whiteColor : AppColors.current.blackColor,
+        onpressed: () {
+          setState(() => isActive = !isActive);
+        },
+        text: widget.text,
+        color: isActive ? AppColors.current.chefPrimaryColor : AppColors.current.whiteColor,
+        textColor: isActive ? AppColors.current.whiteColor : AppColors.current.blackColor,
       ),
     );
   }

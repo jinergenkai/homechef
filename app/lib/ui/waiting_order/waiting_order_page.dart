@@ -12,7 +12,7 @@ class WaitingOrderPage extends StatefulWidget {
   const WaitingOrderPage({required this.role, required this.status, super.key});
 
   final int role;
-  final int status;
+  final OrderStatus status;
 
   @override
   State<StatefulWidget> createState() {
@@ -34,22 +34,27 @@ class _WaitingOrderPageState extends BasePageState<WaitingOrderPage, WaitingOrde
         child: BlocBuilder<WaitingOrderBloc, WaitingOrderState>(
           buildWhen: (previous, current) => previous != current,
           builder: (context, state) {
-            return ListView.builder(
-              // shrinkWrap: true,
-              // physics: const NeverScrollableScrollPhysics(),
-              itemCount: state.waitingOrders.length,
-              itemBuilder: (context, index) {
-                return GenericOrderItem(
-                  onPressed: () {
-                    // navigator.push(const AppRouteInfo.main())() async{
-                    navigator.push(AppRouteInfo.detailWaitingOrder(state.waitingOrders[index]));
-                  },
-                  cookingOrder: state.waitingOrders[index],
-                  index: index,
-                  isChefUser: state.isChefUser,
-                  status: widget.status,
-                );
+            return RefreshIndicator(
+              onRefresh: () {
+                bloc.add(WaitingOrderPageInitiated(widget.role, widget.status));
+                return Future<void>.value();
               },
+              child: ListView.builder(
+                // shrinkWrap: true,
+                physics: const AlwaysScrollableScrollPhysics(),
+                itemCount: state.waitingOrders.length,
+                itemBuilder: (context, index) {
+                  return GenericOrderItem(
+                    onPressed: () {
+                      navigator.push(AppRouteInfo.detailWaitingOrder(state.waitingOrders[index]));
+                    },
+                    cookingOrder: state.waitingOrders[index],
+                    index: index,
+                    isChefUser: state.isChefUser,
+                    status: widget.status,
+                  );
+                },
+              ),
             );
           },
         ),
@@ -72,7 +77,7 @@ class GenericOrderItem extends StatelessWidget {
   final CookingOrder? cookingOrder;
   final int index;
   final bool? isChefUser;
-  final int? status;
+  final OrderStatus? status;
 
   @override
   Widget build(BuildContext context) {
@@ -103,123 +108,116 @@ class GenericOrderItem extends StatelessWidget {
               horizontal: Dimens.d10.responsive(),
               vertical: Dimens.d10.responsive(),
             ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // *** Title
-                Text("#" + "${index + 1} ".padLeft(3, "0") + (cookingOrder?.customer.fullName ?? "Ẩn Danh" + " - " + (cookingOrder?.address.district ?? "Vô Định")),
-                    style: AppTextStyles.s20w600(color: AppColors.current.blackColor)),
-                const Divider(),
-                // *** Overview
-                Table(
-                    columnWidths: const {
-                      0: FlexColumnWidth(0.1),
-                      1: FlexColumnWidth(0.9),
-                    },
-                    defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-                    children: [
-                      TableRow(children: [
-                        Assets.images.timer.image(color: AppColors.current.primaryColor),
-                        Text(modifyTimeFormat(cookingOrder?.cookedTime ?? "Now")),
-                      ]),
-                      TableRow(children: [
-                        Assets.images.checkList.image(color: AppColors.current.primaryColor),
-                        ListView.builder(
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemBuilder: (context, index) =>
-                           index == 0
-                              ? Text(
-                                  "Món ăn",
-                                  style: AppTextStyles.s14w500(color: AppColors.current.primaryTextColor),
-                                )
-                              : Text(
-                                  "● " + (cookingOrder?.dish[index - 1].name ?? ""),
-                                  style: AppTextStyles.s14w500(color: AppColors.current.primaryTextColor),
-                                ),
-                          itemCount: (cookingOrder?.dish.length ?? 0) + 1,
-                        ),
-                      ]),
-                      TableRow(children: [
-                        Assets.images.dollar.image(color: AppColors.current.primaryColor),
-                        Text(NumberFormatUtils.formatNumber(cookingOrder?.price ?? 0) + " VND"),
-                      ]),
-                      TableRow(children: [
-                        Assets.images.location.image(color: AppColors.current.primaryColor),
-                        Text((cookingOrder?.address.street ?? "Vô định") + ", " + (cookingOrder?.address.district ?? "Vô Định")),
-                      ]),
-                      TableRow(children: [
-                        // Assets.images.location.image(color: AppColors.current.primaryColor),
-                        Icon(
-                          Icons.note,
-                          size: 18,
-                          color: AppColors.current.primaryColor,
-                        ),
-                        Text(cookingOrder?.note ?? ""),
-                      ]),
-                    ]),
-
-                // *** Action
-                const SizedBox(
-                  height: 5,
-                ),
-                Align(alignment: Alignment.center, child: CommonSmallButton(onpressed: onPressed, text: "Chi Tiết")),
-                const Divider(),
-                //               Row(
-                //   children: [
-                //     Assets.images.user.image(),
-                //     Text(" Waiting for chef to accept...", style: AppTextStyles.s16w500(color: AppColors.current.primaryColor), overflow: TextOverflow.ellipsis),
-                //   ],
-                // ),
-
-                (status == 1)
-                    ? Container(
-                        alignment: Alignment.center,
-                        child: RichText(
-                          textAlign: TextAlign.center,
-                          text: TextSpan(
-                            children: [
-                              // WidgetSpan(child: Assets.images.user.image(color: AppColors.current.primaryColor)),
-                              // WidgetSpan(child: Icon(Icons.search_rounded, size: 20, color: AppColors.current.primaryColor)),
-                              TextSpan(
-                                text: "  Chờ đầu bếp chấp nhận...${cookingOrder?.cookedHour}",
-                                style: AppTextStyles.s16w500(color: AppColors.current.primaryColor),
-                              ),
-                            ],
-                          ),
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      )
-                    : ((status == 2 || status == 3)
-                        ? ((isChefUser == true)
-                            ? Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                children: [
-                                  Icon(Icons.location_on_outlined, size: 40, color: AppColors.current.primaryColor),
-                                  Icon(Icons.messenger_outline, size: 40, color: AppColors.current.primaryColor),
-                                  Icon(Icons.call_end_outlined, size: 40, color: AppColors.current.primaryColor),
-                                ],
-                              )
-                            : Column(
-                                children: [
-                                  CardChefProfile(
-                                    // onPressed: () => navigator.push(const AppRouteInfo.chefProfile()),
-                                    fullName:(cookingOrder?.chef.fullName?.isEmpty ?? true) ? "Nguyễn Kiên" : cookingOrder?.chef.fullName,
-                                    biography: cookingOrder?.chef.biography,
-                                    image: Image.network("https://i.pravatar.cc/300?img=${index + 15}").image,
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                    children: [
-                                      Icon(Icons.location_on_outlined, size: 40, color: AppColors.current.primaryColor),
-                                      Icon(Icons.messenger_outline, size: 40, color: AppColors.current.primaryColor),
-                                      Icon(Icons.call_end_outlined, size: 40, color: AppColors.current.primaryColor),
-                                    ],
+            child: GestureDetector(
+              onTap: () {
+                onPressed?.call();
+              },
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // *** Title
+                  // Text("#" + "${index + 1} ".padLeft(3, "0") + (cookingOrder?.customer.fullName ?? "Ẩn Danh" + " - " + (cookingOrder?.address.district ?? "Vô Định")),
+                  Text("#" + "${cookingOrder?.id.substring(0, 4)} - ".padLeft(4, "0") + (cookingOrder?.customer.fullName ?? "Ẩn Danh" + " - " + (cookingOrder?.address.district ?? "Vô Định")),
+                      style: AppTextStyles.s20w600(color: AppColors.current.blackColor)),
+                  const Divider(),
+                  // *** Overview
+                  Table(
+                      columnWidths: const {
+                        0: FlexColumnWidth(0.15),
+                        1: FlexColumnWidth(0.85),
+                      },
+                      defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+                      children: [
+                        TableRow(children: [
+                          Assets.images.timer.image(color: AppColors.current.primaryColor),
+                          Text(modifyTimeFormat(cookingOrder?.cookedTime ?? "Now"), style: AppTextStyles.s14w500(color: AppColors.current.primaryTextColor)),
+                        ]),
+                        TableRow(children: [
+                          Assets.images.checkList.image(color: AppColors.current.primaryColor),
+                          ListView.builder(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemBuilder: (context, index) => index == 0
+                                ? Text(
+                                    "Món ăn",
+                                    style: AppTextStyles.s14w500(color: AppColors.current.primaryTextColor),
                                   )
-                                ],
-                              ))
-                        : Container()),
-              ],
+                                : Text(
+                                    "•  " + (cookingOrder?.dish[index - 1].name ?? ""),
+                                    style: AppTextStyles.s14w500(color: AppColors.current.primaryTextColor),
+                                  ),
+                            itemCount: (cookingOrder?.dish.length ?? 0) + 1,
+                          ),
+                        ]),
+                        TableRow(children: [
+                          Assets.images.dollar.image(color: AppColors.current.primaryColor),
+                          Text(NumberFormatUtils.formatNumber(cookingOrder?.price ?? 0) + " VND", style: AppTextStyles.s14w500(color: AppColors.current.primaryTextColor)),
+                        ]),
+                        TableRow(children: [
+                          Assets.images.location.image(color: AppColors.current.primaryColor),
+                          Text((cookingOrder?.address.street ?? "Vô định") + ", " + (cookingOrder?.address.district ?? "Vô Định"),
+                              style: AppTextStyles.s14w500(color: AppColors.current.primaryTextColor)),
+                        ]),
+                        TableRow(children: [
+                          // Assets.images.location.image(color: AppColors.current.primaryColor),
+                          Icon(
+                            Icons.note,
+                            size: 18,
+                            color: AppColors.current.primaryColor,
+                          ),
+                          Text(!(cookingOrder == null || cookingOrder!.note!.isEmpty) ? cookingOrder?.note ?? "không có" : "Không có",
+                              style: AppTextStyles.s14w500(color: AppColors.current.primaryTextColor)),
+                        ]),
+                      ]),
+
+                  SizedBox(
+                    height: Dimens.d15.responsive(),
+                  ),
+                  // Align(alignment: Alignment.center, child: CommonSmallButton(onpressed: onPressed, text: "Chi Tiết")),
+                  const Divider(),
+
+                  //* Status pending
+                  (status == OrderStatus.PENDING)
+                      ? Container(
+                          alignment: Alignment.center,
+                          child: RichText(
+                            textAlign: TextAlign.center,
+                            text: TextSpan(
+                              children: [
+                                WidgetSpan(child: Icon(Icons.search_rounded, size: 20, color: AppColors.current.primaryColor)),
+                                TextSpan(
+                                  text: "  Chờ đầu bếp chấp nhận...",
+                                  style: AppTextStyles.s16w500(color: AppColors.current.primaryColor),
+                                ),
+                              ],
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        )
+                      //* Status processing and completed
+                      : ((status == OrderStatus.PROCESSING || status == OrderStatus.COMPLETED)
+                          ? ((isChefUser == true)
+                              ? Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                  children: [
+                                    Icon(Icons.location_on_outlined, size: 40, color: AppColors.current.primaryColor),
+                                    Icon(Icons.messenger_outline, size: 40, color: AppColors.current.primaryColor),
+                                    Icon(Icons.call_end_outlined, size: 40, color: AppColors.current.primaryColor),
+                                  ],
+                                )
+                              : Column(
+                                  children: [
+                                    CardChefProfile(
+                                      // onPressed: () => navigator.push(const AppRouteInfo.chefProfile()),
+                                      fullName: (cookingOrder?.chef.fullName.isEmpty ?? true) ? "Nguyễn Kiên" : cookingOrder?.chef.fullName,
+                                      // biography: cookingOrder?.chef.biography,
+                                      image: Image.network("https://i.pravatar.cc/300?img=${index + 20}").image,
+                                    ),
+                                  ],
+                                ))
+                          : Container()),
+                ],
+              ),
             )
             // ),
             );
@@ -246,7 +244,7 @@ class CommonSmallButton extends StatelessWidget {
         style: ElevatedButton.styleFrom(
           backgroundColor: color ?? AppColors.current.primaryColor,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(Dimens.d8.responsive())),
-          padding: EdgeInsets.symmetric(horizontal: Dimens.d20.responsive(), vertical: Dimens.d10.responsive()),
+          padding: EdgeInsets.symmetric(horizontal: Dimens.d30.responsive(), vertical: Dimens.d3.responsive()),
         ),
         onPressed: onpressed as void Function()?,
         child: Text(text ?? "Button", style: AppTextStyles.s14w500(color: textColor ?? AppColors.current.whiteColor)));

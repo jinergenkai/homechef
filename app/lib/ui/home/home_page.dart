@@ -139,10 +139,10 @@ class _HomePageState extends BasePageState<HomePage, HomeBloc> {
                       physics: const ClampingScrollPhysics(),
                       itemCount: state.chefs.length,
                       itemBuilder: (context, index) => CardChefProfile(
-                        onPressed: () => navigator.push(const AppRouteInfo.chefProfile()),
+                        onPressed: () => navigator.push(AppRouteInfo.chefProfile(state.chefs[index])),
                         fullName: state.chefs[index].fullName,
                         biography: state.chefs[index].biography,
-                        image: Image.network("https://i.pravatar.cc/300?img=${index + 15}").image,
+                        image: Image.network("https://i.pravatar.cc/300?img=${index + 20}").image,
                         // feedBack: state.chefs[index].,
                       ),
                       // itemBuilder: (context, index) => const MessageItem(),
@@ -218,9 +218,10 @@ class CardChefProfile extends StatelessWidget {
                       ),
                     ],
                   ),
+                  SizedBox(width: Dimens.d15.responsive()),
                   Expanded(
                     child: Container(
-                      height: Dimens.d110.responsive(),
+                      height: Dimens.d115.responsive(),
                       padding: EdgeInsets.all(Dimens.d10.responsive()),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -235,13 +236,26 @@ class CardChefProfile extends StatelessWidget {
                             // "4.9s (15 reviews)",
                             style: AppTextStyles.s14w500(color: Colors.orange),
                           ),
-                          SizedBox(height: Dimens.d3.responsive()),
-                          Text(
-                            (biography?.isNotEmpty ?? false) ? biography! : "Tôi tin rằng quan niệm công việc nội trợ là dành cho phụ nữ nên thay đổi.",
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 2,
-                            style: AppTextStyles.s14w500(color: AppColors.current.blackColor.withOpacity(0.6)),
-                          ),
+                          SizedBox(height: Dimens.d10.responsive()),
+
+                          //* biography or contact
+                          (biography == null)
+                              ? Row(
+                                  // mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                  children: [
+                                    Assets.images.call1.image(),
+                                    SizedBox(width: Dimens.d10.responsive()),
+                                    Assets.images.location1.image(),
+                                    SizedBox(width: Dimens.d10.responsive()),
+                                    Assets.images.mess1.image(),
+                                  ],
+                                )
+                              : Text(
+                                  (biography?.isNotEmpty ?? false) ? biography! : "Tôi tin rằng quan niệm công việc nội trợ là dành cho phụ nữ nên thay đổi.",
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 2,
+                                  style: AppTextStyles.s14w500(color: AppColors.current.blackColor.withOpacity(0.6)),
+                                ),
                         ],
                       ),
                     ),
