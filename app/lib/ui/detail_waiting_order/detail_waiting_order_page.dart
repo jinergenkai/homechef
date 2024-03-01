@@ -100,7 +100,21 @@ class _DetailWaitingOrderPageState extends BasePageState<DetailWaitingOrderPage,
         buildWhen: (previous, current) => previous != current,
         builder: (context, state) {
           if (!state.isDarkTheme) {
-            return Container();
+            return BlocBuilder<DetailWaitingOrderBloc, DetailWaitingOrderState>(
+              buildWhen: (previous, current) => previous != current,
+              builder: (context, state) {
+                return Container(
+                  margin: EdgeInsets.symmetric(horizontal: Dimens.d30.responsive()),
+                  child: CommonEllipseButon(
+                    onPressed: () async {
+                      await showDialog(context: context, builder: (context) => AlertDialog(title: Assets.images.qrcode.image()));
+                      bloc.add(const AcceptButtonPressed());
+                    },
+                    text: "Hoàn Thành",
+                  ),
+                );
+              },
+            );
           }
           return BlocBuilder<DetailWaitingOrderBloc, DetailWaitingOrderState>(
             buildWhen: (previous, current) => previous != current,

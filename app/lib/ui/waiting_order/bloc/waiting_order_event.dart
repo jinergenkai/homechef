@@ -10,5 +10,8 @@ abstract class WaitingOrderEvent extends BaseBlocEvent {
 
 @freezed
 class WaitingOrderPageInitiated extends WaitingOrderEvent with _$WaitingOrderPageInitiated {
-  const factory WaitingOrderPageInitiated() = _WaitingOrderPageInitiated;
+  const factory WaitingOrderPageInitiated(
+    int role,
+    int status,
+  ) = _WaitingOrderPageInitiated;
 }

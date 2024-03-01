@@ -51,16 +51,15 @@ class DetailWaitingOrderBloc extends BaseBloc<DetailWaitingOrderEvent, DetailWai
       await _changeCookingOrderUseCase.execute(
         ChangeCookingOrderInput(
           cookingOrder: state.cookingOrder.copyWith(
-            chef: state.cookingOrder.chef.copyWith(
-              id: userResponse.user.id,
-            )
-          ),
+              chef: state.cookingOrder.chef.copyWith(
+            id: userResponse.user.id,
+          )),
           orderStatus: 2,
           // orderStatus: OrderStatus.PROCESSING.index,
         ),
       );
-
       // final
+      await navigator.push(const AppRouteInfo.chefMain());
     });
   }
 }

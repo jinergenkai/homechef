@@ -12,5 +12,6 @@ class WaitingOrderState extends BaseBlocState with _$WaitingOrderState {
   const factory WaitingOrderState({
     @Default('') String id,
     @Default([]) List<CookingOrder> waitingOrders,
+    @Default(false) bool isChefUser,
   }) = _WaitingOrderState;
 }

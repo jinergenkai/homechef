@@ -9,7 +9,10 @@ import 'bloc/waiting_order.dart';
 
 @RoutePage()
 class WaitingOrderPage extends StatefulWidget {
-  const WaitingOrderPage({super.key});
+  const WaitingOrderPage({required this.role, required this.status, super.key});
+
+  final int role;
+  final int status;
 
   @override
   State<StatefulWidget> createState() {
@@ -21,7 +24,7 @@ class _WaitingOrderPageState extends BasePageState<WaitingOrderPage, WaitingOrde
   @override
   void initState() {
     super.initState();
-    bloc.add(const WaitingOrderPageInitiated());
+    bloc.add(WaitingOrderPageInitiated(widget.role, widget.status));
   }
 
   @override
@@ -32,6 +35,8 @@ class _WaitingOrderPageState extends BasePageState<WaitingOrderPage, WaitingOrde
           buildWhen: (previous, current) => previous != current,
           builder: (context, state) {
             return ListView.builder(
+              // shrinkWrap: true,
+              // physics: const NeverScrollableScrollPhysics(),
               itemCount: state.waitingOrders.length,
               itemBuilder: (context, index) {
                 return GenericOrderItem(
@@ -41,6 +46,8 @@ class _WaitingOrderPageState extends BasePageState<WaitingOrderPage, WaitingOrde
                   },
                   cookingOrder: state.waitingOrders[index],
                   index: index,
+                  isChefUser: state.isChefUser,
+                  status: widget.status,
                 );
               },
             );
@@ -57,11 +64,15 @@ class GenericOrderItem extends StatelessWidget {
     this.onPressed,
     this.cookingOrder,
     this.index = 0,
+    this.isChefUser,
+    this.status,
   });
 
   final Function? onPressed;
   final CookingOrder? cookingOrder;
   final int index;
+  final bool? isChefUser;
+  final int? status;
 
   @override
   Widget build(BuildContext context) {
@@ -116,7 +127,8 @@ class GenericOrderItem extends StatelessWidget {
                         ListView.builder(
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
-                          itemBuilder: (context, index) => index == 0
+                          itemBuilder: (context, index) =>
+                           index == 0
                               ? Text(
                                   "Món ăn",
                                   style: AppTextStyles.s14w500(color: AppColors.current.primaryTextColor),
@@ -159,23 +171,54 @@ class GenericOrderItem extends StatelessWidget {
                 //     Text(" Waiting for chef to accept...", style: AppTextStyles.s16w500(color: AppColors.current.primaryColor), overflow: TextOverflow.ellipsis),
                 //   ],
                 // ),
-                Container(
-                  alignment: Alignment.center,
-                  child: RichText(
-                    textAlign: TextAlign.center,
-                    text: TextSpan(
-                      children: [
-                        // WidgetSpan(child: Assets.images.user.image(color: AppColors.current.primaryColor)),
-                        // WidgetSpan(child: Icon(Icons.search_rounded, size: 20, color: AppColors.current.primaryColor)),
-                        TextSpan(
-                          text: "  Chờ đầu bếp chấp nhận...${cookingOrder?.cookedHour}",
-                          style: AppTextStyles.s16w500(color: AppColors.current.primaryColor),
+
+                (status == 1)
+                    ? Container(
+                        alignment: Alignment.center,
+                        child: RichText(
+                          textAlign: TextAlign.center,
+                          text: TextSpan(
+                            children: [
+                              // WidgetSpan(child: Assets.images.user.image(color: AppColors.current.primaryColor)),
+                              // WidgetSpan(child: Icon(Icons.search_rounded, size: 20, color: AppColors.current.primaryColor)),
+                              TextSpan(
+                                text: "  Chờ đầu bếp chấp nhận...${cookingOrder?.cookedHour}",
+                                style: AppTextStyles.s16w500(color: AppColors.current.primaryColor),
+                              ),
+                            ],
+                          ),
+                          overflow: TextOverflow.ellipsis,
                         ),
-                      ],
-                    ),
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ),
+                      )
+                    : ((status == 2 || status == 3)
+                        ? ((isChefUser == true)
+                            ? Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                children: [
+                                  Icon(Icons.location_on_outlined, size: 40, color: AppColors.current.primaryColor),
+                                  Icon(Icons.messenger_outline, size: 40, color: AppColors.current.primaryColor),
+                                  Icon(Icons.call_end_outlined, size: 40, color: AppColors.current.primaryColor),
+                                ],
+                              )
+                            : Column(
+                                children: [
+                                  CardChefProfile(
+                                    // onPressed: () => navigator.push(const AppRouteInfo.chefProfile()),
+                                    fullName:(cookingOrder?.chef.fullName?.isEmpty ?? true) ? "Nguyễn Kiên" : cookingOrder?.chef.fullName,
+                                    biography: cookingOrder?.chef.biography,
+                                    image: Image.network("https://i.pravatar.cc/300?img=${index + 15}").image,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                    children: [
+                                      Icon(Icons.location_on_outlined, size: 40, color: AppColors.current.primaryColor),
+                                      Icon(Icons.messenger_outline, size: 40, color: AppColors.current.primaryColor),
+                                      Icon(Icons.call_end_outlined, size: 40, color: AppColors.current.primaryColor),
+                                    ],
+                                  )
+                                ],
+                              ))
+                        : Container()),
               ],
             )
             // ),

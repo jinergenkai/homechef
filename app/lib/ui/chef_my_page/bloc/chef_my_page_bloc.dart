@@ -11,6 +11,7 @@ import 'chef_my_page.dart';
 class ChefMyPageBloc extends BaseBloc<ChefMyPageEvent, ChefMyPageState> {
   ChefMyPageBloc(
     this._logoutUseCase,
+    this._getCurrentUserUseCase,
   ) : super(const ChefMyPageState()) {
     on<ChefMyPagePageInitiated>(
       _onChefMyPagePageInitiated,
@@ -23,6 +24,7 @@ class ChefMyPageBloc extends BaseBloc<ChefMyPageEvent, ChefMyPageState> {
   }
 
   final LogoutUseCase _logoutUseCase;
+  final GetCurrentUserUseCase _getCurrentUserUseCase;
 
   FutureOr<void> _onLogoutButtonPressed(
     LogoutButtonPressed event,
@@ -40,6 +42,7 @@ class ChefMyPageBloc extends BaseBloc<ChefMyPageEvent, ChefMyPageState> {
     ChefMyPagePageInitiated event,
     Emitter<ChefMyPageState> emit,
   ) async {
-
+    final currentUser = await _getCurrentUserUseCase.execute(const GetCurrentUserInput(id: 1));
+    emit(state.copyWith(currentUser: currentUser.user));
   }
 }

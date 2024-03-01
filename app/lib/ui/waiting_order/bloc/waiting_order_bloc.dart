@@ -9,7 +9,7 @@ import 'waiting_order.dart';
 
 @Injectable()
 class WaitingOrderBloc extends BaseBloc<WaitingOrderEvent, WaitingOrderState> {
-  WaitingOrderBloc(this._getCookingOrderUseCase) : super(const WaitingOrderState()) {
+  WaitingOrderBloc(this._getCookingOrderUseCase, this._getCurrentUserUseCase) : super(const WaitingOrderState()) {
     on<WaitingOrderPageInitiated>(
       _onWaitingOrderPageInitiated,
       transformer: log(),
@@ -17,17 +17,29 @@ class WaitingOrderBloc extends BaseBloc<WaitingOrderEvent, WaitingOrderState> {
   }
 
   final GetCookingOrdersUseCase _getCookingOrderUseCase;
+  final GetCurrentUserUseCase _getCurrentUserUseCase;
 
   FutureOr<void> _onWaitingOrderPageInitiated(
     WaitingOrderPageInitiated event,
     Emitter<WaitingOrderState> emit,
   ) async {
     return runBlocCatching(action: () async {
-      final response = (await _getCookingOrderUseCase.execute(const GetCookingOrdersInput()))
-                          .cookingOrders.where((element) => element.cookedHour == 1).toList();
+      //get current user
+      final user = await _getCurrentUserUseCase.execute(const GetCurrentUserInput(id: 1));
+
+      var response;
+      if (event.role == 1) {
+        response = (await _getCookingOrderUseCase.execute(const GetCookingOrdersInput()))
+                            .cookingOrders.where((element) => element.cookedHour == event.status && element.chef.id == user.user.id).toList();
+      } else {
+        response = (await _getCookingOrderUseCase.execute(const GetCookingOrdersInput()))
+                            // .cookingOrders.where((element) => element.cookedHour == event.status && element.customer.id == user.user.id).toList();
+                            .cookingOrders.where((element) => element.cookedHour == event.status ).toList();
+      }
       emit(
         state.copyWith(
           waitingOrders: response,
+          isChefUser: event.role == 1,
         ),
       );
     });

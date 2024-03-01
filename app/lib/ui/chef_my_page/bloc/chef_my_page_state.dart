@@ -1,3 +1,4 @@
+import 'package:domain/domain.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../app.dart';
@@ -10,5 +11,6 @@ class ChefMyPageState extends BaseBlocState with _$ChefMyPageState {
 
   const factory ChefMyPageState({
     @Default('') String id,
+    @Default(CurrentUser()) CurrentUser currentUser,
   }) = _ChefMyPageState;
 }

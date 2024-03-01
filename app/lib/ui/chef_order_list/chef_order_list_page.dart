@@ -83,9 +83,9 @@ class _ChefOrderListPageState extends BasePageState<ChefOrderListPage, ChefOrder
                 child: TabBarView(
                   controller: _tabController,
                   children: const [
-                    WaitingOrderPage(),
-                    InProcessingOrderPage(),
-                    DoneOrderPage(),
+                    WaitingOrderPage(role: 1, status: 1),
+                    WaitingOrderPage(role: 1, status: 2),
+                    WaitingOrderPage(role: 1, status: 3),
                     // InProcessingOrderPage(),
                     // DoneOrderPage(),
                   ],
