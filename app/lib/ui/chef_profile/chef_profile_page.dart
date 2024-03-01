@@ -9,8 +9,10 @@ import 'bloc/chef_profile.dart';
 
 @RoutePage()
 class ChefProfilePage extends StatefulWidget {
-  const ChefProfilePage({super.key,
-    required this.chef,});
+  const ChefProfilePage({
+    super.key,
+    required this.chef,
+  });
 
   final CurrentUser chef;
 
@@ -59,7 +61,7 @@ class _ChefProfilePageState extends BasePageState<ChefProfilePage, ChefProfileBl
                             shape: BoxShape.circle,
                             image: DecorationImage(
                               // image: Assets.images.avatarChef.image().image,
-                              image: !state.chef.avatarUrl.isEmpty ? NetworkImage(state.chef.avatarUrl):  Assets.images.avatarChef.image().image,
+                              image: !state.chef.avatarUrl.isEmpty ? NetworkImage(state.chef.avatarUrl) : Assets.images.avatarChef.image().image,
                               fit: BoxFit.cover,
                             ),
                           ),
@@ -67,7 +69,7 @@ class _ChefProfilePageState extends BasePageState<ChefProfilePage, ChefProfileBl
                         SizedBox(height: Dimens.d10.responsive()),
                         //* Name
                         Text(
-                          state.chef.fullName??"Tommy Phạm",
+                          state.chef.fullName ?? "Tommy Phạm",
                           style: AppTextStyles.s20w600(color: AppColors.current.blackColor),
                         ),
                         SizedBox(height: Dimens.d5.responsive()),
@@ -80,26 +82,39 @@ class _ChefProfilePageState extends BasePageState<ChefProfilePage, ChefProfileBl
                             textAlign: TextAlign.center,
                           ),
                         ),
+                        SizedBox(height: Dimens.d20.responsive()),
+
+                        Container(
+                          padding: EdgeInsets.symmetric(horizontal: Dimens.d30.responsive()),
+                          child: Text(
+                              "• Am hiểu về các món ăn của miền Tây Nam Bộ\n" +
+                                  "• Có kiến thức về nguyên liệu địa phương\n" +
+                                  "• Thành thạo kỹ thuật nấu ăn\n" +
+                                  "• Hiểu biết về cách chế biến các nguyên liệu đặc trưng như cá lóc, tôm, rau cần, bún, và các loại rau sống.\n",
+                              style: AppTextStyles.s14w500(color: AppColors.current.primaryTextColor.withOpacity(.75)),
+                              textAlign: TextAlign.justify),
+                        ),
 
                         SizedBox(height: Dimens.d15.responsive()),
                         //* Start
-                        const Text("4.9", style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
+                        // const Text("4.9", style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
+                        const Text("Chưa có đánh giá", style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.orange)),
                         //star
                         Container(
                           padding: EdgeInsets.symmetric(horizontal: Dimens.d50.responsive()),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Icon(Icons.star, color: Colors.yellow, size: Dimens.d35.responsive()),
-                              Icon(Icons.star, color: Colors.yellow, size: Dimens.d35.responsive()),
-                              Icon(Icons.star, color: Colors.yellow, size: Dimens.d35.responsive()),
-                              Icon(Icons.star, color: Colors.yellow, size: Dimens.d35.responsive()),
-                              Icon(Icons.star, color: Colors.yellow, size: Dimens.d35.responsive()),
+                              Icon(Icons.star, color: Colors.blueGrey, size: Dimens.d35.responsive()),
+                              Icon(Icons.star, color: Colors.blueGrey, size: Dimens.d35.responsive()),
+                              Icon(Icons.star, color: Colors.blueGrey, size: Dimens.d35.responsive()),
+                              Icon(Icons.star, color: Colors.blueGrey, size: Dimens.d35.responsive()),
+                              Icon(Icons.star, color: Colors.blueGrey, size: Dimens.d35.responsive()),
                             ],
                           ),
                         ),
                         Text(
-                          "(7 đánh giá)",
+                          "(0 đánh giá)",
                           style: AppTextStyles.s14w500(color: AppColors.current.blackColor.withOpacity(.75)),
                         ),
                         SizedBox(height: Dimens.d15.responsive()),
@@ -108,7 +123,7 @@ class _ChefProfilePageState extends BasePageState<ChefProfilePage, ChefProfileBl
                           padding: EdgeInsets.symmetric(horizontal: Dimens.d50.responsive()),
                           child: CommonEllipseButon(
                             onPressed: () {},
-                            text: "Kinh nghiệm (CV)",
+                            text: "Kinh nghiệm",
                             color: Color(0xFFF1FFFE),
                             textColor: AppColors.current.primaryTextColor,
                           ),
@@ -138,17 +153,37 @@ class _ChefProfilePageState extends BasePageState<ChefProfilePage, ChefProfileBl
       ),
       //* floating button next
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: Container(
-        margin: EdgeInsets.symmetric(horizontal: Dimens.d30.responsive()),
-        child: CommonEllipseButon(
-          onPressed: () async {
-            await navigator.push(const AppRouteInfo.chooseMenu());
-          },
-          text: "Tạo đơn với đầu bếp này",
-        ),
+      floatingActionButton: BlocBuilder<ChefProfileBloc, ChefProfileState>(
+        buildWhen: (previous, current) => previous != current,
+        builder: (context, state) {
+          return Container(
+            margin: EdgeInsets.symmetric(horizontal: Dimens.d30.responsive()),
+            child: CommonEllipseButon(
+              onPressed: () async {
+                await navigator.push(AppRouteInfo.chooseMenu(CookingOrder().copyWith(chef: convertFromUser(state.chef))));
+              },
+              text: "Tạo đơn với đầu bếp này",
+            ),
+          );
+        },
       ),
     );
   }
+}
+
+Chef convertFromUser(CurrentUser user) {
+  return Chef(
+    id: user.id,
+    email: user.email,
+    fullName: user.fullName,
+    avatarUrl: user.avatarUrl,
+    phone: user.phone,
+    identityCard: user.identityCard,
+    biography: user.biography,
+    wallet: user.wallet,
+    birthday: user.birthday,
+    role: user.role,
+  );
 }
 
 class TableChefSchedule extends StatelessWidget {

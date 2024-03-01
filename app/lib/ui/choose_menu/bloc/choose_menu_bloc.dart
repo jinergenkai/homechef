@@ -113,6 +113,14 @@ class ChooseMenuBloc extends BaseBloc<ChooseMenuEvent, ChooseMenuState> {
   ) async {
     return runBlocCatching(action: () async {
       final result = await _getDishesUseCase.execute(const GetDishesInput());
+
+      if (event.order != null) {
+        emit(state.copyWith(
+          menu: result.dishes,
+          cookingOrder: event.order ?? state.cookingOrder,
+        ));
+        return;
+      }
       emit(state.copyWith(
         menu: result.dishes,
       ));

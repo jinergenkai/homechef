@@ -167,6 +167,7 @@ class AppApiService {
       final response = await Dio(BaseOptions(headers: {'Authorization': 'Bearer $accessToken'})).post(
         'https://homechef.kidtalkie.tech/api/v1/order',
         data: {
+          "chefId": cookingOrder.chef.id == "" ? null : cookingOrder.chef.id,
           "addressId": cookingOrder.address.id,
           "dishType": cookingOrder.dishType,
           "dishIds": cookingOrder.dish.map((e) => e.id).toList(),
@@ -211,7 +212,7 @@ class AppApiService {
           "chefId": cookingOrder.chef.id,
           "status": orderStatus,
           "totalPrice": cookingOrder.totalPrice,
-          "price": cookingOrder.price,
+              "price": cookingOrder.price,
           "quantity": cookingOrder.quantity,
           "dish": cookingOrder.dish.map((e) => e.id).toList(),
           "dishType": cookingOrder.dishType,

@@ -84,7 +84,7 @@ class _HomePageState extends BasePageState<HomePage, HomeBloc> {
                     //*Create new cooking order
                     GestureDetector(
                       // onTap: () => navigator.push(const AppRouteInfo.chooseAddress()),
-                      onTap: () => navigator.push(const AppRouteInfo.chooseMenu()),
+                      onTap: () => navigator.push(const AppRouteInfo.chooseMenu(null)),
                       child: Container(
                           height: Dimens.d75.responsive(),
                           width: double.infinity,
@@ -139,7 +139,7 @@ class _HomePageState extends BasePageState<HomePage, HomeBloc> {
                       physics: const ClampingScrollPhysics(),
                       itemCount: state.chefs.length,
                       itemBuilder: (context, index) => CardChefProfile(
-                        onPressed: () => navigator.push(AppRouteInfo.chefProfile(state.chefs[index])),
+                        onPressed: () => navigator.push(AppRouteInfo.chefProfile(state.chefs[index].copyWith(avatarUrl: "https://i.pravatar.cc/300?img=${index + 20}"))),
                         fullName: state.chefs[index].fullName,
                         biography: state.chefs[index].biography,
                         image: Image.network("https://i.pravatar.cc/300?img=${index + 20}").image,

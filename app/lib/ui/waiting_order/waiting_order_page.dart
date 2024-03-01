@@ -178,7 +178,8 @@ class GenericOrderItem extends StatelessWidget {
 
                   //* Status pending
                   (status == OrderStatus.PENDING)
-                      ? Container(
+                      ? 
+                      Container(
                           alignment: Alignment.center,
                           child: RichText(
                             textAlign: TextAlign.center,
@@ -186,7 +187,7 @@ class GenericOrderItem extends StatelessWidget {
                               children: [
                                 WidgetSpan(child: Icon(Icons.search_rounded, size: 20, color: AppColors.current.primaryColor)),
                                 TextSpan(
-                                  text: "  Chờ đầu bếp chấp nhận...",
+                                  text: (isChefUser ?? false) ? " Order trực tiếp cho bạn" : "  Chờ đầu bếp chấp nhận...",
                                   style: AppTextStyles.s16w500(color: AppColors.current.primaryColor),
                                 ),
                               ],
@@ -197,19 +198,21 @@ class GenericOrderItem extends StatelessWidget {
                       //* Status processing and completed
                       : ((status == OrderStatus.PROCESSING || status == OrderStatus.COMPLETED)
                           ? ((isChefUser == true)
-                              ? Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              ? Column(
                                   children: [
-                                    Icon(Icons.location_on_outlined, size: 40, color: AppColors.current.primaryColor),
-                                    Icon(Icons.messenger_outline, size: 40, color: AppColors.current.primaryColor),
-                                    Icon(Icons.call_end_outlined, size: 40, color: AppColors.current.primaryColor),
+                                    CardChefProfile(
+                                      // onPressed: () => navigator.push(const AppRouteInfo.chefProfile()),
+                                      fullName: (cookingOrder?.customer.fullName.isEmpty ?? true) ? "CustomerName" : cookingOrder?.customer.fullName,
+                                      // biography: cookingOrder?.chef.biography,
+                                      image: Image.network("https://i.pravatar.cc/300?img=${index + 20}").image,
+                                    ),
                                   ],
                                 )
                               : Column(
                                   children: [
                                     CardChefProfile(
                                       // onPressed: () => navigator.push(const AppRouteInfo.chefProfile()),
-                                      fullName: (cookingOrder?.chef.fullName.isEmpty ?? true) ? "Nguyễn Kiên" : cookingOrder?.chef.fullName,
+                                      fullName: (cookingOrder?.chef.fullName.isEmpty ?? true) ? "ChefName" : cookingOrder?.chef.fullName,
                                       // biography: cookingOrder?.chef.biography,
                                       image: Image.network("https://i.pravatar.cc/300?img=${index + 20}").image,
                                     ),
@@ -244,7 +247,7 @@ class CommonSmallButton extends StatelessWidget {
         style: ElevatedButton.styleFrom(
           backgroundColor: color ?? AppColors.current.primaryColor,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(Dimens.d8.responsive())),
-          padding: EdgeInsets.symmetric(horizontal: Dimens.d30.responsive(), vertical: Dimens.d3.responsive()),
+          padding: EdgeInsets.symmetric(horizontal: Dimens.d20.responsive(), vertical: Dimens.d3.responsive()),
         ),
         onPressed: onpressed as void Function()?,
         child: Text(text ?? "Button", style: AppTextStyles.s14w500(color: textColor ?? AppColors.current.whiteColor)));

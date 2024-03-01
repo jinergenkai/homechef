@@ -64,6 +64,16 @@ class _ConfirmAndPayPageState extends BasePageState<ConfirmAndPayPage, ConfirmAn
                         //* Cooking order picked
                         Row(children: [Assets.images.orderList.image(height: 30), SizedBox(width: 5), Text("Thực đơn", style: AppTextStyles.s20w600(color: AppColors.current.blackColor))]),
                         DetailOrderItem(cookingOrder: state.cookingOrder),
+                        
+                        state.cookingOrder.chef.id != "" ?
+                        CardChefProfile(
+                          onPressed: () {},
+                          fullName: state.cookingOrder.chef.fullName,
+                          biography: state.cookingOrder.chef.biography,
+                          image: Image.network(state.cookingOrder.chef.avatarUrl).image,
+                          // feedBack: state.chefs[index].,
+                        ):Container(),
+
                         //* Enter Payment method
                         GestureDetector(
                           // onTap: () => navigator.push(const AppRouteInfo.choosePayment()),

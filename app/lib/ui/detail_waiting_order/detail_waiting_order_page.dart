@@ -105,7 +105,7 @@ class _DetailWaitingOrderPageState extends BasePageState<DetailWaitingOrderPage,
                 buildWhen: (previous, current) => previous != current,
                 builder: (context, state) {
                   //* processing
-                  if (state.cookingOrder.status == OrderStatus.PROCESSING) {
+                  if (state.cookingOrder.status == OrderStatus.PROCESSING.index) {
                     return Container(
                       margin: EdgeInsets.symmetric(horizontal: Dimens.d30.responsive()),
                       child: CommonEllipseButon(
@@ -118,7 +118,7 @@ class _DetailWaitingOrderPageState extends BasePageState<DetailWaitingOrderPage,
                     );
                   }
                   //* completed
-                  else if (state.cookingOrder.status == OrderStatus.COMPLETED) {
+                  else if (state.cookingOrder.status == OrderStatus.COMPLETED.index) {
                     return Container(
                       margin: EdgeInsets.symmetric(horizontal: Dimens.d30.responsive()),
                       child: CommonEllipseButon(
@@ -139,20 +139,20 @@ class _DetailWaitingOrderPageState extends BasePageState<DetailWaitingOrderPage,
                           await showDialog(
                               context: context,
                               builder: (context) => AlertDialog(
-                                    title: Text("Are you sure to cancel this order?"),
+                                    title: Text("Bạn có chắc chắn muốn hủy đơn?"),
                                     actions: [
                                       TextButton(
                                         onPressed: () {
                                           Navigator.pop(context);
                                         },
-                                        child: Text("Cancel"),
+                                        child: Text("đổi ý"),
                                       ),
                                       TextButton(
                                         onPressed: () {
                                           bloc.add(const CancelButtonPressed());
                                           Navigator.pop(context);
                                         },
-                                        child: Text("Yes"),
+                                        child: Text("đồng ý"),
                                       )
                                     ],
                                   ));
