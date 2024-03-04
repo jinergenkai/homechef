@@ -4,6 +4,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:domain/domain.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:shared/shared.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -204,7 +205,7 @@ class _DetailWaitingOrderPageState extends BasePageState<DetailWaitingOrderPage,
                       ),
                     );
                   }
-                  //* completed
+                  //* completed & rating bar
                   else if (state.cookingOrder.status == OrderStatus.COMPLETED.index) {
                     return Container(
                       margin: EdgeInsets.symmetric(horizontal: Dimens.d30.responsive()),
@@ -212,6 +213,50 @@ class _DetailWaitingOrderPageState extends BasePageState<DetailWaitingOrderPage,
                         onPressed: () async {
                           // await showDialog(context: context, builder: (context) => AlertDialog(title: Text("Booked")));
                           // bloc.add(const AcceptButtonPressed());
+
+                          //show dialog to rate 1 - 5 stars with submit button
+                          await showDialog(
+                              context: context,
+                              builder: (context) {
+                                int _rating = 0;
+                                return StatefulBuilder(builder: (context, setState) {
+                                  return AlertDialog(
+                                    title: Text("Đánh giá", style: AppTextStyles.s20w600(color: AppColors.current.blackColor)),
+                                    
+                                    content: Container(
+                                      // height: 100,
+                                      child: Column(
+                                            mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          RatingBar.builder(
+                                            initialRating: _rating.toDouble(),
+                                            minRating: 1,
+                                            direction: Axis.horizontal,
+                                            allowHalfRating: false,
+                                            itemCount: 5,
+                                            itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+                                            itemBuilder: (context, _) => Icon(
+                                              Icons.star,
+                                              color: Colors.amber,
+                                            ),
+                                            onRatingUpdate: (rating) {
+                                              _rating = rating.toInt();
+                                            },
+                                          ),
+                                          SizedBox(height: 10),
+                                          CommonSmallButton(
+                                            onpressed: () async {
+                                              // await bloc.add(RateButtonPressed(rating: _rating));
+                                              navigator.push(const AppRouteInfo.main());
+                                            },
+                                            text: "Submit",
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                });
+                              });
                         },
                         text: "Đánh giá",
                       ),
