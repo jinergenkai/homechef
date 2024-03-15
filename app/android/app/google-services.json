@@ -7,6 +7,25 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:792876822441:android:997ff561a3febaf7479eb8",
+        "android_client_info": {
+          "package_name": "com.chickies.homechef"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDsjpYfX4PbOsnFJJtaVOqlk8w6hCY4Ze4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:792876822441:android:ede0bf62f47b666c479eb8",
         "android_client_info": {
           "package_name": "jp.flutter.app"

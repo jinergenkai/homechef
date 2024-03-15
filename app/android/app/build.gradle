@@ -57,7 +57,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "jp.flutter.app"
+        applicationId "com.chickies.homechef"
         minSdkVersion 26
         targetSdkVersion 33
         versionCode flutterVersionCode.toInteger()
@@ -93,7 +93,7 @@ android {
             dimension "flavor-type"
             versionCode = 41
             versionName = "1.0.1"
-            applicationId "jp.flutter.app"
+            applicationId "com.chickies.homechef"
             manifestPlaceholders["host"] = "dev.chatwork.com"
             manifestPlaceholders["applicationName"] = "HomeChef"
             // manifestPlaceholders["apiKey"] = dartEnvironmentVariables.API_KEY
@@ -106,7 +106,7 @@ android {
             dimension "flavor-type"
             versionCode = 11
             versionName = "1.0.1"
-            applicationId "jp.flutter.app.qa"
+            applicationId "com.chickies.homechef.qa"
             manifestPlaceholders["host"] = "dev.chatwork.com"
             manifestPlaceholders["applicationName"] = "Qa"
             // manifestPlaceholders["apiKey"] = dartEnvironmentVariables.API_KEY
@@ -119,7 +119,7 @@ android {
             dimension "flavor-type"
             versionCode = 12
             versionName = "1.0.3"
-            applicationId "jp.flutter.app.stg"
+            applicationId "com.chickies.homechef.stg"
             manifestPlaceholders["host"] = "stg.facebook.com"
             manifestPlaceholders["applicationName"] = "Staging"
             // manifestPlaceholders["apiKey"] = dartEnvironmentVariables.API_KEY
@@ -140,7 +140,7 @@ android {
             dimension "flavor-type"
             versionCode = 1
             versionName = "1.0.0"
-            applicationId "jp.flutter.app"
+            applicationId "com.chickies.homechef"
             manifestPlaceholders["host"] = "chatwork.com"
             manifestPlaceholders["applicationName"] = "Production"
             // manifestPlaceholders["apiKey"] = dartEnvironmentVariables.API_KEY
