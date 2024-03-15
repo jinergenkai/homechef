@@ -31,6 +31,7 @@ class AppRouter extends $AppRouter {
         AutoRoute(page: SearchOverTimeRoute.page),
         AutoRoute(page: SetTimeRoute.page),
         AutoRoute(page: ConfirmAndPayRoute.page),
+        AutoRoute(page: DetailWaitingOrderRoute.page),
         AutoRoute(page: ChefMainRoute.page, children: [
           AutoRoute(
             // page: true ? ChefActiveAccountRoute.page : ChefHomeRoute.page,

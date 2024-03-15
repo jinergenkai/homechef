@@ -85,4 +85,5 @@ abstract class Repository {
   //* CookingOrder
   Future<void> addCookingOrder(CookingOrder cookingOrder);
   Future<List<CookingOrder>> getCookingOrders();
+  Future<void> changeCookingOrder(int orderStatus, CookingOrder order);
 }

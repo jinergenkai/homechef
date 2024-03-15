@@ -1,4 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:domain/domain.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:auto_route/auto_route.dart';
@@ -97,9 +98,14 @@ class _ChefHomePageState extends BasePageState<ChefHomePage, ChefHomeBloc> {
                     ListView.builder(
                       shrinkWrap: true,
                       physics: const ClampingScrollPhysics(),
-                      itemCount: 5,
-                      // itemBuilder: (context, index) => const CardChefProfile(),
-                      itemBuilder: (context, index) => const GenericOrderItem(),
+                      itemCount: state.cookingOrders.length,
+                      itemBuilder: (context, index) => GenericOrderItem(
+                        cookingOrder: state.cookingOrders[index],
+                        onPressed: () {
+                          navigator.push(AppRouteInfo.detailWaitingOrder(state.cookingOrders[index]));
+                        },
+                        index: index,
+                      ),
                     ),
                   ],
                 ),

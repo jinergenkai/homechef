@@ -162,24 +162,12 @@ class AppApiService {
     required CookingOrder cookingOrder,
   }) async {
     try {
-      final data = {
-        "addressId": cookingOrder.address.id,
-        "dishType": cookingOrder.dishType,
-        "dishIds": cookingOrder.dish.map((e) => e.id).toList(),
-        "note": cookingOrder.note,
-        "quantity": cookingOrder.quantity,
-        "price": cookingOrder.price,
-        "option": cookingOrder.option,
-        "transactionMethod": 0,
-        // "cookedTime": cookingOrder.cookedTime,
-        "cookedTime": "2024-02-23T07:29:41.449Z",
-        "cookedHour": cookingOrder.cookedHour,
-        "voucherIds": List<String>.empty(),
-      };
-      print(data);
+      // print(cookingOrder.cookedTime);
+      print(cookingOrder.dish.map((e) => e.id).toList());
       final response = await Dio(BaseOptions(headers: {'Authorization': 'Bearer $accessToken'})).post(
         'https://homechef.kidtalkie.tech/api/v1/order',
         data: {
+          "chefId": cookingOrder.chef.id == "" ? null : cookingOrder.chef.id,
           "addressId": cookingOrder.address.id,
           "dishType": cookingOrder.dishType,
           "dishIds": cookingOrder.dish.map((e) => e.id).toList(),
@@ -188,16 +176,51 @@ class AppApiService {
           "price": cookingOrder.price,
           "option": cookingOrder.option,
           "transactionMethod": 0,
-          // "cookedTime": cookingOrder.cookedTime,
-          "cookedTime": "2024-02-23T07:29:41.449Z",
+          "cookedTime": revertModifyTimeFormat(cookingOrder.cookedTime),
+          // "cookedTime": "2024-02-23T07:29:41.449Z",
           "cookedHour": cookingOrder.cookedHour,
           "voucherIds": List<String>.empty(),
         },
       ).then((value) => print("addCookingOrder:" + value.data));
     } catch (e) {
-      print("EEEEEEEEEEERRRRRRRRRRRRRRROOOOOOOORRRRRR");
-      print(e);
+      // print("EEEEEEEEEEERRRRRRRRRRRRRRROOOOOOOORRRRRR");
+      // print(e);
       throw e;
+    }
+  }
+
+  Future<void> deleteCookingOrder({
+    required String accessToken,
+    required CookingOrder cookingOrder,
+  }) async {
+    try {
+      await Dio(BaseOptions(headers: {'Authorization': 'Bearer $accessToken'})).delete('https://homechef.kidtalkie.tech/api/v1/order/${cookingOrder.id}');
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<void> changeCookingOrder({
+    required String accessToken,
+    required CookingOrder cookingOrder,
+    required int orderStatus,
+  }) async {
+    try {
+      await Dio(BaseOptions(headers: {'Authorization': 'Bearer $accessToken'})).put(
+        'https://homechef.kidtalkie.tech/api/v1/order/${cookingOrder.id}',
+        data: {
+          "chefId": cookingOrder.chef.id,
+          "status": orderStatus,
+          "totalPrice": cookingOrder.totalPrice,
+              "price": cookingOrder.price,
+          "quantity": cookingOrder.quantity,
+          "dish": cookingOrder.dish.map((e) => e.id).toList(),
+          "dishType": cookingOrder.dishType,
+          "intialTransactionMethod": 0,
+        },
+      );
+    } catch (e) {
+      rethrow;
     }
   }
 
@@ -216,6 +239,7 @@ class AppApiService {
       ApiCustomerDataMapper(ApiFeedbackDataMapper()),
       ApiTransactionDataMapper(),
       ApiDishDataMapper(),
+      ApiAddressDataMapper(),
     ).mapToListEntity(converter);
   }
 
@@ -299,4 +323,15 @@ class AppApiService {
     );
   }
   // #endregion
+}
+
+String revertModifyTimeFormat(String originalTime) {
+  RegExp regex = RegExp(r'^(\d{4}-\d{2}-\d{2}) (\d{2}:\d{2})$');
+  RegExpMatch? match = regex.firstMatch(originalTime);
+  if (match != null) {
+    String datePart = match.group(1) ?? "0000";
+    String timePart = match.group(2) ?? "00:00";
+    return '${datePart}T${timePart}:00.000Z';
+  }
+  return originalTime;
 }

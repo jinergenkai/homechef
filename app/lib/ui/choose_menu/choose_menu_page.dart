@@ -9,7 +9,9 @@ import 'bloc/choose_menu.dart';
 
 @RoutePage()
 class ChooseMenuPage extends StatefulWidget {
-  const ChooseMenuPage({super.key});
+  const ChooseMenuPage({super.key, this.order});
+
+  final CookingOrder? order;
 
   @override
   State<StatefulWidget> createState() {
@@ -24,7 +26,7 @@ class _ChooseMenuPageState extends BasePageState<ChooseMenuPage, ChooseMenuBloc>
   @override
   void initState() {
     super.initState();
-    bloc.add(const ChooseMenuPageInitiated());
+    bloc.add(ChooseMenuPageInitiated(order: widget.order));
   }
 
   @override

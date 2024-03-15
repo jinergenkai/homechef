@@ -84,7 +84,7 @@ class _HomePageState extends BasePageState<HomePage, HomeBloc> {
                     //*Create new cooking order
                     GestureDetector(
                       // onTap: () => navigator.push(const AppRouteInfo.chooseAddress()),
-                      onTap: () => navigator.push(const AppRouteInfo.chooseMenu()),
+                      onTap: () => navigator.push(const AppRouteInfo.chooseMenu(null)),
                       child: Container(
                           height: Dimens.d75.responsive(),
                           width: double.infinity,
@@ -139,9 +139,10 @@ class _HomePageState extends BasePageState<HomePage, HomeBloc> {
                       physics: const ClampingScrollPhysics(),
                       itemCount: state.chefs.length,
                       itemBuilder: (context, index) => CardChefProfile(
-                        onPressed: () => navigator.push(const AppRouteInfo.chefProfile()),
+                        onPressed: () => navigator.push(AppRouteInfo.chefProfile(state.chefs[index].copyWith(avatarUrl: "https://i.pravatar.cc/300?img=${index + 20}"))),
                         fullName: state.chefs[index].fullName,
                         biography: state.chefs[index].biography,
+                        image: Image.network("https://i.pravatar.cc/300?img=${index + 20}").image,
                         // feedBack: state.chefs[index].,
                       ),
                       // itemBuilder: (context, index) => const MessageItem(),
@@ -165,6 +166,7 @@ class CardChefProfile extends StatelessWidget {
     this.rating,
     this.feedBack,
     this.biography,
+    this.image,
   });
 
   final VoidCallback? onPressed;
@@ -172,6 +174,7 @@ class CardChefProfile extends StatelessWidget {
   final String? rating;
   final int? feedBack;
   final String? biography;
+  final ImageProvider? image;
 
   @override
   Widget build(BuildContext context) {
@@ -180,48 +183,90 @@ class CardChefProfile extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.only(bottom: Dimens.d10.responsive()),
         child: BorderContainer(
-          child: Row(
+          child: Stack(
             children: [
-              // Icon(Icons.account_circle, size: Dimens.d80.responsive()),
-              //image circle
-              Container(
-                height: Dimens.d80.responsive(),
-                width: Dimens.d80.responsive(),
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  image: DecorationImage(
-                    image: Assets.images.avatarPlaceholder.image().image,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-              Expanded(
-                child: Container(
-                  height: Dimens.d110.responsive(),
-                  padding: EdgeInsets.all(Dimens.d10.responsive()),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+              Row(
+                children: [
+                  // Icon(Icons.account_circle, size: Dimens.d80.responsive()),
+                  //image circle
+                  Stack(
                     children: [
-                      Text(
-                        fullName ?? "Tommy Phạm",
-                        style: AppTextStyles.s20w600(color: AppColors.current.blackColor),
+                      Container(
+                        height: Dimens.d80.responsive(),
+                        width: Dimens.d80.responsive(),
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          image: DecorationImage(
+                            // image: Assets.images.avatarPlaceholder.image().image,
+                            image: image ?? Assets.images.avatarPlaceholder.image().image,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
                       ),
-                      SizedBox(height: Dimens.d5.responsive()),
-                      Text(
-                        "${feedBack ?? 0} reviews",
-                        // "4.9s (15 reviews)",
-                        style: AppTextStyles.s14w500(color: AppColors.current.primaryTextColor),
-                      ),
-                      SizedBox(height: Dimens.d3.responsive()),
-                      Text(
-                        biography!.isNotEmpty ? biography! : "Tôi tin rằng quan niệm công việc nội trợ là dành cho phụ nữ nên thay đổi.",
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 2,
-                        style: AppTextStyles.s14w500(color: AppColors.current.primaryColor),
+                      Positioned(
+                        bottom: 0,
+                        right: 0,
+                        child: Container(
+                          height: Dimens.d20.responsive(),
+                          width: Dimens.d20.responsive(),
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: AppColors.current.whiteColor,
+                          ),
+                          child: Icon(Icons.hdr_auto, color: Colors.yellow),
+                        ),
                       ),
                     ],
                   ),
-                ),
+                  SizedBox(width: Dimens.d15.responsive()),
+                  Expanded(
+                    child: Container(
+                      height: Dimens.d115.responsive(),
+                      padding: EdgeInsets.all(Dimens.d10.responsive()),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            fullName ?? "Tommy Phạm",
+                            style: AppTextStyles.s20w600(color: AppColors.current.blackColor),
+                          ),
+                          SizedBox(height: Dimens.d5.responsive()),
+                          Text(
+                            "${feedBack ?? 0} reviews",
+                            // "4.9s (15 reviews)",
+                            style: AppTextStyles.s14w500(color: Colors.orange),
+                          ),
+                          SizedBox(height: Dimens.d10.responsive()),
+
+                          //* biography or contact
+                          (biography == null)
+                              ? Row(
+                                  // mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                  children: [
+                                    Assets.images.call1.image(),
+                                    SizedBox(width: Dimens.d10.responsive()),
+                                    Assets.images.location1.image(),
+                                    SizedBox(width: Dimens.d10.responsive()),
+                                    Assets.images.mess1.image(),
+                                  ],
+                                )
+                              : Text(
+                                  (biography?.isNotEmpty ?? false) ? biography! : "Tôi tin rằng quan niệm công việc nội trợ là dành cho phụ nữ nên thay đổi.",
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 2,
+                                  style: AppTextStyles.s14w500(color: AppColors.current.blackColor.withOpacity(0.6)),
+                                ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              Positioned(
+                top: -40,
+                left: 0,
+                right: 270,
+                child: Assets.images.chefHat.image(height: 100),
               ),
             ],
           ),

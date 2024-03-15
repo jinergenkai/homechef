@@ -299,4 +299,13 @@ class RepositoryImpl implements Repository {
   Future<List<CookingOrder>> getCookingOrders() async {
     return _appApiService.getCookingOrders();
   }
+
+  @override
+  Future<void> changeCookingOrder(int orderStatus, CookingOrder order) async {
+    return _appApiService.changeCookingOrder(
+      accessToken: await _appPreferences.accessToken,
+      orderStatus: orderStatus,
+      cookingOrder: order,
+    );
+  }
 }

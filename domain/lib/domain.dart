@@ -34,6 +34,7 @@ export 'src/usecase/base/io/base_output.dart';
 export 'src/usecase/base/io/load_more_output.dart';
 export 'src/usecase/base/stream/base_stream_use_case.dart';
 export 'src/usecase/base/sync/base_sync_use_case.dart';
+export 'src/usecase/change_cooking_order_use_case.dart';
 export 'src/usecase/clear_current_user_data_use_case.dart';
 export 'src/usecase/fake_login_use_case.dart';
 export 'src/usecase/forgot_password_use_case.dart';

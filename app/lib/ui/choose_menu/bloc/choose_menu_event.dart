@@ -11,7 +11,9 @@ abstract class ChooseMenuEvent extends BaseBlocEvent {
 
 @freezed
 class ChooseMenuPageInitiated extends ChooseMenuEvent with _$ChooseMenuPageInitiated {
-  const factory ChooseMenuPageInitiated() = _ChooseMenuPageInitiated;
+  const factory ChooseMenuPageInitiated({
+    CookingOrder? order,
+  }) = _ChooseMenuPageInitiated;
 }
 
 @freezed

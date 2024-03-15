@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../app.dart';
+import '../chef_profile/chef_profile_page.dart';
 import 'bloc/chef_schedule.dart';
 
 @RoutePage()
@@ -60,7 +61,7 @@ class _ChefSchedulePageState extends BasePageState<ChefSchedulePage, ChefSchedul
                             )),
                         SizedBox(height: Dimens.d20.responsive()),
                         //*table schedule
-                        DemoTableChefSchedule(),
+                        TableChefSchedule(),
                         SizedBox(height: Dimens.d100.responsive()),
                       ],
                     )));

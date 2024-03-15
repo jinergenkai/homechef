@@ -20,6 +20,6 @@ class ChefProfileBloc extends BaseBloc<ChefProfileEvent, ChefProfileState> {
     ChefProfilePageInitiated event,
     Emitter<ChefProfileState> emit,
   ) async {
-    
+    emit(state.copyWith(chef: event.chef));    
   }
 }

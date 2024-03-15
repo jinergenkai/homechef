@@ -17,12 +17,13 @@ class AppRouteInfo with _$AppRouteInfo {
   const factory AppRouteInfo.itemDetail(User user) = _UserDetail;
   const factory AppRouteInfo.chooseAddress() = _ChooseAddress;
   const factory AppRouteInfo.createAddress() = _CreateAddress;
-  const factory AppRouteInfo.chooseMenu() = _chooseMenu;
+  const factory AppRouteInfo.chooseMenu(CookingOrder? order) = _chooseMenu;
   const factory AppRouteInfo.setTime(CookingOrder order) = _setTime;
+  const factory AppRouteInfo.detailWaitingOrder(CookingOrder order) = _detailWaitingOrder;
   const factory AppRouteInfo.confirmAndPay(CookingOrder order) = _confirmAndPay;
 
   const factory AppRouteInfo.searchOverTime() = _searchOverTime;
-  const factory AppRouteInfo.chefProfile() = _chefProfile;
+  const factory AppRouteInfo.chefProfile(CurrentUser chef) = _chefProfile;
 
 
   //* chef 

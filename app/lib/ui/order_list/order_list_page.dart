@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:domain/domain.dart';
 import 'package:flutter/material.dart';
   
 import '../../app.dart';
@@ -83,9 +84,9 @@ class _OrderListPageState extends BasePageState<OrderListPage, OrderListBloc> wi
                 child: TabBarView(
                   controller: _tabController,
                   children: const [
-                    WaitingOrderPage(),
-                    WaitingOrderPage(),
-                    WaitingOrderPage(),
+                    WaitingOrderPage(role: 0, status: OrderStatus.PENDING),
+                    WaitingOrderPage(role: 0, status: OrderStatus.PROCESSING),
+                    WaitingOrderPage(role: 0, status: OrderStatus.COMPLETED),
                     // InProcessingOrderPage(),
                     // DoneOrderPage(),
                   ],

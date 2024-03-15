@@ -1,3 +1,4 @@
+import 'package:domain/domain.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../app.dart';
@@ -10,5 +11,7 @@ abstract class ChefProfileEvent extends BaseBlocEvent {
 
 @freezed
 class ChefProfilePageInitiated extends ChefProfileEvent with _$ChefProfilePageInitiated {
-  const factory ChefProfilePageInitiated() = _ChefProfilePageInitiated;
+  const factory ChefProfilePageInitiated({
+    @Default(CurrentUser()) CurrentUser chef
+  }) = _ChefProfilePageInitiated;
 }

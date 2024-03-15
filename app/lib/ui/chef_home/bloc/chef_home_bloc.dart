@@ -11,6 +11,7 @@ import 'chef_home.dart';
 class ChefHomeBloc extends BaseBloc<ChefHomeEvent, ChefHomeState> {
   ChefHomeBloc(
     this._getCurrentUserUseCase,
+    this._getCookingOrdersUseCase,
   ) : super(const ChefHomeState()) {
     on<ChefHomePageInitiated>(
       _onChefHomePageInitiated,
@@ -19,13 +20,19 @@ class ChefHomeBloc extends BaseBloc<ChefHomeEvent, ChefHomeState> {
   }
 
   final GetCurrentUserUseCase _getCurrentUserUseCase;
+  final GetCookingOrdersUseCase _getCookingOrdersUseCase;
 
   FutureOr<void> _onChefHomePageInitiated(
     ChefHomePageInitiated event,
     Emitter<ChefHomeState> emit,
   ) async {
     final user = await _getCurrentUserUseCase.execute(GetCurrentUserInput(id: 1));
+    final orders = (await _getCookingOrdersUseCase.execute(GetCookingOrdersInput()))
+                    .cookingOrders.where((element) => element.cookedHour == 1).toList();
     // print(user);
-    emit(state.copyWith(user: user.user));
+    emit(state.copyWith(
+      user: user.user,
+      cookingOrders: orders,
+    ));
   }
 }

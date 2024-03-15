@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 import 'package:flutter/material.dart';
 import 'package:resources/resources.dart';
 import 'package:shared/shared.dart';
@@ -37,6 +39,20 @@ int setOptionMenu(int options, OptionMenu optionMenu, bool value) {
   print(options);
   return options;
 }
+
+enum OrderStatus
+{
+    PENDING, //* 0
+    ORDERED,
+    CANCELED,
+    REJECTED,
+    PROCESSING, //* 4
+    COMPLETED, //* 5
+    RECEIVED,
+    DECLINED,
+    EXPIRED
+}
+
 
 enum Gender {
   male(ServerRequestResponseConstants.male),

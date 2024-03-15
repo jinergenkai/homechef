@@ -17,7 +17,7 @@ class ApiCurrentUserData with _$ApiCurrentUserData {
 		@JsonKey(name: 'avatarUrl') String? avatarUrl,
 		@JsonKey(name: 'phone') String? phone,
 		@JsonKey(name: 'identityCard') List<String>? identityCard,
-		@JsonKey(name: 'biography') String? biography,
+		@JsonKey(name: 'description') String? biography,
 		@JsonKey(name: 'wallet') int? wallet,
 		@JsonKey(name: 'birthday') String? birthday,
 		@JsonKey(name: 'role') String? role,

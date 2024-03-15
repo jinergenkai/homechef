@@ -49,22 +49,36 @@ class _SearchOverTimePageState extends BasePageState<SearchOverTimePage, SearchO
               child: Column(
                 children: [
                   //* Date picker
-                  BorderContainer(
-                      // height: 100,
-                      color: AppColors.current.disabledColor,
-                      padding: EdgeInsets.all(Dimens.d15.responsive()),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text("Ngày", style: AppTextStyles.s16w700(color: AppColors.current.primaryTextColor)),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Container(
-                              // height: 150,
-                              child: CarouselSliderMutiple(startDay: DateTime.now())),
-                        ],
-                      )),
+                  GestureDetector(
+                    onTap: () {
+                      showDatePicker(
+                        context: context,
+                        initialDate: DateTime.now(),
+                        firstDate: DateTime.now(),
+                        lastDate: DateTime.now().add(Duration(days: 30)),
+                      ).then((date) {
+                        if (date != null) {
+                          // bloc.add(ChangedDate(date: date));
+                        }
+                      });
+                    },
+                    child: BorderContainer(
+                        // height: 100,
+                        color: AppColors.current.disabledColor,
+                        padding: EdgeInsets.all(Dimens.d15.responsive()),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text("Ngày", style: AppTextStyles.s16w700(color: AppColors.current.primaryTextColor)),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Container(
+                                // height: 150,
+                                child: CarouselSliderMutiple(startDay: DateTime.now())),
+                          ],
+                        )),
+                  ),
                   const SizedBox(
                     height: 20,
                   ),
@@ -105,27 +119,32 @@ class _SearchOverTimePageState extends BasePageState<SearchOverTimePage, SearchO
                   CommonSmallButton(
                     text: "Tìm kiếm",
                     onpressed: () {
-                      setState(() {
-                        isSearch = !isSearch;
-                      });
+                      bloc.add(const PressSearchButton());
                     },
                   ),
                   SizedBox(
                     height: 20,
                   ),
-                  !isSearch
-                      ? Container()
-                      :
-                      //*Chef List
-                      ListView.builder(
-                          shrinkWrap: true,
-                          physics: const ClampingScrollPhysics(),
-                          itemCount: 5,
-                          itemBuilder: (context, index) => CardChefProfile(
-                            onPressed: () => navigator.push(const AppRouteInfo.chefProfile()),
-                          ),
-                          // itemBuilder: (context, index) => const MessageItem(),
-                        ),
+                  //*Chef List
+                  BlocBuilder<SearchOverTimeBloc, SearchOverTimeState>(
+                    buildWhen: (previous, current) => previous.isLoading != current.isLoading || previous.chefs != current.chefs,
+                    builder: (context, state) {
+                      return state.isLoading
+                          ? const Center(child: CircularProgressIndicator())
+                          : ListView.builder(
+                              shrinkWrap: true,
+                              physics: const ClampingScrollPhysics(),
+                              itemCount: state.chefs.length,
+                              itemBuilder: (context, index) => CardChefProfile(
+                                onPressed: () => navigator.push(AppRouteInfo.chefProfile(state.chefs[index].copyWith(avatarUrl: "https://i.pravatar.cc/300?img=${index + 20}"))),
+                                fullName: state.chefs[index].fullName,
+                                biography: state.chefs[index].biography,
+                                image: Image.network("https://i.pravatar.cc/300?img=${index + 20}").image,
+                              ),
+                              // itemBuilder: (context, index) => const MessageItem(),
+                            );
+                    },
+                  ),
                 ],
               ),
             ));
