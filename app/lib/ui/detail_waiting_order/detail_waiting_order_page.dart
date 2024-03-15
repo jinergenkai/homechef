@@ -38,7 +38,7 @@ class _DetailWaitingOrderPageState extends BasePageState<DetailWaitingOrderPage,
         leadingIconColor: AppColors.current.secondaryColor,
         titleType: AppBarTitle.text,
         centerTitle: true,
-        text: "Order - ${widget.cookingOrder.customer.fullName}",
+        text: "Order ${widget.cookingOrder.id.substring(0, 4)}",
         backgroundColor: AppColors.current.whiteColor,
         titleTextStyle: AppTextStyles.s20w600(color: AppColors.current.primaryTextColor),
         height: Dimens.d70.responsive(),
@@ -88,6 +88,7 @@ class _DetailWaitingOrderPageState extends BasePageState<DetailWaitingOrderPage,
                             ],
                           ),
                         ),
+                        // (state.cookingOrder.transaction[0]!.urlImage)
                         SizedBox(height: 10),
                         (state.cookingOrder.status == OrderStatus.PROCESSING.index || state.cookingOrder.status == OrderStatus.COMPLETED.index)
                             ? Column(
@@ -122,6 +123,7 @@ class _DetailWaitingOrderPageState extends BasePageState<DetailWaitingOrderPage,
                 buildWhen: (previous, current) => previous != current,
                 builder: (context, state) {
                   //* processing
+                  // if (state.cookingOrder.status == 0) {
                   if (state.cookingOrder.status == OrderStatus.PROCESSING.index) {
                     return Container(
                       margin: EdgeInsets.symmetric(horizontal: Dimens.d30.responsive()),
@@ -155,41 +157,46 @@ class _DetailWaitingOrderPageState extends BasePageState<DetailWaitingOrderPage,
                                         SizedBox(height: 10),
                                         Assets.images.qrcode.image(),
                                         SizedBox(height: 10),
-                                        RichText(
-                                          text: TextSpan(
-                                            text: "Upload hình ảnh giao dịch\nđể Homechef xác nhận nhé",
-                                            style: AppTextStyles.s20w600(color: AppColors.current.primaryTextColor),
+                                        Text(
+                                            "Upload hình ảnh giao dịch để Homechef xác nhận nhé",
+                                            style: AppTextStyles.s14w500(color: AppColors.current.primaryTextColor),
+                                            textAlign: TextAlign.center,
                                           ),
-                                        ),
                                         //upload image
-                                        Row(
-                                          children: [
-                                            CommonSmallButton(
-                                              onpressed: () async {
-                                                _image = null;
-                                                final picker = ImagePicker();
-                                                final pickedFile = await picker.pickImage(source: ImageSource.gallery);
-
-                                                setState(() {
-                                                  if (pickedFile != null) {
-                                                    _image = File(pickedFile.path);
-                                                  } else {
-                                                    print('No image selected.');
-                                                  }
-                                                });
-                                              },
-                                              text: "Upload",
-                                            ),
-                                            SizedBox(width: 20),
-                                            Text(_image == null ? "" : "verify.png"),
-                                          ],
+                                        Container(
+                                          padding: EdgeInsets.symmetric(horizontal: 20),
+                                          child: Row(
+                                            children: [
+                                              CommonSmallButton(
+                                                onpressed: () async {
+                                                  _image = null;
+                                                  final picker = ImagePicker();
+                                                  final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+                                        
+                                                  setState(() {
+                                                    if (pickedFile != null) {
+                                                      _image = File(pickedFile.path);
+                                                    } else {
+                                                      print('No image selected.');
+                                                    }
+                                                  });
+                                                },
+                                                text: "Upload",
+                                              ),
+                                              SizedBox(width: 20),
+                                              Text(_image == null ? "" : "verify.png"),
+                                            ],
+                                          ),
                                         ),
                                         Expanded(child: SizedBox(height: 30)),
                                         Align(
                                           alignment: Alignment.bottomCenter,
                                           child: CommonEllipseButon(
                                             onPressed: () async {
-                                              bloc.add(const CompleteButtonPressed());
+                                              if (_image == null) {
+                                                return;
+                                              }
+                                              bloc.add(CompleteButtonPressed(image: _image!));
                                             },
                                             text: "Duyệt",
                                           ),

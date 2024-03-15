@@ -5,6 +5,7 @@ import 'package:domain/domain.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:resources/resources.dart';
+import 'package:shared/shared.dart';
 
 import '../../app.dart';
 import 'bloc/chef_my_page.dart';
@@ -73,8 +74,81 @@ class _ChefMyPagePageState extends BasePageState<ChefMyPagePage, ChefMyPageBloc>
                   ),
                   SizedBox(height: Dimens.d20.responsive()),
                   //* wallet
-                  Assets.images.wallet.image(),
+                  Stack(
+                    children: [
+                      Assets.images.wallet.image(),
+                      Positioned(
+                        bottom: Dimens.d10.responsive(),
+                        right: Dimens.d10.responsive(),
+                        child: Text(
+                          NumberFormatUtils.formatNumber(state.wallet) + " VND",
+                          style: AppTextStyles.s20w600(color: Colors.blue),
+                        ),
+                      ),
+                    ],
+                  ),
                   SizedBox(height: Dimens.d20.responsive()),
+                  GestureDetector(
+                      onTap: () async {
+                        //show popup to input money and request get money
+                        final res = await showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                title: Text("Rút tiền"),
+                                content: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    TextField(
+                                      decoration: InputDecoration(hintText: "Nhập số tiền"),
+                                    ),
+                                    SizedBox(height: Dimens.d20.responsive()),
+                                    ElevatedButton(
+                                      onPressed: () {
+                                        //show popup await delivery
+                                        navigator.pop(result: true);
+                                      },
+                                      child: Text("Rút tiền"),
+                                    )
+                                  ],
+                                ),
+                              );
+                            });
+                        if (res != null && res == true) {
+                          await showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  title: Text("Yêu cầu rút tiền"),
+                                  content: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Text("Yêu cầu rút tiền của bạn đã được gửi đi. Vui lòng chờ xác nhận từ quản trị viên."),
+                                      SizedBox(height: Dimens.d20.responsive()),
+                                      ElevatedButton(
+                                        onPressed: () {
+                                          navigator.pop();
+                                        },
+                                        child: Text("OK"),
+                                      )
+                                    ],
+                                  ),
+                                );
+                              });
+                        }
+                      },
+                      child: Container(
+                        width: double.infinity,
+                        height: Dimens.d60.responsive(),
+                        alignment: Alignment.center,
+                        color: AppColors.current.primaryColor,
+                        // padding: EdgeInsets.all(Dimens.d10.responsive()),
+                        child: Row(children: [
+                          SizedBox(width: Dimens.d15.responsive()),
+                          Expanded(child: Text("Rút Tiền", style: AppTextStyles.s16w600(color: AppColors.current.whiteColor))),
+                          Icon(Icons.arrow_right_rounded, size: Dimens.d50.responsive(), color: AppColors.current.whiteColor)
+                        ]),
+                      )),
                   GestureDetector(
                       onTap: () => navigator.push(const AppRouteInfo.chefSchedule()),
                       child: Container(

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:domain/domain.dart';
 import 'package:injectable/injectable.dart';
@@ -306,6 +308,19 @@ class RepositoryImpl implements Repository {
       accessToken: await _appPreferences.accessToken,
       orderStatus: orderStatus,
       cookingOrder: order,
+    );
+  }
+
+  @override
+  Future<void> uploadTransactionImage(File image, CookingOrder order) async {
+    //upload file to firebase get url
+    final imageUrl = await _appApiService.storageImage(image: image, accessToken: await _appPreferences.accessToken);
+
+    //update order with imageUrl
+    await _appApiService.updateTransactionOrder(
+      accessToken: await _appPreferences.accessToken,
+      cookingOrder: order,
+      imageUrl: imageUrl,
     );
   }
 }

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:domain/domain.dart';
 import 'package:injectable/injectable.dart';
@@ -206,22 +208,55 @@ class AppApiService {
     required int orderStatus,
   }) async {
     try {
-      await Dio(BaseOptions(headers: {'Authorization': 'Bearer $accessToken'})).put(
+      orderStatus = 1;
+      var res = await Dio(BaseOptions(headers: {'Authorization': 'Bearer $accessToken'})).put(
         'https://homechef.kidtalkie.tech/api/v1/order/${cookingOrder.id}',
         data: {
           "chefId": cookingOrder.chef.id,
           "status": orderStatus,
           "totalPrice": cookingOrder.totalPrice,
-              "price": cookingOrder.price,
+          "price": cookingOrder.price,
           "quantity": cookingOrder.quantity,
           "dish": cookingOrder.dish.map((e) => e.id).toList(),
           "dishType": cookingOrder.dishType,
           "intialTransactionMethod": 0,
         },
       );
+      print(res.data);
     } catch (e) {
       rethrow;
     }
+  }
+
+  //* storage image in firebase
+  Future<String> storageImage({
+    required File image,
+    required String accessToken,
+  }) async {
+    final response = await Dio(BaseOptions(headers: {'Authorization': 'Bearer $accessToken'})).post(
+      'https://homechef.kidtalkie.tech/api/v1/storage',
+      data: FormData.fromMap({
+        "file": await MultipartFile.fromFile(image.path),
+      }),
+    );
+    print(response.data);
+    return response.data;
+  }
+
+  //*update transaction order with image url
+  Future<void> updateTransactionOrder({
+    required String accessToken,
+    required CookingOrder cookingOrder,
+    required String imageUrl,
+  }) async {
+    final res = await Dio(BaseOptions(headers: {'Authorization': 'Bearer $accessToken'})).put(
+      'https://homechef.kidtalkie.tech/api/v1/transaction/${cookingOrder.id}',
+      data: {
+        "imageUrl": imageUrl,
+        "transactionMethod": 0,
+      },
+    );
+    print(res.data); 
   }
 
   Future<List<CookingOrder>> getCookingOrders() async {

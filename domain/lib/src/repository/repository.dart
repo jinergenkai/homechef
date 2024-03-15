@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import '../../domain.dart';
 
 abstract class Repository {
@@ -86,4 +88,7 @@ abstract class Repository {
   Future<void> addCookingOrder(CookingOrder cookingOrder);
   Future<List<CookingOrder>> getCookingOrders();
   Future<void> changeCookingOrder(int orderStatus, CookingOrder order);
+
+  //* Transaction
+  Future<void> uploadTransactionImage(File image, CookingOrder order);
 }

@@ -12,6 +12,7 @@ class ChefMyPageBloc extends BaseBloc<ChefMyPageEvent, ChefMyPageState> {
   ChefMyPageBloc(
     this._logoutUseCase,
     this._getCurrentUserUseCase,
+    this._getCookingOrdersUseCase,
   ) : super(const ChefMyPageState()) {
     on<ChefMyPagePageInitiated>(
       _onChefMyPagePageInitiated,
@@ -25,6 +26,7 @@ class ChefMyPageBloc extends BaseBloc<ChefMyPageEvent, ChefMyPageState> {
 
   final LogoutUseCase _logoutUseCase;
   final GetCurrentUserUseCase _getCurrentUserUseCase;
+  final GetCookingOrdersUseCase _getCookingOrdersUseCase;
 
   FutureOr<void> _onLogoutButtonPressed(
     LogoutButtonPressed event,
@@ -44,5 +46,13 @@ class ChefMyPageBloc extends BaseBloc<ChefMyPageEvent, ChefMyPageState> {
   ) async {
     final currentUser = await _getCurrentUserUseCase.execute(const GetCurrentUserInput(id: 1));
     emit(state.copyWith(currentUser: currentUser.user));
+
+    final cookingOrders = await _getCookingOrdersUseCase.execute(const GetCookingOrdersInput());
+    final myCookingOrders = cookingOrders.cookingOrders.where((order) => order.chef.id == currentUser.user.id && order.status == OrderStatus.COMPLETED.index).toList();
+
+    final commissionRate = 0.8;
+    final myWallet = myCookingOrders.fold<int>(0, (previousValue, order) => previousValue + order.price) * commissionRate;
+
+    emit(state.copyWith(wallet: myWallet.toInt()));
   }
 }

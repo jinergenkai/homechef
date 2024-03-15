@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:domain/domain.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -28,5 +30,7 @@ class CancelButtonPressed extends DetailWaitingOrderEvent with _$CancelButtonPre
 
 @freezed
 class CompleteButtonPressed extends DetailWaitingOrderEvent with _$CompleteButtonPressed {
-  const factory CompleteButtonPressed() = _CompleteButtonPressed;
+  const factory CompleteButtonPressed({
+    required File image,
+  }) = _CompleteButtonPressed;
 }

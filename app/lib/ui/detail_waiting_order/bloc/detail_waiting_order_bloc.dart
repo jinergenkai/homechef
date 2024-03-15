@@ -12,6 +12,7 @@ class DetailWaitingOrderBloc extends BaseBloc<DetailWaitingOrderEvent, DetailWai
   DetailWaitingOrderBloc(
     this._currentUserUseCase,
     this._changeCookingOrderUseCase,
+    this._uploadTransactionImageUseCase,
   ) : super(const DetailWaitingOrderState()) {
     on<DetailWaitingOrderPageInitiated>(
       _onDetailWaitingOrderPageInitiated,
@@ -35,6 +36,7 @@ class DetailWaitingOrderBloc extends BaseBloc<DetailWaitingOrderEvent, DetailWai
 
   final GetCurrentUserUseCase _currentUserUseCase;
   final ChangeCookingOrderUseCase _changeCookingOrderUseCase;
+  final UploadTransactionImageUseCase _uploadTransactionImageUseCase;
 
   FutureOr<void> _onDetailWaitingOrderPageInitiated(
     DetailWaitingOrderPageInitiated event,
@@ -94,13 +96,20 @@ class DetailWaitingOrderBloc extends BaseBloc<DetailWaitingOrderEvent, DetailWai
     Emitter<DetailWaitingOrderState> emit,
   ) async {
     return runBlocCatching(action: () async {
-      await _changeCookingOrderUseCase.execute(
-        ChangeCookingOrderInput(
-          cookingOrder: state.cookingOrder,
-          orderStatus: OrderStatus.COMPLETED.index,
+      
+      // await _changeCookingOrderUseCase.execute(
+      //   ChangeCookingOrderInput(
+      //     cookingOrder: state.cookingOrder,
+      //     orderStatus: OrderStatus.COMPLETED.index,
+      //   ),
+      // );
+      
+      await _uploadTransactionImageUseCase.execute(
+        UploadTransactionImageInput(
+          order: state.cookingOrder,
+          image: event.image,
         ),
       );
-      // final
       navigator.push(const AppRouteInfo.main());
     });
   }

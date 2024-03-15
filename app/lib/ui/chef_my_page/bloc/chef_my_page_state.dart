@@ -12,5 +12,6 @@ class ChefMyPageState extends BaseBlocState with _$ChefMyPageState {
   const factory ChefMyPageState({
     @Default('') String id,
     @Default(CurrentUser()) CurrentUser currentUser,
+    @Default(0) int wallet,
   }) = _ChefMyPageState;
 }
