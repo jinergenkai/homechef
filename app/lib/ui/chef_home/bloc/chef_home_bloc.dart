@@ -28,7 +28,7 @@ class ChefHomeBloc extends BaseBloc<ChefHomeEvent, ChefHomeState> {
   ) async {
     final user = await _getCurrentUserUseCase.execute(GetCurrentUserInput(id: 1));
     final orders = (await _getCookingOrdersUseCase.execute(GetCookingOrdersInput()))
-                    .cookingOrders.where((element) => element.cookedHour == 1).toList();
+                    .cookingOrders.where((element) => element.status == OrderStatus.PENDING.index).toList();
     // print(user);
     emit(state.copyWith(
       user: user.user,

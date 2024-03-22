@@ -103,7 +103,7 @@ class MessageItem extends StatelessWidget {
                     ),
                     const Text("Chef Address"),
                     const Text(
-                      "Description: I am a chef hahahaalkfaaaa",
+                      "Description: I am a chef ",
                       overflow: TextOverflow.ellipsis,
                     ),
                   ],

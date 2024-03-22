@@ -13,6 +13,7 @@ amount: data?.amount ?? Transaction.defaultAmount,
 transactionMethod: data?.transactionMethod ?? Transaction.defaultTransactionMethod,
 transactionType: data?.transactionType ?? Transaction.defaultTransactionType,
 transactionStatus: data?.transactionStatus ?? Transaction.defaultTransactionStatus,
+imageUrl: data?.imageUrl ?? Transaction.defaultImageUrl,
       );
     }
 }  

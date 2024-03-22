@@ -43,11 +43,10 @@ int setOptionMenu(int options, OptionMenu optionMenu, bool value) {
 enum OrderStatus
 {
     PENDING, //* 0
-    ORDERED,
+    COMPLETED, //* 1
+    REJECTED, //* 2
     CANCELED,
-    REJECTED,
     PROCESSING, //* 4
-    COMPLETED, //* 5
     RECEIVED,
     DECLINED,
     EXPIRED

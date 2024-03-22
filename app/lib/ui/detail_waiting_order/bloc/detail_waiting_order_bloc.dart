@@ -96,21 +96,21 @@ class DetailWaitingOrderBloc extends BaseBloc<DetailWaitingOrderEvent, DetailWai
     Emitter<DetailWaitingOrderState> emit,
   ) async {
     return runBlocCatching(action: () async {
-      
       // await _changeCookingOrderUseCase.execute(
       //   ChangeCookingOrderInput(
       //     cookingOrder: state.cookingOrder,
       //     orderStatus: OrderStatus.COMPLETED.index,
       //   ),
       // );
-      
+
       await _uploadTransactionImageUseCase.execute(
         UploadTransactionImageInput(
           order: state.cookingOrder,
           image: event.image,
         ),
       );
-      navigator.push(const AppRouteInfo.main());
+      // print("123");
+      await navigator.push(const AppRouteInfo.main());
     });
   }
 }

@@ -88,8 +88,9 @@ class _DetailWaitingOrderPageState extends BasePageState<DetailWaitingOrderPage,
                             ],
                           ),
                         ),
-                        // (state.cookingOrder.transaction[0]!.urlImage)
-                        SizedBox(height: 10),
+                        SizedBox(height: 20),
+                        // ((state.cookingOrder.status == OrderStatus.PROCESSING || state.cookingOrder.status == OrderStatus.COMPLETED) && state.cookingOrder.transaction[0].imageUrl != null)
+                        // ?
                         (state.cookingOrder.status == OrderStatus.PROCESSING.index || state.cookingOrder.status == OrderStatus.COMPLETED.index)
                             ? Column(
                                 children: [
@@ -97,11 +98,13 @@ class _DetailWaitingOrderPageState extends BasePageState<DetailWaitingOrderPage,
                                     // onPressed: () => navigator.push(const AppRouteInfo.chefProfile()),
                                     fullName: (state.cookingOrder?.chef.fullName.isEmpty ?? true) ? "ChefName" : state.cookingOrder?.chef.fullName,
                                     // biography: cookingOrder?.chef.biography,
-                                    image: Image.network("https://i.pravatar.cc/300?img=${20}").image,
+                                    image: Image.network("https://img.timviec.com.vn/2021/10/chef-la-gi-4.jpg").image,
                                   ),
                                 ],
                               )
                             : SizedBox(),
+                        SizedBox(height: 10),
+                        (state.cookingOrder.transaction != null && state.cookingOrder.transaction.length > 0 && state.cookingOrder.transaction[0].imageUrl.isNotEmpty) ? Image.network(state.cookingOrder.transaction[0].imageUrl) : SizedBox(),
 
                         SizedBox(
                           height: Dimens.d60.responsive(),
@@ -125,6 +128,9 @@ class _DetailWaitingOrderPageState extends BasePageState<DetailWaitingOrderPage,
                   //* processing
                   // if (state.cookingOrder.status == 0) {
                   if (state.cookingOrder.status == OrderStatus.PROCESSING.index) {
+                    if(state.cookingOrder.transaction != null && state.cookingOrder.transaction.length > 0 && state.cookingOrder.transaction[0].imageUrl.isNotEmpty) {
+                      return const SizedBox();
+                    }
                     return Container(
                       margin: EdgeInsets.symmetric(horizontal: Dimens.d30.responsive()),
                       child: CommonEllipseButon(
@@ -133,8 +139,6 @@ class _DetailWaitingOrderPageState extends BasePageState<DetailWaitingOrderPage,
                               context: context,
                               builder: (context) {
                                 File? _image;
-
-                                Future getImage() async {}
 
                                 return StatefulBuilder(builder: (context, setState) {
                                   return AlertDialog(
@@ -158,10 +162,10 @@ class _DetailWaitingOrderPageState extends BasePageState<DetailWaitingOrderPage,
                                         Assets.images.qrcode.image(),
                                         SizedBox(height: 10),
                                         Text(
-                                            "Upload hình ảnh giao dịch để Homechef xác nhận nhé",
-                                            style: AppTextStyles.s14w500(color: AppColors.current.primaryTextColor),
-                                            textAlign: TextAlign.center,
-                                          ),
+                                          "Upload hình ảnh giao dịch để Homechef xác nhận nhé",
+                                          style: AppTextStyles.s14w500(color: AppColors.current.primaryTextColor),
+                                          textAlign: TextAlign.center,
+                                        ),
                                         //upload image
                                         Container(
                                           padding: EdgeInsets.symmetric(horizontal: 20),
@@ -172,7 +176,7 @@ class _DetailWaitingOrderPageState extends BasePageState<DetailWaitingOrderPage,
                                                   _image = null;
                                                   final picker = ImagePicker();
                                                   final pickedFile = await picker.pickImage(source: ImageSource.gallery);
-                                        
+
                                                   setState(() {
                                                     if (pickedFile != null) {
                                                       _image = File(pickedFile.path);
@@ -229,11 +233,10 @@ class _DetailWaitingOrderPageState extends BasePageState<DetailWaitingOrderPage,
                                 return StatefulBuilder(builder: (context, setState) {
                                   return AlertDialog(
                                     title: Text("Đánh giá", style: AppTextStyles.s20w600(color: AppColors.current.blackColor)),
-                                    
                                     content: Container(
                                       // height: 100,
                                       child: Column(
-                                            mainAxisSize: MainAxisSize.min,
+                                        mainAxisSize: MainAxisSize.min,
                                         children: [
                                           RatingBar.builder(
                                             initialRating: _rating.toDouble(),

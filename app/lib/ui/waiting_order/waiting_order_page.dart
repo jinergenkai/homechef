@@ -178,8 +178,7 @@ class GenericOrderItem extends StatelessWidget {
 
                   //* Status pending
                   (status == OrderStatus.PENDING)
-                      ? 
-                      Container(
+                      ? Container(
                           alignment: Alignment.center,
                           child: RichText(
                             textAlign: TextAlign.center,
@@ -201,11 +200,15 @@ class GenericOrderItem extends StatelessWidget {
                               ? Column(
                                   children: [
                                     CardChefProfile(
-                                      // onPressed: () => navigator.push(const AppRouteInfo.chefProfile()),
-                                      fullName: (cookingOrder?.customer.fullName.isEmpty ?? true) ? "CustomerName" : cookingOrder?.customer.fullName,
-                                      // biography: cookingOrder?.chef.biography,
-                                      image: Image.network("https://i.pravatar.cc/300?img=${index + 20}").image,
-                                    ),
+                                        // onPressed: () => navigator.push(const AppRouteInfo.chefProfile()),
+                                        fullName: (cookingOrder?.customer.fullName.isEmpty ?? true) ? "CustomerName" : cookingOrder?.customer.fullName,
+                                        // biography: cookingOrder?.chef.biography,
+                                        // image: Image.network("https://i.pravatar.cc/300?img=${index + 20}").image,
+                                        image: (cookingOrder?.customer.fullName == "Trịnh Khánh Linh")
+                                            ? Image.network(
+                                                    "https://scontent.fsgn2-7.fna.fbcdn.net/v/t1.6435-9/165758771_2803092326609279_8302707998078273124_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=5f2048&_nc_eui2=AeFdZpC9KUS8Zcre0ZlPjjy8SmdfDsBMZH5KZ18OwExkfiQdfJTU6put3wQl7APh3-Q2mcTddakr-chd7SbJxQzX&_nc_ohc=yQCpliivWswAX_cF4cU&_nc_ht=scontent.fsgn2-7.fna&oh=00_AfDH2Puw6YMaX7OG-MoSVy_aD26KUvh-BueehvCb87mr4w&oe=66252E8B")
+                                                .image
+                                            : Image.network("https://i.pravatar.cc/300?img=${index + 20}").image),
                                   ],
                                 )
                               : Column(
@@ -214,7 +217,8 @@ class GenericOrderItem extends StatelessWidget {
                                       // onPressed: () => navigator.push(const AppRouteInfo.chefProfile()),
                                       fullName: (cookingOrder?.chef.fullName.isEmpty ?? true) ? "ChefName" : cookingOrder?.chef.fullName,
                                       // biography: cookingOrder?.chef.biography,
-                                      image: Image.network("https://i.pravatar.cc/300?img=${index + 20}").image,
+                                      // image: Image.network("https://i.pravatar.cc/300?img=${index + 20}").image,
+                                      image: Image.network("https://img.timviec.com.vn/2021/10/chef-la-gi-4.jpg").image,
                                     ),
                                   ],
                                 ))

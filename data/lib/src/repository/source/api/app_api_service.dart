@@ -208,7 +208,7 @@ class AppApiService {
     required int orderStatus,
   }) async {
     try {
-      orderStatus = 1;
+      // orderStatus = 1;
       var res = await Dio(BaseOptions(headers: {'Authorization': 'Bearer $accessToken'})).put(
         'https://homechef.kidtalkie.tech/api/v1/order/${cookingOrder.id}',
         data: {
@@ -256,7 +256,8 @@ class AppApiService {
         "transactionMethod": 0,
       },
     );
-    print(res.data); 
+    print("done");
+    // print("update transciton order + " + res.data);
   }
 
   Future<List<CookingOrder>> getCookingOrders() async {

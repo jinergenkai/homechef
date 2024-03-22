@@ -14,6 +14,7 @@ class ApiTransactionData with _$ApiTransactionData {
 		@JsonKey(name: 'transactionMethod') int? transactionMethod,
 		@JsonKey(name: 'transactionType') int? transactionType,
 		@JsonKey(name: 'transactionStatus') int? transactionStatus,
+		@JsonKey(name: 'imageUrl') String? imageUrl,
 	}) = _ApiTransactionData;
 
 	factory ApiTransactionData.fromJson(Map<String, dynamic> json) => _$ApiTransactionDataFromJson(json);

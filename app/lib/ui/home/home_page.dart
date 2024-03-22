@@ -142,7 +142,7 @@ class _HomePageState extends BasePageState<HomePage, HomeBloc> {
                         onPressed: () => navigator.push(AppRouteInfo.chefProfile(state.chefs[index].copyWith(avatarUrl: "https://i.pravatar.cc/300?img=${index + 20}"))),
                         fullName: state.chefs[index].fullName,
                         biography: state.chefs[index].biography,
-                        image: Image.network("https://i.pravatar.cc/300?img=${index + 20}").image,
+                        image: Image.network("https://i.pravatar.cc/300?img=${index + 31}").image,
                         // feedBack: state.chefs[index].,
                       ),
                       // itemBuilder: (context, index) => const MessageItem(),
@@ -229,6 +229,7 @@ class CardChefProfile extends StatelessWidget {
                           Text(
                             fullName ?? "Tommy Phạm",
                             style: AppTextStyles.s20w600(color: AppColors.current.blackColor),
+                            maxLines: 1,
                           ),
                           SizedBox(height: Dimens.d5.responsive()),
                           Text(

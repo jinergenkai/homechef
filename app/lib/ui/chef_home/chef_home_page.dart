@@ -36,6 +36,7 @@ class _ChefHomePageState extends BasePageState<ChefHomePage, ChefHomeBloc> {
                 bloc.add(const ChefHomePageInitiated());
               },
               child: SingleChildScrollView(
+                physics: const AlwaysScrollableScrollPhysics(),
                 child: Container(
                   padding: EdgeInsets.all(Dimens.d20.responsive()),
                   child: Column(
